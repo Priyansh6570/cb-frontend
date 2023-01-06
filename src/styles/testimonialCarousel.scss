@@ -1,0 +1,14 @@
+.leftArrow {
+    left: 32px;
+}
+@media screen and (max-width: 639px) {
+  .rightArrow {
+    left: 330px;
+  }
+    .leftArrow {
+        left: 5px;
+    }
+    .bottomDots {
+        display: none;
+    }
+}

@@ -1,0 +1,81 @@
+.featured_Section, .testimonials {
+    background-color: white;
+    box-shadow: 0px 6px 10px rgba(0,0,0,.05);
+    border: 1px solid rgba(36,39,44,.1);
+}
+
+.view_marketplace {
+    width: 200px;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    background: #fff;
+border: 1px solid #ee3131;
+color: #ee3131;
+}
+.card {
+    box-shadow: 0px 20px 40px rgba(38, 58, 126, 0.14);
+}
+.card-image1 {
+    animation: up-and-down 2s ease-in-out alternate infinite;
+}
+
+@keyframes up-and-down {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+.card-image2 {
+    animation: up-and-down 2s ease-in-out alternate infinite;
+    animation-delay: 500ms;
+}
+
+@keyframes up-and-down {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+.card-image3 {
+    animation: up-and-down 2s ease-in-out alternate infinite;
+    animation-delay: 1000ms;
+}
+
+@keyframes up-and-down {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+.card-x {
+    background-color: white;
+    border: 1px solid rgba(36,39,44,.1);
+    // animation: shadow 2s ease-in-out alternate infinite;
+}
+@media screen and (max-width: 639px) {
+    .card-x {
+        scale: 0.7;
+    }
+}
+
+// @keyframes shadow {
+//     0% {
+//         box-shadow: 0px 6px 10px rgba(0, 0, 0, 0);
+//     }
+//     100% {
+//         box-shadow: 0px 20px 40px rgba(38, 58, 126, 0.14);
+//     }
+// }
+.evaluate-button {
+    transition: all 0.3s ease-in-out;
+}

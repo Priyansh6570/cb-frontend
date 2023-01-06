@@ -1,0 +1,75 @@
+
+main::after, main::before {
+    content: "";
+    display: table;
+}
+.right {
+    position: sticky;
+    top: 170px;
+}
+
+.left .carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carDetail_carOverview, .detail, .price, .seller_Detail {
+    background-color: white;
+    box-shadow: 0px 6px 10px rgba(0,0,0,.05);
+    border: 1px solid rgba(36,39,44,.1);
+}
+
+@media screen and (max-width: 639px) {
+    .detail {
+        box-shadow: none;
+        border: none;
+    }
+}
+    
+
+.carDetail_carOverview > ul {
+    padding-left: 20px;
+    padding-top: 20px;    
+}
+
+.carDetail_carOverview > ul > li {
+    width: 42%;
+    padding-left: 8px;
+}
+
+@media screen and (max-width: 639px) {
+    .carDetail_carOverview > ul > li {
+        width: 100%;
+        padding-left: 0;
+    }
+}
+
+.overview-label {
+    color: #666;
+}
+.lable-content {
+    color: #000;
+    font-weight: 600;
+    font-size: 12px;
+}
+span > .make_offer {
+    box-shadow: 0px 8px 8px rgba(238, 49, 49, 0.222);
+    width: calc(50% - 7px);
+height: 48px;
+line-height: 48px;
+font-weight: 500;
+font-size: 14px;
+border-radius: 8px;
+}
+span > .contact_seller {
+    width: calc(50% - 7px);
+    height: 48px;
+    line-height: 48px;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    background: #fff;
+border: 1px solid #ee3131;
+color: #ee3131;
+}
