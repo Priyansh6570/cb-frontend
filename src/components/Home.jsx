@@ -95,7 +95,7 @@ const Home = () => {
 
 
       {/* mobile lower nav  */}
-      <div className="mobile-lower-nav hidden sm:flex">
+      <div className="mobile-lower-nav hidden sm:flex sm:pt-8">
       <NavbarMobileLower />
       </div>
 
@@ -103,22 +103,22 @@ const Home = () => {
       <section className="featured_Section w-[1300px] sm:w-[100vw] sm:overflow-hidden  mx-auto object-contain flex flex-col gap-4 p-4 rounded-2xl my-0 sm:relative sm:top-[100px]">
         <h2 className="text-3xl font-normal pl-4 capitalize sm:text-2xl">Featured Cars</h2>
         <hr />
-        <div className="car-cotainer flex w-[1220px] sm:w-[90vw] m-auto overflow-x-auto gap-4 mt-4">
+        <div className="car-container flex w-[1220px] sm:w-[90vw] m-auto overflow-x-auto gap-4 mt-4">
           <Helmet>
             <title>CarsBecho: Gadi Becho Phata Phat</title>
           </Helmet>
           {cars.map((car) => {
             return (
               <Link to={`/car/${car.id}`} key={car.id}>
-                <div className="carCard flex flex-col gap-[10px] border-2 sm:text-sm hover:border-3 hover:shadow-md w-[294px] h-[350px] sm:w-[154px] sm:h-[192px] p-4 rounded shrink-0 cursor-pointer">
+                <div className="carCard flex flex-col gap-[10px] border-2 sm:border-1 sm:text-sm hover:border-3 hover:shadow-md w-[294px] h-[350px] sm:w-[154px] sm:h-[192px] p-4 sm:p-0 rounded shrink-0 cursor-pointer sm:overflow-hidden">
                   <div className="img-container-car sm:overflow-hidden ">
                   <img
                     src={car.image}
                     alt={car.model}
-                    className="w-[300px] h-[250px] sm:w-[280px] sm:h-[90px] object-cover rounded "
+                    className="w-[300px] h-[250px] sm:w-[282px] sm:h-[90px] object-cover sm:scale-[1.1] "
                   />
                   </div>
-                  <div className="carDetails flex flex-col gap-[10px]">
+                  <div className="carDetails flex flex-col gap-[10px] sm:px-2">
                     <span className="flex sm:flex-col gap-1 text-base font-normal">
                       <h2>{car.company}</h2>
                       <h2>{car.model}</h2>
@@ -147,8 +147,8 @@ const Home = () => {
 
       <section className="about_Section object-contain w-full bg-slate-50 sm:relative sm:top-[150px]">
         <div className="about_container w-[1300px] sm:w-[95vw] mx-auto object-contain bg-slate-50 flex flex-col gap-4 p-8  my-8">
-          <div className="flex items-center justify-between">
-            <h2 className="text-[40px] sm:text-[25px] pl-4 capitalize font-semibold ml-4">
+          <div className="flex items-center justify-between sm:justify-center sm:w-full">
+            <h2 className="text-[40px] sm:text-[28px] pl-4 sm:pl-0 capitalize font-semibold ml-4 sm:ml-0">
               sell in 3 easy steps!
             </h2>
             <img
@@ -160,12 +160,12 @@ const Home = () => {
           <hr />
 
           <div className="about_card_container flex flex-wrap items-center sm:gap-0 gap-8 p-4 mx-auto sm:relative sm:left-[-25px]">
-            <div className="card1 card w-[360px] h-[300px] sm:scale-[0.7] bg-white cursor-pointer rounded-2xl flex flex-col p-8 sm:relative sm:left-[-65px]">
+            <div className="card1 card w-[360px] h-[300px] sm:scale-[0.8] bg-white cursor-pointer rounded-2xl flex flex-col p-8 sm:relative sm:left-[-55px]">
               <h3 className="text-2xl font-bold text-[#ee3131] pt-8 pb-8 mx-auto">
                 Online Price Estimate{' '}
               </h3>
               <hr />
-              <p className="ju justify-items-stretch py-8 px-6 text-lg font-thin text-justify">
+              <p className="ju justify-items-stretch py-8 px-6 text-lg font-normal text-justify">
                 Enter your car details, and get an estimate selling price in a
                 minute.
               </p>
@@ -175,12 +175,12 @@ const Home = () => {
                 className="card-image1 relative sm:bottom-[110px] sm:left-[250px] z-20 scale-[1.2]"
               />
             </div>
-            <div className="card2 card w-[360px] h-[300px] sm:scale-[0.7] sm:top-[-50px] bg-white cursor-pointer rounded-2xl flex flex-col p-8 sm:relative sm:left-[50px]">
+            <div className="card2 card w-[360px] h-[300px] sm:scale-[0.8] sm:top-[-50px] bg-white cursor-pointer rounded-2xl flex flex-col p-8 sm:relative sm:left-[60px]">
               <h3 className="text-2xl font-bold text-[#ee3131] pt-8 pb-8 mx-auto text-center">
                 Inspection at home or branch
               </h3>
               <hr className="relative top-[-25px]" />
-              <p className="ju justify-items-stretch pb-8 px-6 text-lg font-thin text-justify">
+              <p className="ju justify-items-stretch pb-8 px-6 text-lg font-normal text-justify">
                 Each car is unique! Our expert evaluates your car to give you
                 the final price.
               </p>
@@ -190,12 +190,12 @@ const Home = () => {
                 className="card-image2 relative sm:bottom-[150px] sm:right-[250px] bottom-8 z-20"
               />
             </div>
-            <div className="card3 card w-[360px] h-[300px] sm:scale-[0.7] sm:top-[-90px] bg-white cursor-pointer rounded-2xl flex flex-col p-8 sm:relative sm:left-[-65px]">
+            <div className="card3 card w-[360px] h-[300px] sm:scale-[0.8] sm:top-[-90px] bg-white cursor-pointer rounded-2xl flex flex-col p-8 sm:relative sm:left-[-55px]">
               <h3 className="text-2xl font-bold text-[#ee3131] pt-8 pb-8 mx-auto">
                 Sell & get paid!
               </h3>
               <hr />
-              <p className="ju justify-items-stretch py-8 px-6 text-lg font-thin text-justify">
+              <p className="ju justify-items-stretch py-8 px-6 text-lg font-normal text-justify">
                 Get the best price through online auction and get paid
                 instantly. We also take care of the RC Transfer for free.
               </p>
@@ -226,7 +226,7 @@ const Home = () => {
               <h3 className="text-3xl font-bold text-[#ffffff] pt-2 pb-2 mx-auto">
                 BEST PRICE{' '}
               </h3>
-              <p className="ju justify-items-stretch pb-8 pt-4 px-6 text-xl font-thin text-center text-white">
+              <p className="ju justify-items-stretch pb-8 pt-4 px-6 text-xl font-normal text-center text-white">
                 Enter your car details, and get an estimate selling price in a
                 minute.
               </p>
@@ -240,7 +240,7 @@ const Home = () => {
               <h3 className="text-3xl font-bold text-[#ffffff] pt-2 pb-2 mx-auto">
                 INSTANT PAYMENT{' '}
               </h3>
-              <p className="ju justify-items-stretch pb-8 pt-4 px-6 text-xl font-thin text-center text-white">
+              <p className="ju justify-items-stretch pb-8 pt-4 px-6 text-xl font-normal text-center text-white">
                 The entire amount is tranferred to you even before car pickup!
               </p>
             </div>
@@ -253,7 +253,7 @@ const Home = () => {
               <h3 className="text-3xl font-bold text-[#ffffff] pt-2 pb-2 mx-auto">
                 FREE RC TRANSFER{' '}
               </h3>
-              <p className="ju justify-items-stretch pb-8 pt-4 px-2 text-xl font-thin text-center text-white">
+              <p className="ju justify-items-stretch pb-8 pt-4 px-2 text-xl font-normal text-center text-white">
                 We'll handle all the paperwork, from Loan clearance to RC
                 transfer for free
               </p>

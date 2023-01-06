@@ -22,6 +22,14 @@ color: #ee3131;
     animation: up-and-down 2s ease-in-out alternate infinite;
 }
 
+.car-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.car-container::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 @keyframes up-and-down {
     0% {
         transform: translateY(0);

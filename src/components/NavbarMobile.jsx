@@ -52,10 +52,10 @@ const NavbarMobile = () => {
     >
       <div className="upperNav h-[60px] z-50 w-[95%] p-0">
         <div className="upper-NavNav flex items-center justify-between w-full mx-auto">
-          <div className="upperNav-left flex items-center w-[40vw] justify-start gap-2">
+          <div className="upperNav-left flex items-center w-[40vw] justify-start pl-2">
             {/* hamburger menu  */}
             <Link to={'#'} className="menu-bar-open toggler-open">
-              <HiMenuAlt1 className="cursor-pointer w-[25px] h-[25px] text-[#555]" onClick={showSidebar}/>
+              <HiMenuAlt1 className="cursor-pointer w-[27px] h-[27px] text-[#555]" onClick={showSidebar}/>
             </Link>
 
             {/* carsbecho logo  */}
@@ -67,7 +67,7 @@ const NavbarMobile = () => {
                   className="brandLogo h-[60px] relative top-[-1px] hidden sm:block"
                 />
                 <img
-                  src={'/Images/brandName.png'}
+                  src={'/Images/brandName-clearBG.png'}
                   alt="Cars Becho Name"
                   className="brandName h-[40px] scale-[1.09] relative top-1 left-2 hidden sm:block"
                 />
@@ -76,7 +76,7 @@ const NavbarMobile = () => {
           </div>
 
           {/* login/register  */}
-          <div className="login">
+          <div className="login pr-2">
             <a href="#">
               <FaUserCircle className="w-[23px] h-[23px] text-[#609092]" />
             </a>
@@ -118,7 +118,7 @@ const NavbarMobile = () => {
             </Link>
 
             <div className="login flex justify-center items-center pr-8">
-              <button className="text-sm scale-[1.05] text-white font-thin bg-[#ee3131] rounded-3xl px-6 py-2" onClick={showSidebar}>
+              <button className="text-sm scale-[1.05] text-white font-normal bg-[#ee3131] rounded-3xl px-6 py-2" onClick={showSidebar}>
                 Login
               </button>
             </div>

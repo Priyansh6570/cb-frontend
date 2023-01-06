@@ -122,6 +122,7 @@ const ImageSlider = ({ slides, parentWidth }) => {
         {slides.map((slide, slideIndex) => (
           <div
             style={dotStyle}
+            className={'dotstyle_container'}
             key={slideIndex}
             onClick={() => goToSlide(slideIndex)}
           >
