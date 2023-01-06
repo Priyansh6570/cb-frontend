@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:5000/api/cars');
+        const result = await axios.get('https://priyansh6570-cb-backend.onrender.com/api/cars'); //http://localhost:5000/api/cars
         setCars(result.data);
       } catch (error) {
         console.log('error occured');

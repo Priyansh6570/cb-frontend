@@ -34,7 +34,7 @@ const NewCar = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get('http://localhost:5000/api/cars');
+        const result = await axios.get('https://priyansh6570-cb-backend.onrender.com/api/cars');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
         // setCars(result.data);
       } catch (error) {
