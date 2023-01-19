@@ -56,8 +56,8 @@ const Footer = () => {
       <div className="footer-section border-b-2 w-full h-[280px]">
         <div className="footer-upper-container w-[80vw] h-[100%] mx-auto flex justify-between items-center">
           <div className="footer-upper-left w-[360px] object-contain flex flex-col gap-8 relative top-[-5px] scale-[0.9]">
-            <div className="navBrand flex shrink-0 items-center w-[200px] scale-[1.2]">
-              <img
+            <div className="navBrand flex shrink-0 items-center w-[300px] scale-[1.2]">
+              {/* <img
                 src={'/Images/cbLogo.png'}
                 alt="Cars Becho Logo"
                 className="brandLogo h-[60px] relative top-[-1px]"
@@ -66,7 +66,8 @@ const Footer = () => {
                 src={'/Images/brandName-clearBG.png'}
                 alt="Cars Becho Name"
                 className="brandName h-[45px] relative top-1"
-              />
+              /> */}
+              <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName h-[75px] relative top-1 sm:block' />
             </div>
             <div className="get-it-on flex items-center gap-[20px]">
                 <a href="#"> <img src={'Images/googlePlay.png'} alt="googlePlay Link" className='h-[42px] w-[130px] scale-[1.2] opacity-[0.9] cursor-pointer' /></a>

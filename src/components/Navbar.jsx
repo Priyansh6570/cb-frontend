@@ -42,8 +42,9 @@ const Navbar = () => {
         {/* carsbecho logo  */}
         <Link to={'/'}>
         <div className="navBrand flex shrink-0 items-center">
-          <img src={'/Images/cbLogo.png'} alt="Cars Becho Logo" className='brandLogo h-[60px] relative top-[-1px] sm:block' />
-          <img src={'/Images/brandName-clearBG.png'} alt="Cars Becho Name" className='brandName h-[45px] relative top-1 sm:block' />
+          {/* <img src={'/Images/cbLogo.png'} alt="Cars Becho Logo" className='brandLogo h-[60px] relative top-[-1px] sm:block' /> */}
+          {/* <img src={'/Images/brandName-clearBG.png'} alt="Cars Becho Name" className='brandName h-[45px] relative top-1 sm:block' /> */}
+          <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName h-[70px] relative top-1 sm:block' />
         </div>
         </Link>
 
