@@ -60,7 +60,7 @@ const NavbarMobile = () => {
 
             {/* carsbecho logo  */}
             <Link to={'/'} className=''>
-              <div className="navBrand flex shrink-0 items-center scale-[0.65] relative left-[-50px]">
+              <div className="navBrand flex shrink-0 items-center scale-[0.75] relative left-[-35px]">
                 {/* <img
                   src={'/Images/cbLogo.png'}
                   alt="Cars Becho Logo"
@@ -71,7 +71,7 @@ const NavbarMobile = () => {
                   alt="Cars Becho Name"
                   className="brandName h-[40px] scale-[1.09] relative top-1 left-2 hidden sm:block"
                 /> */}
-                <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName h-[75px] relative top-1 sm:block' />
+                <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName w-[375px] relative top-1 sm:block' />
               </div>
             </Link>
           </div>
