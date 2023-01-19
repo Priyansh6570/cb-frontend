@@ -105,7 +105,7 @@ const NavbarMobile = () => {
       <nav className={`${sidebar ? 'overlay active' : 'overlay'} flex w-full h-[100vh] top-0 left-[-100%] z-50 fixed`} >
         <div className="left flex flex-col bg-white w-[80%] h-[100vh]">
           <div className="top flex justify-between w-[100%] bg-slate-200 h-[80px]">
-            <Link to={'/'} className="brandName-logo flex items-center scale-[0.75] relative left-[-20px]" onClick={showSidebar}>
+            <Link to={'/'} className="brandName-logo flex items-center scale-[0.8] relative left-[-15px]" onClick={showSidebar}>
               {/* <img
                 src={'/Images/cbLogo.png'}
                 alt="Cars Becho Logo"
@@ -116,7 +116,7 @@ const NavbarMobile = () => {
                 alt="Cars Becho Name"
                 className="brandName h-[40px] scale-[1.09] relative top-1 left-2 hidden sm:block"
               /> */} 
-              <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName h-[75px] relative top-1 sm:block' />
+              <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName w-[375px] relative top-1 sm:block' />
             </Link>
 
             <div className="login flex justify-center items-center pr-8">

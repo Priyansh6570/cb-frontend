@@ -39,11 +39,11 @@ const Car = (props) => {
           />
         </div>
         <div className="carDetails flex flex-col gap-[5px] w-[60%] h-[80%] p-1">
-          <span className="flex gap-1 flex-wrap whitespace-nowrap text-sm">
+          <span className="flex gap-1 whitespace-nowrap text-sm">
             <h2>{car.year}</h2>
             <h2>{car.company}</h2>
             <h2>{car.model}</h2>
-            <h2>{car.varient}</h2>
+            <h2 className='overflow-hidden text-ellipsis varient'>{car.varient}</h2>
           </span>
           <div className="main-perks text-[#666] flex text-xs items-center gap-2">
             
