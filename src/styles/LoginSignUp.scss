@@ -1,9 +1,20 @@
 .verify {
   border-radius: 0 0 8px 8px !important;
   font: 900 1vmax "Arial" !important;
+  color: #ee3131;
+  box-shadow: none;
+  border: 1px solid #ee3131 !important;
 }
 .mobileInput, .OTPInput {
   border-radius: 8px 8px 0 0 !important;
+  // font: 600 1.6vmax "Arial" !important;
+}
+
+.mobileInput:focus, .OTPInput:focus {
+  border-radius: 8px 8px 0 0 !important;
+  // font: 600 1.6vmax "Arial" !important;
+  // border-color: #ccc !important;
+  outline: #ee3131;
 }
 
 .loginBtn,
@@ -11,20 +22,20 @@
   border: none;
   background-color: tomato;
   color: white;
-  font: 300 0.9vmax "Roboto";
+  font: 300 0.5vmax "Roboto";
   width: 100%;
-  padding: 0.8vmax;
+  padding: 0.4vmax;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.2s;
   // border-radius: 4px;
   outline: none;
 
-  box-shadow: 0px 8px 8px rgba(238, 49, 49, 0.222);
+  // box-shadow: 0px 8px 8px rgba(238, 49, 49, 0.222);
   // width: calc(50% - 7px);
 // height: 48px;
 // line-height: 48px;
-font-weight: 500;
-font-size: 14px;
+// font-weight: 500;
+// font-size: 14px;
 border-radius: 8px;
 }
 
@@ -105,6 +116,20 @@ border-radius: 8px;
     border: none;
     transition: all 0.5s;
   }
+
+  .btn-next {
+    height: 30px !important;
+    border-radius: 8px;
+    width: fit-content;
+    padding: auto 5px;
+    color: #fff;
+    font: 1.2rem !important;
+  }
+
+  .btn-next:disabled {
+    background-color: #ccc;
+    color: #fff;
+  }
   
   .loginForm,
   .signUpForm {
@@ -118,9 +143,9 @@ border-radius: 8px;
     transition: all 0.5s;
   }
   
-  .signUpForm {
-    transform: translateY(-100%) translateX(-100vmax);
-}
+//   .signUpForm {
+//     transform: translateY(-100%) translateX(-100vmax);
+// }
   
   .loginForm > div,
   .signUpForm > div {
@@ -198,7 +223,7 @@ border-radius: 8px;
   
   .loginBtn:hover,
   .signUpBtn:hover {
-    background-color: rgb(179, 66, 46);
+    background-color: rgb(225, 224, 224);
   }
   
   .shiftToLeft {
@@ -271,11 +296,20 @@ height: 710px;
       scale: 1.4;
     }
     .signUpForm {
-      height: 450px;
+      // height: 450px;
       position: relative;
-      top: 220px;
+      // top: 220px;
       scale: 1.4;
     }
+.signUpForm > div > input, .loginForm > div > input {
+  padding: 1.6vmax 4vmax;
+  font: 300 1.4vmax 'Arial';
+}
+
+.loginForm > div > svg, .signUpForm > div > svg {
+  scale: 1.3;
+}
+
     #registerImage > img {
       width: 7vmax;
     }
