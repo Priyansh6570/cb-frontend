@@ -5,6 +5,7 @@ import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
 
 //Components, APIs, utils
+import WishList from "./WishList";
 import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader/Loader";
 import Badge from "../Badge";
@@ -79,8 +80,8 @@ const CarDetail = () => {
     <div className="carName">
       <main className="carDetail__mainContainer sm:overflow-hidden flex sm:flex-col gap-10 sm:gap-0 my-[50px] sm:my-2 w-[1220px] sm:w-[100vw] mx-auto  ">
         <div className="left w-[800px] sm:w-full text-justify flex flex-col justify-center gap-8 sm:gap-0">
-          <div className="carousel w-full h-[372px] xs:h-[200px] sm:h-[250px] bg-slate-900 rounded-2xl">
-            <Carousel className="h-[372px] xs:h-[200px] sm:h-[250px] rounded-2xl">
+          <div className="carousel w-full h-[372px] xs:h-[200px] sm:h-[230px] bg-slate-900 rounded-2xl">
+            <Carousel className="h-[372px] xs:h-[200px] sm:h-[230px] rounded-2xl">
               {car.image &&
                 car.image.map((item, i) => (
                   <img
@@ -106,10 +107,6 @@ const CarDetail = () => {
                 {` `}
                 {car.year}
               </h2>
-              <span className="sm:flex hidden shortList gap-2 items-center cursor-pointer pl-4">
-                <FaHeart className="text-[#ffcfcf] font-lg" />
-                <h3 className="font-light text-base">Shortlist</h3>
-              </span>
             </div>
             <p className="text-xl sm:text-base">{car.varient}</p>
             <span className="text-xl sm:my-4 sm:text-sm uppercase text-[#666] flex">
@@ -270,10 +267,7 @@ const CarDetail = () => {
             </span>
           </div>
 
-          <span className="sm:hidden shortList flex gap-2 items-center cursor-pointer pl-4">
-            <FaHeart className="text-[#ffcfcf] font-lg" />
-            <h3 className="font-light text-base">Shortlist</h3>
-          </span>
+          <WishList carId={car._id} className='flex' />
           <Link to={`/seller/${seller && seller._id}`} className='sm:px-6'>
             <div className="seller_Detail w-full h-[360px] sm:pb-[60px] flex flex-col gap-2 rounded-2xl">
               <div className="top-div w-full overflow-hidden h-[139px]">
@@ -289,13 +283,12 @@ const CarDetail = () => {
                 <div className="seller-img scale-[1.2] w-full h-[50%] flex justify-center items-center">
                   {seller && seller.avatar.length > 0 && (
                     <img
-                      src={seller.avatar[0].url}
-                      alt={seller.name}
-                      className="w-[100px] avatar-image h-[100px] rounded-full border-white border-[5px]"
+                    src={seller.avatar[0].url}
+                    alt={seller.name}
+                    className="w-[100px] avatar-image h-[100px] rounded-full border-white border-[5px]"
                     />
-                  )}
+                    )}
                 </div>
-
                 <div className="seller-name w-full h-[50%] flex flex-col gap-2">
                   {/* seller name  */}
                   <h3 className="text-2xl font-bold place-self-center capitalize py-6">
@@ -303,7 +296,7 @@ const CarDetail = () => {
                   </h3>
 
                   {/* seller email  */}
-                  <span className="text-base py-2 px-6 rounded-2xl bg-[#ffffff7c] font-medium">
+                  <span className="text-base xs:text-[0.9rem] py-2 px-6 rounded-2xl bg-[#ffffff7c] font-medium">
                     {seller && seller.email}
                   </span>
 

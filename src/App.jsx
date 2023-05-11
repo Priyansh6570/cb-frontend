@@ -20,6 +20,7 @@ import ProtectedRoute from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import SellerPage from "./components/Seller/SellerPage.jsx"
 import axios from "axios";
+import GetWishlist from "./components/Cars/GetWishlist";
 axios.defaults.withCredentials=true;
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route exact path="/cars/:keyword?" component={UsedCar} />
         <ProtectedRoute exact path="/account" component={Profile} />
         <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
+        <ProtectedRoute exact path="/wishlist/me" component={GetWishlist} />
 
         <ProtectedRoute
           exact

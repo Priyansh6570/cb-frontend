@@ -19,6 +19,11 @@ const UpdatePassword = ({ history }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to track password visibility
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
@@ -73,7 +78,7 @@ const UpdatePassword = ({ history }) => {
                 <div className="loginPassword">
                   <VpnKeyIcon />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Old Password"
                     required
                     value={oldPassword}
@@ -85,7 +90,7 @@ const UpdatePassword = ({ history }) => {
                 <div className="loginPassword">
                   <LockOpenIcon />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="New Password"
                     required
                     value={newPassword}
@@ -96,7 +101,7 @@ const UpdatePassword = ({ history }) => {
                 <div className="loginPassword">
                   <LockIcon />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Confirm Password"
                     required
                     value={confirmPassword}
@@ -104,6 +109,17 @@ const UpdatePassword = ({ history }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
+                {/* <div className="password-toggle-container">
+                  <input
+                    type="checkbox"
+                    id="password-toggle"
+                    checked={showPassword}
+                    onChange={togglePasswordVisibility}
+                  />
+                  <label htmlFor="password-toggle">
+                    Show Password
+                  </label>
+                </div> */}
                 <input
                   type="submit"
                   value="Change"

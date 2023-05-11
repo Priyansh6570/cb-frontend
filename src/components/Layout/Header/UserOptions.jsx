@@ -9,6 +9,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import {useHistory} from "react-router-dom";
 import { useAlert } from "react-alert";
 import { logout } from "../../../actions/userAction";
+import { FaHeart } from "react-icons/fa";
 import { useDispatch} from "react-redux";
 
 const UserOptions = ({ user, top, top1 }) => {
@@ -20,7 +21,7 @@ const UserOptions = ({ user, top, top1 }) => {
   const dispatch = useDispatch();
 
   const options = [
-    { icon: <ListAltIcon />, name: "Orders", func: orders },
+    { icon: <FaHeart />, name: "Shortlist", func: wishlist },
     { icon: <PersonIcon />, name: "Profile", func: account },
     // {
     //   icon: (
@@ -53,8 +54,8 @@ const UserOptions = ({ user, top, top1 }) => {
     history.push("/admin/dashboard");
   }
 
-  function orders() {
-    history.push("/orders");
+  function wishlist() {
+    history.push("/wishlist/me");
   }
   function account() {
     history.push("/account");

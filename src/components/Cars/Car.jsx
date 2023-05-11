@@ -15,7 +15,7 @@ const Car = (props) => {
         <div className="carCard sm:hidden flex flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
           <div className="img-container-car sm:overflow-hidden">
             <img
-              src={car.image[0].url}
+              src={car && car.image[0].url}
               alt={car.model}
               className="w-[300px] h-[150px] sm:w-[282px] sm:h-[90px] object-cover sm:scale-[1.1] "
             />

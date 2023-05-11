@@ -22,6 +22,12 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  ADD_TO_WISHLIST_REQUEST,
+  ADD_TO_WISHLIST_SUCCESS,
+  ADD_TO_WISHLIST_FAIL,
+  GET_WISHLIST_REQUEST,
+  GET_WISHLIST_SUCCESS,
+  GET_WISHLIST_FAIL,
   ALL_USERS_REQUEST,
   ALL_USERS_SUCCESS,
   ALL_USERS_FAIL,
@@ -83,15 +89,31 @@ export const register = (userData) => async (dispatch) => {
 };
 
 // Load User
+// export const loadUser = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: LOAD_USER_REQUEST });
+
+//     const { data } = await axios.get(`http://localhost:5000/api/v1/me`);
+
+//     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+//   } catch (error) {
+//     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+//   }
+// };
+
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/v1/me`);
+    const { data } = await axios.get('http://localhost:5000/api/v1/me');
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
-    dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+    const errorMessage = error.response ? error.response.data.message : 'Error occurred';
+    dispatch({
+      type: LOAD_USER_FAIL,
+      payload: errorMessage,
+    });
   }
 };
 
@@ -185,6 +207,42 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     });
   }
 };
+
+// Add to Wishlist
+export const addToWishlist = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_TO_WISHLIST_REQUEST });
+    console.log('id from action : ',id);
+
+    const { data } = await axios.put(`http://localhost:5000/api/v1/wishlist/add`, { carId: id });
+
+    dispatch({ type: ADD_TO_WISHLIST_SUCCESS, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: ADD_TO_WISHLIST_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
+// Get Wishlist
+export const getWishlist = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_WISHLIST_REQUEST });
+    
+    const { data } = await axios.get(`http://localhost:5000/api/v1/wishlist/me`);
+    console.log('wishlist from action : ',data.wishList);
+    
+    dispatch({ type: GET_WISHLIST_SUCCESS, payload: data.wishList });
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.message : 'Error occurred';
+    dispatch({
+      type: GET_WISHLIST_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 
 // get All Users --Admin
 export const getAllUsers = () => async (dispatch) => {

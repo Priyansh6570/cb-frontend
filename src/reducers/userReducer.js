@@ -24,6 +24,12 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  ADD_TO_WISHLIST_REQUEST,
+  ADD_TO_WISHLIST_SUCCESS,
+  ADD_TO_WISHLIST_FAIL,
+  GET_WISHLIST_REQUEST,
+  GET_WISHLIST_SUCCESS,
+  GET_WISHLIST_FAIL,
   ALL_USERS_REQUEST,
   ALL_USERS_SUCCESS,
   ALL_USERS_FAIL,
@@ -265,6 +271,50 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
         error: null,
       };
 
+    default:
+      return state;
+  }
+};
+
+export const wishlistReducer = (
+  state = { wishlist: [], loading: false, error: null },
+  action
+) => {
+  switch (action.type) {
+    case ADD_TO_WISHLIST_REQUEST:
+    case GET_WISHLIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ADD_TO_WISHLIST_SUCCESS:
+      // Handle success case for adding a car to wishlist
+      return {
+        ...state,
+        loading: false,
+        wishlist: [...state.wishlist, action.payload], // Add the new car to the wishlist array
+        error: null,
+      };
+    case GET_WISHLIST_SUCCESS:
+      // Handle success case for fetching wishlist
+      return {
+        ...state,
+        loading: false,
+        wishlist: action.payload, // Set the received wishlist data
+        error: null,
+      };
+    case ADD_TO_WISHLIST_FAIL:
+    case GET_WISHLIST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }

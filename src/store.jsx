@@ -19,6 +19,7 @@ import {
   profileReducer,
   userDetailsReducer,
   userReducer,
+  wishlistReducer
 } from "./reducers/userReducer";
 
 import {
@@ -40,6 +41,7 @@ const reducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   forgotPassword: forgotPasswordReducer,
+  wishlist: wishlistReducer,
   allUsers: allUsersReducer,
   userDetails: userDetailsReducer,
   allOrders: allOrdersReducer,
@@ -54,6 +56,13 @@ const initialState = {
     userInfo: localStorage.getItem("userInfo")
       ? JSON.parse(localStorage.getItem("userInfo"))
       : null,
+  },
+
+  wishlist: {
+    wishlistItems: localStorage.getItem("wishlistItems")
+
+      ? JSON.parse(localStorage.getItem("wishlistItems"))
+      : [],
   },
 };
 
