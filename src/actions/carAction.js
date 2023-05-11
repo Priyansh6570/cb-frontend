@@ -30,6 +30,9 @@ import {
   DELETE_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/carConstants";
+
+const host = "https://priyansh-cb-backend.onrender.com";
+
 export const getCar =
   (keyword = "", currentPage = 1, price = [10000, 10000000], category, fuel, transmission) =>
   async (dispatch) => {
@@ -37,7 +40,7 @@ export const getCar =
       try {
         dispatch({ type: ALL_CAR_REQUEST });
 
-        let link = `http://localhost:5000/api/v1/cars?page=${currentPage}`;
+        let link = `${host}/api/v1/cars?page=${currentPage}`;
 
         // Search for each word in the keyword
         if (keyword) {
@@ -83,8 +86,8 @@ export const getCar =
       try {
         dispatch({ type: ALL_CAR_REQUEST });
         
-        // let link = `http://localhost:5000/api/v1/cars?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
-        let link = `http://localhost:5000/api/v1/cars?&price[gte]=${price-100000 ? price-100000 : price }&price[lte]=${price+1000000000}`;
+        // let link = `${host}/api/v1/cars?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+        let link = `${host}/api/v1/cars?&price[gte]=${price-100000 ? price-100000 : price }&price[lte]=${price+1000000000}`;
         if (category) {
           link += `&category=${category}`;
         }
@@ -111,7 +114,7 @@ export const getAllCarsBySeller = (id) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_CAR_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/v1/${id}/cars`);
+    const { data } = await axios.get(`${host}/api/v1/${id}/cars`);
 
     dispatch({
       type: ADMIN_CAR_SUCCESS,
@@ -131,7 +134,7 @@ export const getAllPendingCars = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_CAR_REQUEST });
 
-    const { data } = await axios.get("http://localhost:5000/api/v1/cars/pending");
+    const { data } = await axios.get(`${host}/api/v1/cars/pending`);
 
     dispatch({
       type: ADMIN_CAR_SUCCESS,
@@ -156,7 +159,7 @@ export const createCar = (id, carData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:5000/api/v1/${id}/car/new`,
+      `${host}/api/v1/${id}/car/new`,
       carData,
       config
     );
@@ -179,7 +182,7 @@ export const approvePendingCar = (id) => async (dispatch) => {
     dispatch({ type: ADMIN_CAR_REQUEST });
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/v1/cars/pending/${id}`,
+      `${host}/api/v1/cars/pending/${id}`,
     )
 
     dispatch({
@@ -204,7 +207,7 @@ export const updateCar = (userId, carId, carData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/v1/user/${userId}/car/${carId}`,
+      `${host}/api/v1/user/${userId}/car/${carId}`,
       carData,
       config
     );
@@ -227,7 +230,7 @@ export const deleteCar = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_CAR_REQUEST });
 
-    const { data } = await axios.delete(`http://localhost:5000/api/v1/car/${id}`);
+    const { data } = await axios.delete(`${host}/api/v1/car/${id}`);
 
     dispatch({
       type: DELETE_CAR_SUCCESS,
@@ -246,7 +249,7 @@ export const getCarDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: CAR_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/v1/car/${id}`);
+    const { data } = await axios.get(`${host}/api/v1/car/${id}`);
 
     dispatch({
       type: CAR_DETAILS_SUCCESS,
@@ -269,7 +272,7 @@ export const newReview = (reviewData) => async (dispatch) => {
       headers: { "Content-Type": "application/json" },
     };
 
-    const { data } = await axios.put(`http://localhost:5000/api/v1/review`, reviewData, config);
+    const { data } = await axios.put(`${host}/api/v1/review`, reviewData, config);
 
     dispatch({
       type: NEW_REVIEW_SUCCESS,
@@ -288,7 +291,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEW_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/v1/reviews?id=${id}`);
+    const { data } = await axios.get(`${host}/api/v1/reviews?id=${id}`);
 
     dispatch({
       type: ALL_REVIEW_SUCCESS,
@@ -308,7 +311,7 @@ export const deleteReviews = (reviewId, carId) => async (dispatch) => {
     dispatch({ type: DELETE_REVIEW_REQUEST });
 
     const { data } = await axios.delete(
-      `http://localhost:5000/api/v1/reviews?id=${reviewId}&carId=${carId}`
+      `${host}/api/v1/reviews?id=${reviewId}&carId=${carId}`
     );
 
     dispatch({
