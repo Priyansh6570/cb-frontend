@@ -5,20 +5,12 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
-import PhoneIcon from "@material-ui/icons/Phone";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import Register_Mobile from "./Register_Mobile";
-// import app from "../firebase_config";
-// import {
-//   getAuth,
-//   RecaptchaVerifier,
-//   signInWithPhoneNumber,
-// } from "firebase/auth";
 
 const LoginSignUp = ({ history, location }) => {
-  
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -44,8 +36,6 @@ const LoginSignUp = ({ history, location }) => {
     otp: "",
   });
 
-
-
   const { name, email, password, mobile } = user;
 
   const [avatar, setAvatar] = useState("/Images/Profile.png");
@@ -55,7 +45,7 @@ const LoginSignUp = ({ history, location }) => {
     setOtpVerified(true);
   };
 
-  // Login Submition 
+  // Login Submition
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -66,16 +56,16 @@ const LoginSignUp = ({ history, location }) => {
 
   const registerSubmit = (e) => {
     e.preventDefault(); // prevent default form submission
-      const myForm = new FormData();
-    
-      myForm.set("name", name);
-      myForm.set("email", email);
-      myForm.set("password", password);
-      myForm.set("avatar", avatar);
-      myForm.set("mobile", mobile);
-    
-      dispatch(register(myForm));
-    };
+    const myForm = new FormData();
+
+    myForm.set("name", name);
+    myForm.set("email", email);
+    myForm.set("password", password);
+    myForm.set("avatar", avatar);
+    myForm.set("mobile", mobile);
+
+    dispatch(register(myForm));
+  };
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -93,77 +83,8 @@ const LoginSignUp = ({ history, location }) => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
-  
 
   const redirect = location.search ? location.search.split("=")[1] : "/account";
-
-  // // Firebase Phone Auth
-  // const auth = getAuth(app);
-
-  // const onCaptchVerify = () => {
-  //   window.recaptchaVerifier = new RecaptchaVerifier(
-  //     "recaptcha-container",
-  //     {
-  //       'size': "invisible",
-  //       'callback': () => {
-  //         alert.success("Captcha verified");
-  //       },
-
-  //       'expired-callback': () => {
-  //         alert.error("Captcha expired");
-
-  //         window.recaptchaVerifier.render().then((widgetId) => {
-  //           window.recaptchaVerifier.reset(widgetId);
-  //         });
-  //       }
-  //     },
-  //     auth
-  //   );
-  // };
-
-
-  // const onSignInSubmit = (e) => {
-  //   onCaptchVerify();
-  //   const phoneNumber = "+91" + user.mobile;
-  //   const appVerifier = window.recaptchaVerifier;
-
-  //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-  //     .then((confirmationResult) => {
-  //       window.confirmationResult = confirmationResult;
-  //       alert.success("OTP sent successfully");
-  //     })
-  //     .catch((error) => {
-  //       alert.error("Failed to send OTP");
-  //     });
-  // };
-
-  // const onVerifyOtp = (e) => {
-  //   window.confirmationResult
-  //     .confirm(user.otp)
-  //     .then((result) => {
-  //       const userData = result.user;
-  //       alert.success("OTP verified successfully");
-  //       // setUser({ 
-  //       //   ...userData, 
-  //       //   verified: true, 
-  //       //   verifyOtp: false 
-  //       // });
-  //       // setOtpVerified(true); // set the flag to true when OTP is verified successfully
-  //     })
-  //     .catch((error) => {
-  //       alert.error("Invalid OTP");
-  //     });
-  // };
-
-  // const mobileChange = (e) => {
-  //   setUser({ ...user, mobile: e.target.value });
-  // };
-
-  // useEffect(() => {
-  //   if (user.mobile && user.mobile.length === 10) {
-  //     setUser({ ...user, verifyButton: true });
-  //   }
-  // }, [user.mobile]);
   const [showForm, setShowForm] = useState(false);
 
   const showFormComponent = () => {
@@ -174,6 +95,7 @@ const LoginSignUp = ({ history, location }) => {
 
   useEffect(() => {
     if (error) {
+      console.log(error);
       alert.error(error);
       dispatch(clearErrors());
     }
@@ -183,35 +105,34 @@ const LoginSignUp = ({ history, location }) => {
     }
   }, [dispatch, error, alert, history, isAuthenticated, redirect]);
 
-  
-const switchTabs = (e, tab) => {
-  setActiveTab(tab);
-  if (tab === "login") {
-    switcherTab.current.classList.add("shiftToNeutral");
-    switcherTab.current.classList.remove("shiftToRight");
+  const switchTabs = (e, tab) => {
+    setActiveTab(tab);
+    if (tab === "login") {
+      switcherTab.current.classList.add("shiftToNeutral");
+      switcherTab.current.classList.remove("shiftToRight");
 
-    if (registerTab.current) {
-      registerTab.current.classList.remove("shiftToNeutralForm");
-    }
-    
-    if (loginTab.current) {
-      loginTab.current.classList.remove("shiftToLeft");
-    }
-  }
-  
-  if (tab === "register") {
-    switcherTab.current.classList.add("shiftToRight");
-    switcherTab.current.classList.remove("shiftToNeutral");
+      if (registerTab.current) {
+        registerTab.current.classList.remove("shiftToNeutralForm");
+      }
 
-    if (registerTab.current) {
-      registerTab.current.classList.add("shiftToNeutralForm");
+      if (loginTab.current) {
+        loginTab.current.classList.remove("shiftToLeft");
+      }
     }
 
-    if (loginTab.current) {
-      loginTab.current.classList.add("shiftToLeft");
+    if (tab === "register") {
+      switcherTab.current.classList.add("shiftToRight");
+      switcherTab.current.classList.remove("shiftToNeutral");
+
+      if (registerTab.current) {
+        registerTab.current.classList.add("shiftToNeutralForm");
+      }
+
+      if (loginTab.current) {
+        loginTab.current.classList.add("shiftToLeft");
+      }
     }
-  }
-};
+  };
 
   return (
     <Fragment>
@@ -243,107 +164,124 @@ const switchTabs = (e, tab) => {
 
                 {/* login  */}
                 {activeTab === "login" && (
-                <form
-                  className="loginForm xs:px-10"
-                  ref={loginTab}
-                  onSubmit={loginSubmit}
-                >
-                  <div className="loginEmail">
-                    <MailOutlineIcon />
+                  <form
+                    className="loginForm xs:px-10"
+                    ref={loginTab}
+                    onSubmit={loginSubmit}
+                  >
+                    <div className="loginEmail">
+                      <MailOutlineIcon />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        required
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                      />
+                    </div>
+                    <div className="loginPassword">
+                      <LockOpenIcon />
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        required
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                      />
+                    </div>
+                    <Link to="/password/forgot">Forget Password ?</Link>
                     <input
-                      type="email"
-                      placeholder="Email"
-                      required
-                      value={loginEmail}
-                      onChange={(e) => setLoginEmail(e.target.value)}
+                      type="submit"
+                      value="Login"
+                      className="loginBtn sm:scale-[1] bg-[#ee3131] text-white text-xl sm:text-sm sm:h-[30px] font-bold rounded font-sans"
                     />
-                  </div>
-                  <div className="loginPassword">
-                    <LockOpenIcon />
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      required
-                      value={loginPassword}
-                      onChange={(e) => setLoginPassword(e.target.value)}
-                    />
-                  </div>
-                  <Link to="/password/forgot">Forget Password ?</Link>
-                  <input
-                    type="submit"
-                    value="Login"
-                    className="loginBtn sm:scale-[1] bg-[#ee3131] text-white text-xl sm:text-sm sm:h-[30px] font-bold rounded font-sans"
-                  />
-                </form>
+                  </form>
                 )}
 
                 {/* signup or Register  */}
                 {activeTab === "register" && showForm ? (
-        <form
-          className="signUpForm sm:h-[400px] xs:px-6 flex flex-col gap-2 mt-[4rem]"
-          ref={registerTab}
-          encType="multipart/form-data"
-          onSubmit={registerSubmit}
-        >
-          {/* Name input */}
-          <div className="signUpName">
-            <FaceIcon />
-            <input
-              type="text"
-              placeholder="Name"
-              required
-              name="name"
-              value={user.name}
-              onChange={registerDataChange}
-            />
-          </div>
+                  <form
+                    className="signUpForm sm:h-[400px] xs:px-6 flex flex-col gap-2 mt-[4rem]"
+                    ref={registerTab}
+                    encType="multipart/form-data"
+                    onSubmit={registerSubmit}
+                  >
+                    {/* Name input */}
+                    <div className="signUpName">
+                      <FaceIcon />
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        required
+                        name="name"
+                        value={user.name}
+                        onChange={registerDataChange}
+                      />
+                    </div>
 
-          {/* Email input */}
-          <div className="signUpEmail">
-            <MailOutlineIcon />
-            <input
-              type="email"
-              placeholder="Email"
-              required
-              name="email"
-              value={user.email}
-              onChange={registerDataChange}
-            />
-          </div>
+                    {/* Email input */}
+                    <div className="signUpEmail">
+                      <MailOutlineIcon />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        required
+                        name="email"
+                        value={user.email}
+                        onChange={registerDataChange}
+                      />
+                    </div>
 
-          {/* Password */}
-          <div className="signUpPassword">
-            <LockOpenIcon />
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              name="password"
-              value={user.password}
-              onChange={registerDataChange}
-            />
-          </div>
-          <div id="registerImage" className="mt-6">
-            <img src={avatarPreview} alt="Avatar Preview" className="" />
-            <input
-              type="file"
-              name="avatar"
-              accept="image/*"
-              onChange={registerDataChange}
-            />
-          </div>
-          <input
-            type="submit"
-            value="Register"
-            className="signUpBtn bg-[#ee3131] text-white text-xl sm:text-sm sm:scale-[1] font-bold font-sans rounded"
-          />
-        </form>
-      ) : (activeTab === "register" && (
-        <div>
-          <Register_Mobile onNext={showFormComponent} user={user} setUser={setUser} onOtpVerification={handleOtpVerification} />
-          <button className="btn-next relative left-[160px]" onClick={showFormComponent} disabled={!otpVerified}>Next</button>
-        </div>
-      ))}
+                    {/* Password */}
+                    <div className="signUpPassword">
+                      <LockOpenIcon />
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        required
+                        name="password"
+                        value={user.password}
+                        onChange={registerDataChange}
+                      />
+                    </div>
+                    <div id="registerImage" className="mt-6">
+                      <img
+                        src={avatarPreview}
+                        alt="Avatar Preview"
+                        className=""
+                      />
+                      <input
+                        type="file"
+                        name="avatar"
+                        accept="image/*"
+                        onChange={registerDataChange}
+                      />
+                    </div>
+                    <input
+                      type="submit"
+                      value="Register"
+                      className="signUpBtn bg-[#ee3131] text-white text-xl sm:text-sm sm:scale-[1] font-bold font-sans rounded"
+                    />
+                  </form>
+                ) : (
+                  activeTab === "register" && (
+                    <div>
+                      <Register_Mobile
+                        onNext={showFormComponent}
+                        user={user}
+                        setUser={setUser}
+                        onOtpVerification={handleOtpVerification}
+                      />
+                      <button
+                        className="btn-next relative left-[160px]"
+                        onClick={showFormComponent}
+                        disabled={!otpVerified}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>

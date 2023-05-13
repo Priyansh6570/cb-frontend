@@ -31,7 +31,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/carConstants";
 
-const host = "https://priyansh-cb-backend.onrender.com";
+const host = "http://localhost:5000";
 
 export const getCar =
   (keyword = "", currentPage = 1, price = [10000, 10000000], category, fuel, transmission) =>

@@ -32,6 +32,7 @@ function App() {
         families: ["Montserrat", "Arial", "Helvetica"],
       },
     });
+
     store.dispatch(loadUser());
   }, []);
 
@@ -42,6 +43,7 @@ function App() {
 
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={LoginSignUp} />
         <Route exact path="/seller/:id" component={SellerPage} />
         <Route strict path="/car/:id" component={CarDetail} />
         <Route exact path="/cars" component={UsedCar} />
@@ -59,7 +61,6 @@ function App() {
         <Route exact path="/password/forgot" component={ForgotPassword} />
 
         <Route exact path="/password/reset/:token" component={ResetPassword} />
-        <Route exact path="/login" component={LoginSignUp} />
       </Switch>
       <Footer />
       <FooterMobile />

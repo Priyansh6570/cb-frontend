@@ -22,6 +22,8 @@ import {
 
 import axios from "axios";
 
+const host = "http://localhost:5000";
+
 // Create Order
 export const createOrder = (order) => async (dispatch) => {
   try {
@@ -32,7 +34,8 @@ export const createOrder = (order) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post("/api/v1/order/new", order, config);
+    const { data } = await axios.post(`${host}/api/v1/sellerContact/new`, order, config);
+    console.log('data : ',data);
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {

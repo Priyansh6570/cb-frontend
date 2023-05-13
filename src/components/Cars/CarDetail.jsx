@@ -32,6 +32,7 @@ import { FaHeart } from "react-icons/fa";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import ScrollToTopOnMount from "../ScrollToTopOnMount";
 import { HiPlus } from "react-icons/hi";
+import SellerContact from "../Order/SellerContact";
 
 const CarDetail = () => {
   initTE({ Collapse, Ripple });
@@ -41,6 +42,12 @@ const CarDetail = () => {
   const { id } = useParams();
   const { car, loading, error } = useSelector((state) => state.carDetails);
   const { cars } = useSelector((state) => state.cars);
+  const [showContactForm, setShowContactForm] = useState(false);
+
+  const handleContactSeller = () => {
+    console.log("clicked");
+    setShowContactForm(true);
+  };
 
   useEffect(() => {
     if (error) {
@@ -130,9 +137,16 @@ const CarDetail = () => {
                 <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded">
                   Make Offer
                 </button>
-                <button className="contact_seller text-2xl font-bold rounded">
-                  Contact Seller
-                </button>
+                {showContactForm ? (
+        <SellerContact order={car} />
+      ) : (
+        <button
+          className="contact_seller text-2xl font-bold rounded"
+          onClick={handleContactSeller}
+        >
+          Contact Seller
+        </button>
+      )}
               </span>
             </div>
           </div>

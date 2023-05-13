@@ -44,7 +44,7 @@ import {
 } from "../constants/userConstants";
 import axios from "axios";
 
-const host = "https://priyansh-cb-backend.onrender.com";
+const host = "http://localhost:5000";
 
 // Login
 export const login = (email, password) => async (dispatch) => {
