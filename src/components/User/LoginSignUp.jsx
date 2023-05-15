@@ -31,12 +31,13 @@ const LoginSignUp = ({ history, location }) => {
     email: "",
     password: "",
     mobile: "",
+    role: "user",
     verifyButton: false,
     verifyOtp: false,
     otp: "",
   });
 
-  const { name, email, password, mobile } = user;
+  const { name, email, password, mobile, role } = user;
 
   const [avatar, setAvatar] = useState("/Images/Profile.png");
   const [avatarPreview, setAvatarPreview] = useState("/Images/Profile.png");
@@ -63,6 +64,7 @@ const LoginSignUp = ({ history, location }) => {
     myForm.set("password", password);
     myForm.set("avatar", avatar);
     myForm.set("mobile", mobile);
+    myForm.set("role", role);
 
     dispatch(register(myForm));
   };
@@ -136,7 +138,9 @@ const LoginSignUp = ({ history, location }) => {
 
   return (
     <Fragment>
-      {loading ? (
+      {loading &&
+      !"./Images/user-action-bg.jpg" &&
+      !"./Images/monitoring-login.png" ? (
         <Loader />
       ) : (
         <Fragment>
@@ -230,6 +234,22 @@ const LoginSignUp = ({ history, location }) => {
                         value={user.email}
                         onChange={registerDataChange}
                       />
+                    </div>
+                    {/* Role input */}
+                    <div className="signUpRole">
+                      <select
+                        name="role"
+                        value={user.role}
+                        onChange={registerDataChange}
+                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                      >
+                        <option value="user" className="text-primary">
+                          User
+                        </option>
+                        <option value="dealer" className="text-primary">
+                          Dealer
+                        </option>
+                      </select>
                     </div>
 
                     {/* Password */}

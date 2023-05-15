@@ -110,12 +110,11 @@ export const getCar =
 
 
 // Get All Cars By Seller
-export const getAllCarsBySeller = (id) => async (dispatch) => {
+export const getAllCarsBySeller = (userId) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_CAR_REQUEST });
 
-    const { data } = await axios.get(`${host}/api/v1/${id}/cars`);
-
+    const { data } = await axios.get(`${host}/api/v1/${userId}/cars`);
     dispatch({
       type: ADMIN_CAR_SUCCESS,
       payload: data.cars,
@@ -183,19 +182,22 @@ export const approvePendingCar = (id) => async (dispatch) => {
 
     const { data } = await axios.put(
       `${host}/api/v1/cars/pending/${id}`,
-    )
+      { verified: true } // Include the verified property in the request body
+    );
 
+    console.log(data, 'id: ', id);
     dispatch({
       type: ADMIN_CAR_SUCCESS,
-      payload: data.success,
-    })
-} catch (error) {
+      payload: data.approvedCar, // Update the payload to include the approved car object
+    });
+  } catch (error) {
     dispatch({
       type: ADMIN_CAR_FAIL,
-      payload: error.response.data.message,
+      payload: error.response.data.error,
     });
-}
+  }
 };
+
 
 // Update Car
 export const updateCar = (userId, carId, carData) => async (dispatch) => {
@@ -214,7 +216,7 @@ export const updateCar = (userId, carId, carData) => async (dispatch) => {
 
     dispatch({
       type: UPDATE_CAR_SUCCESS,
-      payload: data.success,
+      payload: data.car, // Pass the updated car object as payload
     });
   } catch (error) {
     dispatch({
@@ -223,6 +225,7 @@ export const updateCar = (userId, carId, carData) => async (dispatch) => {
     });
   }
 };
+
 
 
 // Delete Car
@@ -264,67 +267,67 @@ export const getCarDetails = (id) => async (dispatch) => {
 };
 
 // NEW REVIEW
-export const newReview = (reviewData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_REVIEW_REQUEST });
+// export const newReview = (reviewData) => async (dispatch) => {
+//   try {
+//     dispatch({ type: NEW_REVIEW_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+//     const config = {
+//       headers: { "Content-Type": "application/json" },
+//     };
 
-    const { data } = await axios.put(`${host}/api/v1/review`, reviewData, config);
+//     const { data } = await axios.put(`${host}/api/v1/review`, reviewData, config);
 
-    dispatch({
-      type: NEW_REVIEW_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_REVIEW_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+//     dispatch({
+//       type: NEW_REVIEW_SUCCESS,
+//       payload: data.success,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: NEW_REVIEW_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
 
-// Get All Reviews of a Car
-export const getAllReviews = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_REVIEW_REQUEST });
+// // Get All Reviews of a Car
+// export const getAllReviews = (id) => async (dispatch) => {
+//   try {
+//     dispatch({ type: ALL_REVIEW_REQUEST });
 
-    const { data } = await axios.get(`${host}/api/v1/reviews?id=${id}`);
+//     const { data } = await axios.get(`${host}/api/v1/reviews?id=${id}`);
 
-    dispatch({
-      type: ALL_REVIEW_SUCCESS,
-      payload: data.reviews,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_REVIEW_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+//     dispatch({
+//       type: ALL_REVIEW_SUCCESS,
+//       payload: data.reviews,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: ALL_REVIEW_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
 
-// Delete Review of a Car
-export const deleteReviews = (reviewId, carId) => async (dispatch) => {
-  try {
-    dispatch({ type: DELETE_REVIEW_REQUEST });
+// // Delete Review of a Car
+// export const deleteReviews = (reviewId, carId) => async (dispatch) => {
+//   try {
+//     dispatch({ type: DELETE_REVIEW_REQUEST });
 
-    const { data } = await axios.delete(
-      `${host}/api/v1/reviews?id=${reviewId}&carId=${carId}`
-    );
+//     const { data } = await axios.delete(
+//       `${host}/api/v1/reviews?id=${reviewId}&carId=${carId}`
+//     );
 
-    dispatch({
-      type: DELETE_REVIEW_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: DELETE_REVIEW_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+//     dispatch({
+//       type: DELETE_REVIEW_SUCCESS,
+//       payload: data.success,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: DELETE_REVIEW_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

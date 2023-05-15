@@ -5,7 +5,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import ListAltIcon from "@material-ui/icons/ListAlt";
+import {AiFillCar} from "react-icons/ai";
 import {useHistory} from "react-router-dom";
 import { useAlert } from "react-alert";
 import { logout } from "../../../actions/userAction";
@@ -13,7 +13,6 @@ import { FaHeart } from "react-icons/fa";
 import { useDispatch} from "react-redux";
 
 const UserOptions = ({ user, top, top1 }) => {
-  // const { cartItems } = useSelector((state) => state.cart);
 
   const [open, setOpen] = useState(false);
   const history = useHistory();
@@ -23,15 +22,6 @@ const UserOptions = ({ user, top, top1 }) => {
   const options = [
     { icon: <FaHeart />, name: "Shortlist", func: wishlist },
     { icon: <PersonIcon />, name: "Profile", func: account },
-    // {
-    //   icon: (
-    //     <ShoppingCartIcon
-    //       style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
-    //     />
-    //   ),
-    //   name: `Cart(${cartItems.length})`,
-    //   func: cart,
-    // },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
 
@@ -43,15 +33,25 @@ const UserOptions = ({ user, top, top1 }) => {
     });
   }
 
+  if (user.role === "dealer") {
+    options.unshift({
+      icon: <AiFillCar />,
+      name: "Dealer Store",
+      func: dealerStore,
+    });
+  }
   const speedDialStyles = {
     zIndex: "11",
     borderColor: "#ee3131",
-    ...(user.role === "admin" && { top: top }),
-    ...(user.role !== "admin" && { top: top1 }),
+    ...(user.role === "admin" || user.role === "dealer" ? { top: top } : { top: top1 }),
   };
 
   function dashboard() {
     history.push("/admin/dashboard");
+  }
+
+  function dealerStore() {
+    history.push("/seller/:id");
   }
 
   function wishlist() {
@@ -60,9 +60,6 @@ const UserOptions = ({ user, top, top1 }) => {
   function account() {
     history.push("/account");
   }
-  // function cart() {
-  //   history.push("/cart");
-  // }
   function logoutUser() {
     dispatch(logout());
     history.push("/");

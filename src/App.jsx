@@ -21,6 +21,12 @@ import UpdateProfile from "./components/User/UpdateProfile";
 import SellerPage from "./components/Seller/SellerPage.jsx"
 import axios from "axios";
 import GetWishlist from "./components/Cars/GetWishlist";
+import Dashboard from "./components/Admin/Dashboard";
+import AllUser from "./components/Admin/AllUser";
+import AllDealer from "./components/Admin/AllDealer";
+import PendingCars from "./components/Admin/PendingCars";
+import ApproveCar from "./components/Admin/ApproveCar.jsx";
+import SellerCarPage from "./components/Seller/SellerCarPage";
 axios.defaults.withCredentials=true;
 
 function App() {
@@ -44,18 +50,49 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={LoginSignUp} />
-        <Route exact path="/seller/:id" component={SellerPage} />
         <Route strict path="/car/:id" component={CarDetail} />
         <Route exact path="/cars" component={UsedCar} />
         <Route exact path="/cars/:keyword?" component={UsedCar} />
         <ProtectedRoute exact path="/account" component={Profile} />
         <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
         <ProtectedRoute exact path="/wishlist/me" component={GetWishlist} />
+        <Route exact path="/sellerCar/:id" component={SellerCarPage} />
+        <Route exact path="/seller/:id" component={SellerPage} />
 
         <ProtectedRoute
           exact
           path="/password/update"
           component={UpdatePassword}
+        />
+         <ProtectedRoute
+          isAdmin={true}
+          exact
+          path="/admin/dashboard"
+          component={Dashboard}
+        />
+         <ProtectedRoute
+          isAdmin={true}
+          exact
+          path="/admin/allUsers"
+          component={AllUser}
+        />
+         <ProtectedRoute
+          isAdmin={true}
+          exact
+          path="/admin/dealers"
+          component={AllDealer}
+        />
+         <ProtectedRoute
+          isAdmin={true}
+          exact
+          path="/admin/cars/pending"
+          component={PendingCars}
+        />
+         <ProtectedRoute
+          isAdmin={true}
+          exact
+          path="/admin/cars/pending/:id"
+          component={ApproveCar}
         />
 
         <Route exact path="/password/forgot" component={ForgotPassword} />

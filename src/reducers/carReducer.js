@@ -100,12 +100,13 @@ import {
           resperpage: action.payload.resperpage,
           carCount: action.payload.carCount,
         };
-  
-      case ADMIN_CAR_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-          cars: action.payload,
+        
+        case ADMIN_CAR_SUCCESS:
+          return {
+            ...state,
+            loading: false,
+            cars: action.payload,
+            notVerified: action.payload.notVerified,
         };
       case ALL_CAR_FAIL:
       case ADMIN_CAR_FAIL:
@@ -166,7 +167,12 @@ import {
     }
   };
   
-  export const carReducer = (state = {}, action) => {
+  export const carReducer = (state = {
+    loading: false,
+    isDeleted: false,
+    isUpdated: false,
+    error: null,
+  }, action) => {
     switch (action.type) {
       case DELETE_CAR_REQUEST:
       case UPDATE_CAR_REQUEST:

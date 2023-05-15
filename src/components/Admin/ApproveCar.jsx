@@ -1,52 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
-
-//Components, APIs, utils
-import WishList from "./WishList";
 import { Link } from "react-router-dom";
+
+// Components, APIs, utils
 import Loader from "../Layout/Loader/Loader";
-import Badge from "../Badge";
 import MetaData from "../Layout/MetaData";
 import NumberWithCommas from "../PriceSeperator";
-import ImageSlider from "../Home/ImageSlider";
-import { getError } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
-import { CLEAR_SEARCH_RESULTS } from "../../constants/carConstants";
-import { Collapse, Ripple, initTE } from "tw-elements";
 import {
   clearErrors,
   getCarDetails,
-  getRCar,
+  approvePendingCar, // Import the action
 } from "../../actions/carAction";
 
-//Styles, Icons
+// Styles, Icons
 import "../../styles/carDetail.scss";
 import { FaGasPump } from "react-icons/fa";
 import { SlSpeedometer } from "react-icons/sl";
 import { GiGearStickPattern } from "react-icons/gi";
-import { FaHeart } from "react-icons/fa";
-import { IoIosArrowDroprightCircle } from "react-icons/io";
-import ScrollToTopOnMount from "../ScrollToTopOnMount";
-import { HiPlus } from "react-icons/hi";
-import SellerContact from "../Order/SellerContact";
 
-const CarDetail = () => {
-  initTE({ Collapse, Ripple });
+const ApproveCar = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
   const { id } = useParams();
   const { car, loading, error } = useSelector((state) => state.carDetails);
-  const { cars } = useSelector((state) => state.cars);
-  const [showContactForm, setShowContactForm] = useState(false);
-
-  const handleContactSeller = () => {
-    console.log("clicked");
-    setShowContactForm(true);
-  };
 
   useEffect(() => {
     if (error) {
@@ -56,22 +36,20 @@ const CarDetail = () => {
     dispatch(getCarDetails(id));
   }, [dispatch, id, error, alert]);
 
-  useEffect(() => {
-    dispatch({ type: CLEAR_SEARCH_RESULTS });
-    dispatch(getRCar(car.category, car.price));
-  }, [dispatch, car]);
+  const handleApprove = () => {
+    if (car && car._id) {
+      const carId = car._id;
+      console.log('id : ', carId);
+      dispatch(approvePendingCar(carId));
+    }
+  };
+
   const seller = car?.user;
+  console.log('seller : ', seller);
 
   return loading || !car ? (
     <Loader />
-  ) : error ? (
-    <div className="error-container w-full h-[90vh] justify-center items-center">
-      <ScrollToTopOnMount />
-      <div className="error w-[60vw] h-[40px] bg-[#ff74747f] rounded flex justify-center items-center relative top-[20%] m-auto">
-        <h2 className="text-xl font-medium uppercase">{error}</h2>
-      </div>
-    </div>
-  ) : (
+  ) :  (
     <div className="carName">
       <main className="carDetail__mainContainer sm:overflow-hidden flex sm:flex-col gap-10 sm:gap-0 my-[50px] sm:my-2 w-[1220px] sm:w-[100vw] mx-auto  ">
         <div className="left w-[800px] sm:w-full text-justify flex flex-col justify-center gap-8 sm:gap-0">
@@ -119,22 +97,6 @@ const CarDetail = () => {
             <div className=" hidden mb-4 sm:flex price w-full flex-col justify-start items-center gap-8 rounded-2xl p-8 mt-2">
               <span className="text-3xl text-[#002f34] font-bold">
                 ₹ {NumberWithCommas(`${car.price}`)}
-              </span>
-
-              <span className="flex gap-4 w-full">
-                <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded">
-                  Make Offer
-                </button>
-                {showContactForm ? (
-        <SellerContact order={car} />
-      ) : (
-        <button
-          className="contact_seller text-2xl font-bold rounded"
-          onClick={handleContactSeller}
-        >
-          Contact Seller
-        </button>
-      )}
               </span>
             </div>
           </div>
@@ -211,66 +173,31 @@ const CarDetail = () => {
             </ul>
           </div>
 
+          
           <div className="carDescription w-full h-fit sm:h-fit flex flex-col gap-4 p-8 sm:px-2 rounded-2xl">
             <h2 className="text-2xl sm:px-8 sm:py-4 font-bold">Description</h2>
             <hr />
             <p className="sm:px-4">{car.description}</p>
           </div>
-
-          <div className="carWarrenty w-full h-fit sm:h-fit flex flex-col gap-4 p-8 sm:px-2 rounded-2xl">
-            <button
-              className="filter-bt1 whitespace-nowrap flex justify-between p-8 scale-[1.1] font-semibold text-2xl h-3  "
-              type="button"
-              data-te-collapse-init
-              data-te-ripple-init
-              data-te-ripple-color="light"
-              data-te-target="#collapseExample1"
-              aria-expanded="true"
-              aria-controls="collapseExample1"
-              data-te-collapse-ignore
-            >
-              Warrenty
-              <HiPlus className="" />
-            </button>
-            <div
-              className="!visible hidden mt-2 scale-[1.1] relative top-[-15px] -z-10"
-              id="collapseExample1"
-              data-te-collapse-item
-            >
-              <div className="container-warrenty flex rounded-lg h-fit p-6 text-sm justify-evenly align-middle font-medium shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                <img
-                  src="/Images/wax-seal.png"
-                  alt="warrenty logo"
-                  className="w-[60px] h-[60px] place-self-center sm:mr-2"
-                />
-                <span className="place-self-center justify-center text-base sm:p-3 text-black font-semibold w-[70%]">
-                  {" "}
-                  Get CarsBecho Exclusive 2 Years Warrenty with your Dream Car
-                  Now!{" "}
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div className="right sm:h-[400px] sm:w-full sm:p-1 h-[90vh] w-[480px] p-8 flex gap-4 flex-col">
+        <div className="right price sm:h-[400px] sm:w-full sm:p-1 h-fit w-[480px] p-8 flex gap-4 flex-col">
+          <h2 className="font-semibold text-lg">Car Verification</h2>
+          {/* <select
+            value={car?.verified ? "true" : "false"}
+            onChange={(e) => handleApprove(id, e.target.value)}
+          >
+            <option value="false">Not Verified</option>
+            <option value="true">Verified</option>
+          </select> */}
+          <button className="btn bg-[#ee3131] text-white font-semibold text-lg p-4" onClick={handleApprove}>Approve Car</button>
+
           <div className="price sm:hidden w-full flex flex-col justify-start items-center gap-8 rounded-2xl p-8">
             <span className="text-[45px] text-[#002f34] font-bold">
               ₹ {NumberWithCommas(`${car.price}`)}
             </span>
-
-            <span className="flex gap-4 w-full">
-              <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded">
-                Make Offer
-              </button>
-              <button className="contact_seller text-2xl font-bold rounded">
-                Contact Seller
-              </button>
-            </span>
           </div>
-
-          <WishList carId={car._id} className='flex' />
-          <Link to={`/sellerCar/${seller && seller._id}`} className='sm:px-6'>
+          <Link to={`/seller/${seller && seller._id}`} className='sm:px-6 w-full'>
             <div className="seller_Detail w-full h-[360px] sm:pb-[60px] flex flex-col gap-2 rounded-2xl">
               <div className="top-div w-full overflow-hidden h-[139px]">
                 <span className="seller-title text-sm m-2 py-1 px-4 rounded-2xl bg-[#ffffff60] font-semibold absolute text-white z-10">
@@ -302,6 +229,11 @@ const CarDetail = () => {
                     {seller && seller.email}
                   </span>
 
+                    {/* seller mobile  */}
+                  {/* <span className="text-base xs:text-[0.9rem] py-2 px-6 rounded-2xl bg-[#ffffff7c] font-medium">
+                    {seller && seller.mobile}
+                  </span> */}
+
                   <small className="text-base py-2 px-6 rounded-2xl bg-[#ffffff8c] font-medium">
                     Posted on :{" "}
                     {new Date(car.createdAt)
@@ -314,134 +246,12 @@ const CarDetail = () => {
                   </small>
                 </div>
               </div>
-
-              {/*
-
-              {car.verified === true ? (
-                <Badge />
-              ) : (
-                <div className=""></div>
-              )} */}
             </div>
           </Link>
         </div>
       </main>
-      {cars && cars.length >= 2 && (
-        <section className="featured_Section w-[1300px] sm:w-[100vw] sm:overflow-hidden mx-auto object-contain flex flex-col gap-4 p-4 rounded-2xl my-0 relative top-[-30px] sm:relative sm:top-[-40px]">
-          <h2 className="text-3xl font-normal pl-4 capitalize sm:text-2xl">
-            Related Cars
-          </h2>
-          <hr />
-
-          <div className="car-container flex w-[1220px] sm:w-[90vw] m-auto overflow-x-auto gap-4 mt-4">
-            {cars.map((relatedCar) => {
-              return (
-                <Link
-                  to={`/car/${relatedCar._id}`}
-                  key={relatedCar._id}
-                  className={relatedCar._id === id ? "hidden" : "flex"}
-                >
-                  <ScrollToTopOnMount />
-                  <div className="carCard flex flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md w-[294px] sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
-                    <div className="img-container-car sm:overflow-hidden">
-                      <img
-                        src={relatedCar.image[0].url}
-                        alt={relatedCar.model}
-                        className="w-[300px] h-[150px] sm:w-[282px] sm:h-[90px] object-cover sm:scale-[1.1] "
-                      />
-                    </div>
-
-                    <div className="carDetails flex flex-col gap-[10px] sm:gap-1 sm:px-2">
-                      <span className="flex gap-1 sm:text-sm text-lg font-semibold">
-                        <h2>{relatedCar.make}</h2>
-                        <h2>{relatedCar.model}</h2>
-                        <h4 className="font-normal sm:hidden">{`(${relatedCar.year})`}</h4>
-                      </span>
-                      <span className="text-xs sm:hidden mb-2 sm:my-2 sm:text-sm uppercase text-[#3d3d3d] flex">
-                        <span className="flex gap-2 mr-2 justify-center items-center">
-                          <FaGasPump /> {relatedCar.fuel} {` | `}
-                        </span>
-                        <span className="flex gap-2 mr-2 justify-center items-center">
-                          <SlSpeedometer /> {relatedCar.Km_Driven}km{` | `}
-                        </span>
-                        <span className="flex gap-2 mr-2 justify-center items-center">
-                          <GiGearStickPattern />
-                          {relatedCar.transmission}
-                        </span>
-                      </span>
-                      <div className="carPrice">
-                        <h3 className="text-2xl sm:text-base font-bold font-sans">
-                          ₹ {NumberWithCommas(`${relatedCar.price}`)}
-                        </h3>
-                      </div>
-                      <div className="click-to-open flex gap-2 items-center text-[#ee3131] mt-4 font-medium sm:text-sm text-base">
-                        <h4>View More</h4>
-                        <IoIosArrowDroprightCircle />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-          <hr />
-        </section>
-      )}
     </div>
   );
 };
 
-export default CarDetail;
-
-// for reviews, future use
-
-// const { success, error: reviewError } = useSelector(
-//   (state) => state.newReview
-// );
-
-// const options = {
-//   size: "large",
-//   value: car.ratings,
-//   readOnly: true,
-//   precision: 0.5,
-// };
-
-// const [quantity, setQuantity] = useState(1);
-// const [open, setOpen] = useState(false);
-// const [rating, setRating] = useState(0);
-// const [comment, setComment] = useState("");
-
-// const increaseQuantity = () => {
-//   if (car.Stock <= quantity) return;
-
-//   const qty = quantity + 1;
-//   setQuantity(qty);
-// };
-
-// const decreaseQuantity = () => {
-//   if (1 >= quantity) return;
-
-//   const qty = quantity - 1;
-//   setQuantity(qty);
-// };
-
-// const addToCartHandler = () => {
-//   dispatch(addItemsToCart(match.params.id, quantity));
-//   alert.success("Item Added To Cart");
-// };
-
-// const submitReviewToggle = () => {
-//   open ? setOpen(false) : setOpen(true);
-// };
-
-// const reviewSubmitHandler = () => {
-//   const myForm = new FormData();
-
-//   myForm.set("rating", rating);
-//   myForm.set("comment", comment);
-//   myForm.set("carId", match.params.id);
-
-//   dispatch(newReview(myForm));
-
-//   setOpen(false);
-// };
+export default ApproveCar;
