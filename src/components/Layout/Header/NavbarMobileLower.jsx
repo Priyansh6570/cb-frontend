@@ -43,7 +43,7 @@ const NavbarMobileLower = () => {
         <img src={"Images/car.png"} alt="sell-car logo" className="w-[70px]" />
       </Link>
       <Link
-        to={"./workshop"}
+        to={'/in-progress'}
         className="lower-nav-link active:scale-[0.95] w-[48%] h-[150px] flex flex-col justify-center items-center rounded-xl bg-[#576CBC]"
       >
         <h3 className="text-xl font-semibold text-white">Workshop</h3>

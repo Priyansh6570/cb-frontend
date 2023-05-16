@@ -39,24 +39,20 @@ const Home = () => {
   const slides = [
     {
       id: 0,
-      image: '/Images/c1.jpg',
+      image: '/Images/buy-car-img.jpg',
     },
     {
       id: 1,
-      image: '/Images/c4.jpg',
+      image: '/Images/buy-car2-img.jpg',
     },
     {
       id: 2,
-      image: '/Images/c6.jpg',
+      image: '/Images/bg-car-front.jpg',
     },
     {
       id: 3,
-      image: '/Images/c11.jpg',
-    },
-    {
-      id: 4,
-      image: '/Images/c2.jpg',
-    },
+      image: '/Images/warrenty-3.png',
+    }
   ];
   const testimonials = [
     {
@@ -91,14 +87,15 @@ const Home = () => {
       <MetaData title="CarsBecho: Gadi Becho Phata Phat" />
 
        <section className="carousel_container w-[95vw] sm:overflow-hidden h-[75vh] sm:h-[200px] sm:mt-2 my-0 mx-auto relative sm:flex top-[-55px] sm:top-0">
-        <div className="home-carousel-text-container absolute z-50 h-[80%] bg-[#000000b3] rounded-xl top-[50px] sm:top-[10px] px-8 sm:px-1 xs:mx-[5%] left-[50px] sm:left-1 flex flex-col justify-start sm:items-center pt-[100px] sm:pt-6 sm:mt-2 sm:mx-[11%]">
+          <Link to={'/in-progress'}>
+        <div className="home-carousel-text-container sm:w-[80%] absolute z-50 h-[80%] bg-[#000000b3] rounded-xl top-[50px] sm:top-[10px] px-8 sm:px-1 xs:mx-[5%] left-[50px] xs:left-5 sm:left-[0.5rem] flex flex-col justify-start sm:items-center pt-[100px] sm:pt-6 sm:mt-2 sm:mx-[11%]">
           <h1 className="text-[50px] sm:text-[20px] font-bold text-white">
             GET BEST PRICE IN
           </h1>
           <h1 className="text-[50px] sm:text-[20px] font-bold text-[#ee3131] mx-auto">
             10 MINUTES
           </h1>
-          <hr className="mt-[20px] sm:mt-1" />
+          <hr className="mt-[20px] block sm:w-[180px] px-8 left-[0px] mx-auto sm:mt-1" />
           <div className="button-container-evaluate-you-car">
             <button className="evaluate-button bg-[#ee3131] text-white text-xl xs:w-[300px] font-medium px-8 py-4 rounded flex justify-center items-center mx-auto relative bottom-[-50px] sm:bottom-[-5px] sm:left-[0px] hover:shadow-md sm:scale-[0.6]">
               EVALUATE YOUR CAR{' '}
@@ -106,7 +103,8 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <ImageSlider slides={slides} parentWidth={1470} />
+          </Link>
+        <ImageSlider slides={slides} parentWidth={1270} />
       </section>
 
       {/* mobile lower nav  */}

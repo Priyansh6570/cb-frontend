@@ -9,28 +9,6 @@ const slideStyles = {
   backgroundPosition: "center",
 };
 
-const rightArrowStyles = {
-  position: "absolute",
-  top: "50%",
-  transform: "translate(0, -50%)",
-  right: "32px",
-  fontSize: "45px",
-  color: "#fff",
-  zIndex: 1,
-  cursor: "pointer",
-};
-
-const leftArrowStyles = {
-  position: "absolute",
-  top: "50%",
-  transform: "translate(0, -50%)",
-  left: "32px",
-  fontSize: "45px",
-  color: "#fff",
-  zIndex: 1,
-  cursor: "pointer",
-};
-
 const sliderStyles = {
   position: "relative",
   height: "100%",
@@ -84,7 +62,7 @@ const ImageSlider = ({ slides, parentWidth }) => {
   const getSlidesContainerStylesWithWidth = () => ({
     ...slidesContainerStyles,
     width: parentWidth * slides.length,
-    transform: `translateX(${-(currentIndex * parentWidth)}px)`,
+    transform: `translateX(${-(currentIndex * parentWidth-200)}px)`,
   });
 
   useEffect(() => {
@@ -100,14 +78,6 @@ const ImageSlider = ({ slides, parentWidth }) => {
 
   return (
     <div style={sliderStyles}>
-      {/* <div>
-        <div onClick={goToPrevious} style={leftArrowStyles}>
-          ❰
-        </div>
-        <div onClick={goToNext} style={rightArrowStyles}>
-          ❱
-        </div>
-      </div> */}
       <div style={slidesContainerOverflowStyles} className={'overFlow_container'}>
         <div style={getSlidesContainerStylesWithWidth()}>
           {slides.map((_, slideIndex) => (

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
@@ -32,12 +33,14 @@ const LoginSignUp = ({ history, location }) => {
     password: "",
     mobile: "",
     role: "user",
+    address: "",
+    dealershipName: "",
     verifyButton: false,
     verifyOtp: false,
     otp: "",
   });
 
-  const { name, email, password, mobile, role } = user;
+  const { name, email, password, mobile, role, address, dealershipName } = user;
 
   const [avatar, setAvatar] = useState("/Images/Profile.png");
   const [avatarPreview, setAvatarPreview] = useState("/Images/Profile.png");
@@ -65,6 +68,8 @@ const LoginSignUp = ({ history, location }) => {
     myForm.set("avatar", avatar);
     myForm.set("mobile", mobile);
     myForm.set("role", role);
+    myForm.set("address", address);
+    myForm.set("dealershipName", dealershipName);
 
     dispatch(register(myForm));
   };
@@ -144,7 +149,7 @@ const LoginSignUp = ({ history, location }) => {
         <Loader />
       ) : (
         <Fragment>
-          <div className="LoginSignUpContainer flex justify-center">
+          <div className="LoginSignUpContainer pt-[50px] flex justify-center">
             <div id="recaptcha-container"></div>
             <div className="left-main-container sm:relative sm:top-[-100px] sm:h-[920px] p-3 flex flex-row h-[550px] w-[60vw] sm:w-[100vw] sm:flex-col sm:justify-center sm:align-baseline">
               <img
@@ -205,7 +210,7 @@ const LoginSignUp = ({ history, location }) => {
                 {/* signup or Register  */}
                 {activeTab === "register" && showForm ? (
                   <form
-                    className="signUpForm sm:h-[400px] xs:px-6 flex flex-col gap-2 mt-[4rem]"
+                    className="signUpForm sm:h-[400px] xs:px-6 flex flex-col gap-2 mt-[6rem] sm:mt-[120px]"
                     ref={registerTab}
                     encType="multipart/form-data"
                     onSubmit={registerSubmit}
@@ -250,6 +255,35 @@ const LoginSignUp = ({ history, location }) => {
                           Dealer
                         </option>
                       </select>
+                    </div>
+
+                    {/* dealershipName  */}
+                    {user.role === "dealer" && (
+                      <div className="signUpDealershipName">
+                        <MdDriveFileRenameOutline />
+                        <input
+                          type="text"
+                          placeholder="Dealership Name"
+                          required
+                          name="dealershipName"
+                          value={user.dealershipName}
+                          onChange={registerDataChange}
+                          className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+                    )}
+
+                    {/* address input  */}
+                    <div className="signUpAddress">
+                      <textarea 
+                        type="text"
+                        placeholder="Address"
+                        required
+                        name="address"
+                        value={user.address}
+                        onChange={registerDataChange}
+                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                      />
                     </div>
 
                     {/* Password */}

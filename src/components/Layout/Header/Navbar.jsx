@@ -102,13 +102,13 @@ const Navbar = () => {
             <Link to={'/sellCar'}> SELL CAR</Link>
           </li>
           <li className='p-4'>
-            <Link to={'/about'}> ABOUT CARSBECHO</Link>
+            <Link to={'/in-progress'}> ABOUT CARSBECHO</Link>
           </li>
           <li className='p-4'>
-            <Link to={'/workshop'}> WORKSHOP</Link>
+            <Link to={'/in-progress'}> WORKSHOP</Link>
           </li>
           <li className='p-4'>
-            <Link to={'/news'}> NEWS & REVIEWS</Link>
+            <a href='https://www.businessworld.in/article/CarsBecho-The-Fastest-Growing-Auto-Tech-Startup-Built-On-5irechain/23-12-2022-459255/' target='_blank'> NEWS & REVIEWS</a>
           </li>
         </ul>
         <div className="location flex p-4 items-center text-slate-600">

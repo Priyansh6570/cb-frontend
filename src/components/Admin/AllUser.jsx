@@ -52,8 +52,8 @@ const AllUser = () => {
   };
 
   return (
-    <div className="container mx-auto p-8 px-[50px]">
-      <h1 className="text-3xl font-bold mb-14">All Users</h1>
+    <div className="container mx-auto p-8 px-[50px] overflow-x-scroll">
+      <h1 className="text-3xl font-bold mb-14 ">All Users</h1>
       <table className="min-w-full border-collapse">
       <colgroup>
         <col style={{ width: '8%' }} /> {/* Serial Number */}

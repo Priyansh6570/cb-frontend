@@ -4,6 +4,7 @@ import Loader from "../Layout/Loader/Loader";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
@@ -18,6 +19,8 @@ const UpdateProfile = ({ history }) => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [dealershipName, setDealershipName] = useState("");
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState("../../../public/Images/Profile.png");
 
@@ -28,7 +31,13 @@ const UpdateProfile = ({ history }) => {
 
     myForm.set("name", name);
     myForm.set("email", email);
-    myForm.set("avatar", avatar);
+    myForm.set("dealershipName", dealershipName);
+    myForm.set("address", address);
+    if (avatar) {
+      myForm.set("avatar", avatar);
+    } else {
+      myForm.set("avatar", "");
+    }
     dispatch(updateProfile(myForm));
   };
 
@@ -51,6 +60,8 @@ const UpdateProfile = ({ history }) => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
+      setDealershipName(user.dealershipName);
+      setAddress(user.address);
       setAvatarPreview(avatarImg);
     }
 
@@ -100,7 +111,7 @@ const UpdateProfile = ({ history }) => {
               <div className="profileContainer__right rounded-xl w-[50%] sm:w-full sm:h-[558px] bg-[#ffffff8f] flex flex-col gap-5 p-6">
                 <div className="profileContainer__right__top flex flex-col gap-4 items-center h-full justify-evenly">
                 <form
-                className="updateProfileForm h-[200px] m-0 p-0 w-full sm:relative sm:top-[-100px] sm:gap-4"
+                className="updateProfileForm gap-4 h-[200px] m-0 p-0 w-full sm:relative sm:top-[-100px] sm:gap-4"
                 encType="multipart/form-data"
                 onSubmit={updateProfileSubmit}
               >
@@ -116,6 +127,21 @@ const UpdateProfile = ({ history }) => {
                     className="w-[120%]"
                   />
                 </div>
+                {/* dealership name if user role is dealer  */}
+                {user.role === "dealer" && (
+                  <div className="updateProfileName">
+                    <MdDriveFileRenameOutline />
+                    <input
+                      type="text"
+                      placeholder="Dealership Name"
+                      required
+                      name="dealershipName"
+                      value={dealershipName}
+                      onChange={(e) => setDealershipName(e.target.value)}
+                      className="w-[120%]"
+                    />
+                    </div>
+                    )} 
                 <div className="updateProfileEmail">
                   <MailOutlineIcon />
                   <input
@@ -129,10 +155,22 @@ const UpdateProfile = ({ history }) => {
                   />
                 </div>
 
+                <div className="updateProfileAddress">
+                  <textarea
+                    type="text"
+                    placeholder="Address"
+                    required
+                    name="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-[120%] px-4 pt-4 border-[1px] border-[#7b7b7b77] rounded"
+                  />
+                </div>
+
                   <input
                   type="submit"
                   value="Update"
-                  className="updateProfileBtn bg-[#ee3131] w-[60%] btn relative bottom-[-70px]"
+                  className="updateProfileBtn bg-[#ee3131] w-[60%] btn relative bottom-[-40px]"
                   />
                   </form>
                 </div>

@@ -22,7 +22,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`sidebar gap-5 overflow-hidden ${isSidebarOpen ? "" : "collapsed"}`}>
+    <div className={`sidebar gap-5 overflow-hidden ${isSidebarOpen ? "" : "collapsed"} sm:hidden`}>
   <button onClick={handleToggleSidebar} className="toggle-button">
     <BsFillArrowLeftCircleFill
       className={`collapse-icon relative top-[10%] scale-[2.5] text-[#ee3131] ${
@@ -46,7 +46,7 @@ const Sidebar = () => {
            Dashboard
         </p>
       </Link>
-      <hr />
+      {/* <hr /> */}
       <Link className='mt-6 flex gap-4'>
         <TreeView className="tree flex gap-4"
           defaultCollapseIcon={<ExpandMoreIcon />}
@@ -63,21 +63,21 @@ const Sidebar = () => {
           </TreeItem>
         </TreeView>
       </Link>
-      <hr className={`${isSidebarOpen ? "relative top-7" : "collapsed"}`} />
+      {/* <hr className={`${isSidebarOpen ? "relative top-7" : "collapsed"}`} /> */}
       <Link to="/admin/orders" className='mt-10 flex gap-4'>
           <ListAltIcon />
         <p>
           Orders
         </p>
       </Link>
-      <hr />
+      {/* <hr /> */}
       <Link to="/admin/allUsers" className='mt-6 flex gap-4'>
           <PeopleIcon />
         <p>
            Users
         </p>
       </Link>
-      <hr />
+      {/* <hr /> */}
     </div>
   );
 };

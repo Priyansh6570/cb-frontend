@@ -20,9 +20,9 @@ const Profile = ({ history }) => {
       ) : (
         <Fragment>
           <MetaData title={`${user.name}'s Profile`} />
-          <div className="LoginSignUpContainer flex justify-center align-top pt-[80px] sm:h-[890px] sm:p-0 bg-[#202e44]">
-            <div className="profileContainer p-3 bg-slate-200 w-[60%] sm:w-full sm:h-[930px] sm:rounded-none h-[500px] flex sm:flex-col gap-3 rounded-2xl">
-              <div className="profileContainer__left w-[50%] sm:h-[458px] sm:w-full rounded-xl flex flex-col justify-center gap-6 items-center bg-[#ffffff00]">
+          <div className="LoginSignUpContainer flex justify-center align-top sm:h-[1000px] bg-[#ffffff]">
+            <div className="profileContainer p-3 bg-slate-200 w-[100%] sm:w-full sm:h-[950px] sm:rounded-none h-full flex sm:flex-col gap-3 rounded-2xl">
+              <div className="profileContainer__left w-[50%] sm:h-[358px] sm:w-full rounded-xl flex flex-col justify-center gap-6 items-center bg-[#ffffff00]">
                 <h1 className="text-[30px] font-sans font-bold">My Profile</h1>
                 <div className="profileContainer__left__imgContainer border-[0.5px] border-[#ee3131] w-[200px] h-[200px] rounded-[100%] overflow-hidden">
                   <img
@@ -44,20 +44,43 @@ const Profile = ({ history }) => {
                 </Link>
               </div>
 
-              <div className="profileContainer__right rounded-xl w-[50%] sm:w-full sm:h-[558px] bg-[#ffffff8f] flex flex-col gap-5 p-6">
-                <div className="profileContainer__right__top flex flex-col gap-4 items-center">
+              <div className="profileContainer__right rounded-xl text-center w-[50%] sm:w-full sm:h-[598px] bg-[#ffffff8f] flex flex-col gap-5 p-6 pl-12">
+                <div className="profileContainer__right__top flex flex-col gap-4">
                   <h4 className="text-xl font-semibold place-self-start">
                     Full Name
                   </h4>
                   <div className="heading-name sm:min-w-[80vw] h-fit w-[80%] border-1 place-self-start rounded-lg border-black bg-[#bcc7d294] p-2 flex justify-center">
                     <h1 className="text-xl font-normal">{user.name}</h1>
                   </div>
+
+                  {/* Dealership name if user role is dealer  */}
+                  {user.role === "dealer" && (
+                    <Fragment>
+                      <h4 className="text-xl font-semibold place-self-start">
+                        Dealership Name
+                      </h4>
+                      <div className="heading-name sm:min-w-[80vw] h-fit w-[80%] border-1 place-self-start rounded-lg border-black bg-[#bcc7d294] p-2 flex justify-center">
+                        <h1 className="text-xl font-normal">
+                          {user.dealershipName}
+                        </h1>
+                      </div>
+                    </Fragment>
+                  )}
+
                   <h4 className="text-xl font-semibold place-self-start relative left-0">
                     Email
                   </h4>
                   <div className="email sm:min-w-[80vw] xs:min-w-full sm:min-h-[45px] xs:min-h-[45px] h-fit w-[80%] place-self-start border-1 rounded-lg border-black bg-[#bcc7d294] p-2 flex justify-center">
                     <p className="text-lg xs:text-base place-self-middle relative sm:top-[5px] font-normal">
                       {user.email}
+                    </p>
+                  </div>
+                  <h4 className="text-xl font-semibold place-self-start relative left-0">
+                    Address
+                  </h4>
+                  <div className="email sm:min-w-[80vw] xs:min-w-full sm:min-h-[45px] xs:min-h-[45px] h-fit w-[80%] place-self-start border-1 rounded-lg border-black bg-[#bcc7d294] p-2 flex justify-center">
+                    <p className="text-lg xs:text-base place-self-middle relative sm:top-[5px] font-normal">
+                      {user.address}
                     </p>
                   </div>
                   <h4 className="text-xl font-semibold place-self-start relative left-0">
@@ -76,16 +99,16 @@ const Profile = ({ history }) => {
                     </p>
                   </div>
 
-                  <div className="profileContainer__right__top__btns justify-end gap-4 sm:mt-[30px] flex flex-row relative bottom-[-130px] sm:bottom-0 items-center">
+                  <div className="profileContainer__right__top__btns mt-4 ml-[100px] sm:ml-0 xs:flex-col xs:mx-auto gap-4 sm:mt-[30px] flex flex-row">
                     <Link
                       to="/orders"
-                      className="btn btn-primary btn bg-[#ee3131] text-white text-lg font-sans flex place-content-center p-2 rounded justify-center w-[200px] sm:w-[150px] h-[40px]"
+                      className="btn btn-primary btn bg-[#ee3131] text-white text-lg place-self-start font-sans flex p-2 rounded justify-center w-[200px] sm:w-[150px] h-[40px]"
                     >
                       My Orders
                     </Link>
                     <Link
                       to="/password/update"
-                      className="btn btn-primary btn bg-[#ee3131] text-white text-lg font-sans flex place-content-center p-2 rounded justify-center w-[200px] sm:w-[150px] h-[40px]"
+                      className="btn btn-primary btn bg-[#ee3131] text-white text-lg place-self-start font-sans flex p-2 rounded justify-center w-[200px] sm:w-[150px] h-[40px]"
                     >
                       Change Password
                     </Link>

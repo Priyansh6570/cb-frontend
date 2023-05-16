@@ -103,7 +103,7 @@ const ApproveCar = () => {
 
           <div className="carDetail_carOverview w-full h-[372px] sm:h-[500px] flex flex-col gap-4 p-8 sm:p-2 rounded-2xl">
             <h2 className="text-2xl sm:px-8 sm:py-4 font-bold">Overview</h2>
-            <hr />
+            {/* <hr /> */}
             <ul className="flex gap-8 sm:gap-6 sm:ml-4 sm:text-sm w-[100%] flex-wrap">
               <li className="flex gap-4 items-center">
                 <span className="w-[50%] font-semibold overview-label">
@@ -176,13 +176,13 @@ const ApproveCar = () => {
           
           <div className="carDescription w-full h-fit sm:h-fit flex flex-col gap-4 p-8 sm:px-2 rounded-2xl">
             <h2 className="text-2xl sm:px-8 sm:py-4 font-bold">Description</h2>
-            <hr />
+            {/* <hr /> */}
             <p className="sm:px-4">{car.description}</p>
           </div>
         </div>
 
-        <div className="right price sm:h-[400px] sm:w-full sm:p-1 h-fit w-[480px] p-8 flex gap-4 flex-col">
-          <h2 className="font-semibold text-lg">Car Verification</h2>
+        <div className="right price sm:h-fit sm:my-8 sm:w-full sm:p-1 h-fit w-[480px] p-8 flex gap-4 flex-col">
+          <h2 className="font-semibold text-lg sm:my-4 sm:p-4">Car Verification</h2>
           {/* <select
             value={car?.verified ? "true" : "false"}
             onChange={(e) => handleApprove(id, e.target.value)}

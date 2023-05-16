@@ -125,16 +125,6 @@ const NavbarMobile = () => {
         <div className="left flex flex-col bg-white w-[80%] h-[100vh]">
           <div className="top flex justify-between w-[100%] bg-slate-200 h-[80px]">
             <Link to={'/'} className="brandName-logo flex items-center scale-[0.8] relative left-[-15px]" onClick={showSidebar}>
-              {/* <img
-                src={'/Images/cbLogo.png'}
-                alt="Cars Becho Logo"
-                className="brandLogo h-[60px] relative top-[-1px] hidden sm:block"
-              />
-              <img
-                src={'/Images/brandName-clearBG.png'}
-                alt="Cars Becho Name"
-                className="brandName h-[40px] scale-[1.09] relative top-1 left-2 hidden sm:block"
-              /> */} 
               <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName w-[375px] relative top-1 sm:block' />
             </Link>
 
@@ -163,35 +153,35 @@ const NavbarMobile = () => {
                   Sell Car
               </li>
                 </Link>
-                <Link to={'/about'} className="sidebar-link">
+                <Link to={'/in-progress'} className="sidebar-link">
               <li className="nav-link_sideBar hover:bg-slate-100 border-b-2">
                   {' '}
                   About CarsBecho
               </li>
                 </Link>
-                <Link to={'/mechWarren'} className="sidebar-link">
+                <Link to={'/in-progress'} className="sidebar-link">
               <li className="nav-link_sideBar hover:bg-slate-100 border-b-2">
                   MechWarran
               </li>
                 </Link>
-                <Link to={'/workshop'} className="sidebar-link">
+                <Link to={'/in-progress'} className="sidebar-link">
               <li className="nav-link_sideBar hover:bg-slate-100 border-b-2">
                   {' '}
                   Workshop
               </li>
                 </Link>
-                <Link to={'/contactUs'} className="sidebar-link">
+                <Link to={'/in-progress'} className="sidebar-link">
               <li className="nav-link_sideBar hover:bg-slate-100 border-b-2">
                   {' '}
                   Contact Us
               </li>
                 </Link>
-                <Link to={'/news'} className="sidebar-link">
+                <a href='https://www.businessworld.in/article/CarsBecho-The-Fastest-Growing-Auto-Tech-Startup-Built-On-5irechain/23-12-2022-459255/' target='_blank' className="sidebar-link">
               <li className="nav-link_sideBar hover:bg-slate-100 border-b-2">
                   {' '}
                   News & Reviews
               </li>
-                </Link>
+                </a>
             </ul>
           </div>
 

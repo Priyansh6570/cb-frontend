@@ -1,9 +1,12 @@
-.seller_details {
-    /* From https://css.glass */
-background: rgba(219, 219, 219, 0.13);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5.4px);
--webkit-backdrop-filter: blur(5.4px);
-border: 1px solid rgba(255, 255, 255, 0.31);
+
+
+.sd {
+    box-shadow: -10px -10px 10px #ffffff70, 10px 10px 10px #aeaec020;
+    border-bottom: 1px solid #e1e1e1;
+}
+.sdn {
+    box-shadow: -10px -10px 30px #ffffff, 10px 10px 30px #aeaec040;
+}
+.down {
+    background-color: #f0f0f3;
 }

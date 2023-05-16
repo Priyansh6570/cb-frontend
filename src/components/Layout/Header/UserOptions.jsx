@@ -51,7 +51,7 @@ const UserOptions = ({ user, top, top1 }) => {
   }
 
   function dealerStore() {
-    history.push("/seller/:id");
+    history.push("/seller");
   }
 
   function wishlist() {

@@ -27,6 +27,8 @@ import AllDealer from "./components/Admin/AllDealer";
 import PendingCars from "./components/Admin/PendingCars";
 import ApproveCar from "./components/Admin/ApproveCar.jsx";
 import SellerCarPage from "./components/Seller/SellerCarPage";
+import InProgress from "./components/Layout/Progress/InProgress";
+import About from "./components/Layout/About/About";
 axios.defaults.withCredentials=true;
 
 function App() {
@@ -53,11 +55,13 @@ function App() {
         <Route strict path="/car/:id" component={CarDetail} />
         <Route exact path="/cars" component={UsedCar} />
         <Route exact path="/cars/:keyword?" component={UsedCar} />
+        <Route exact path="/about" component={About} />
         <ProtectedRoute exact path="/account" component={Profile} />
         <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
         <ProtectedRoute exact path="/wishlist/me" component={GetWishlist} />
         <Route exact path="/sellerCar/:id" component={SellerCarPage} />
-        <Route exact path="/seller/:id" component={SellerPage} />
+        <Route exact path="/seller" component={SellerPage} />
+        <Route exact path="/in-progress" component={InProgress} />
 
         <ProtectedRoute
           exact

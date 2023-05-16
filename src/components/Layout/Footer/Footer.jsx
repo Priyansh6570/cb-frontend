@@ -57,16 +57,6 @@ const Footer = () => {
         <div className="footer-upper-container w-[80vw] h-[100%] mx-auto flex justify-between items-center">
           <div className="footer-upper-left w-[360px] object-contain flex flex-col gap-8 relative top-[-5px] scale-[0.9]">
             <div className="navBrand flex shrink-0 items-center w-[300px] scale-[1.2]">
-              {/* <img
-                src={'/Images/cbLogo.png'}
-                alt="Cars Becho Logo"
-                className="brandLogo h-[60px] relative top-[-1px]"
-              />
-              <img
-                src={'/Images/brandName-clearBG.png'}
-                alt="Cars Becho Name"
-                className="brandName h-[45px] relative top-1"
-              /> */}
               <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName h-[75px] relative top-1 sm:block' />
             </div>
             <div className="get-it-on flex items-center gap-[20px]">
@@ -99,8 +89,8 @@ const Footer = () => {
             <div className="contact flex flex-col gap-8 text-base font-medium">
               <h3>CONNECT WITH US</h3>
               <ul className='gap-4 flex flex-col text-sm text-[#666]'>
-                <li>1800 200 678 (Toll-Free)</li>
-                <li>support@carsbecho.com</li>
+                <li>8269944190</li>
+                <li>Care@CarsBecho.com</li>
                 <li className='cursor-pointer'>Customer Care</li>
                 <li className='cursor-pointer'>Contact Us</li>
                 <li className='cursor-pointer'>Feedback</li>
@@ -110,8 +100,8 @@ const Footer = () => {
               <h3>OTHERS</h3>
               <ul className='gap-4 flex flex-col text-sm text-[#666]'>
                 <li className='cursor-pointer'>Blog</li>
+                <li className='cursor-pointer'><a href="https://www.businessworld.in/article/CarsBecho-The-Fastest-Growing-Auto-Tech-Startup-Built-On-5irechain/23-12-2022-459255/" target='_blank'>Press Release</a> </li>
                 <li className='cursor-pointer'>News</li>
-                <li className='cursor-pointer'>Press Release</li>
                 <li className='cursor-pointer'>Partners</li>
                 <li className='cursor-pointer'>Advertise with us</li>
               </ul>
