@@ -20,6 +20,7 @@ const WishList = ({ carId }) => {
   const handleAddToWishlist = () => {
     if (isAuthenticated) {
       dispatch(addToWishlist(carId));
+      alert.success('Added to wishlist');
       setIsAdded(true);
     } else {
       // Handle case when user is not logged in
@@ -31,6 +32,7 @@ const WishList = ({ carId }) => {
   const handleRemoveFromWishlist = () => {
     if (isAuthenticated) {
       dispatch(addToWishlist(carId));
+      alert.success('Removed from wishlist');
       setIsAdded(false);
     } else {
       alert.error('Please login to add to wishlist');

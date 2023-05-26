@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="perk-container w-[80vw] h-[100%] mx-auto flex items-center gap-16">
           <div className="perk  perk1 ml-6  gap-4 flex w-[300px]">
             <div className="perk-icon w-[70px]">
-              <img src={'Images/user.png'} alt="user-icon" />
+              <img src={'/Images/user.png'} alt="user-icon" />
             </div>
             <div className="perk-text object-contain flex flex-col justify-start  ">
               <h3>Verified Dealers</h3>
@@ -24,7 +24,7 @@ const Footer = () => {
           </div>
           <div className="perk  perk1 ml-6  gap-4 flex w-[300px]">
             <div className="perk-icon w-[70px]">
-              <img src={'Images/car-wash.png'} alt="Track your car Logo" />
+              <img src={'/Images/car-wash.png'} alt="Track your car Logo" />
             </div>
             <div className="perk-text object-contain flex flex-col justify-start  ">
               <h3>Track your car</h3>
@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
           <div className="perk  perk1 ml-6  gap-4 flex w-[300px]">
             <div className="perk-icon w-[70px]">
-              <img src={'Images/24-hours-support.png'} alt="24/7 icon" />
+              <img src={'/Images/24-hours-support.png'} alt="24/7 icon" />
             </div>
             <div className="perk-text object-contain flex flex-col justify-start  ">
               <h3>24x7 helpline</h3>
@@ -42,7 +42,7 @@ const Footer = () => {
           </div>
           <div className="perk  perk1 ml-6  gap-4 flex w-[500px]">
             <div className="perk-icon w-[60px]">
-              <img src={'Images/warranty.png'} alt="warrenty icon" />
+              <img src={'/Images/warranty.png'} alt="warrenty icon" />
             </div>
             <div className="perk-text object-contain flex flex-col justify-start  ">
               <h3>Warranty</h3>
@@ -60,8 +60,8 @@ const Footer = () => {
               <img src={'/Images/brandNameNew.png'} alt="CarsBecho Logo" className='brandName h-[75px] relative top-1 sm:block' />
             </div>
             <div className="get-it-on flex items-center gap-[20px]">
-                <a href="#"> <img src={'Images/googlePlay.png'} alt="googlePlay Link" className='h-[42px] w-[130px] scale-[1.2] opacity-[0.9] cursor-pointer' /></a>
-              <a href="">  <img src={'Images/appStore.png'} alt="appStore Link" className='h-[52px] w-[140px] scale-[1.2] opacity-[0.9] cursor-pointer' /></a>
+                <a href="#"> <img src={'/Images/googlePlay.png'} alt="googlePlay Link" className='h-[42px] w-[130px] scale-[1.2] opacity-[0.9] cursor-pointer' /></a>
+              <a href="">  <img src={'/Images/appStore.png'} alt="appStore Link" className='h-[52px] w-[140px] scale-[1.2] opacity-[0.9] cursor-pointer' /></a>
             </div>
             <div className="social-links flex flex-col gap-6 justify-start">
                 <h3 className='text-lg font-medium'>Follow us</h3>

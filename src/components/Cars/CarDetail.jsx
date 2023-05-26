@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
 
@@ -8,45 +7,35 @@ import Carousel from "react-material-ui-carousel";
 import WishList from "./WishList";
 import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader/Loader";
-import Badge from "../Badge";
 import MetaData from "../Layout/MetaData";
 import NumberWithCommas from "../PriceSeperator";
-import ImageSlider from "../Home/ImageSlider";
-import { getError } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { CLEAR_SEARCH_RESULTS } from "../../constants/carConstants";
 import { Collapse, Ripple, initTE } from "tw-elements";
-import {
-  clearErrors,
-  getCarDetails,
-  getRCar,
-} from "../../actions/carAction";
+import { clearErrors, getCarDetails, getRCar } from "../../actions/carAction";
+import { createOrder } from '../../actions/orderAction';
+import Modal from "react-modal";
 
 //Styles, Icons
 import "../../styles/carDetail.scss";
 import { FaGasPump } from "react-icons/fa";
 import { SlSpeedometer } from "react-icons/sl";
 import { GiGearStickPattern } from "react-icons/gi";
-import { FaHeart } from "react-icons/fa";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import ScrollToTopOnMount from "../ScrollToTopOnMount";
 import { HiPlus } from "react-icons/hi";
-import SellerContact from "../Order/SellerContact";
 
 const CarDetail = () => {
   initTE({ Collapse, Ripple });
   const dispatch = useDispatch();
   const alert = useAlert();
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedAction, setSelectedAction] = useState(null);
 
   const { id } = useParams();
   const { car, loading, error } = useSelector((state) => state.carDetails);
   const { cars } = useSelector((state) => state.cars);
-  const [showContactForm, setShowContactForm] = useState(false);
-
-  const handleContactSeller = () => {
-    console.log("clicked");
-    setShowContactForm(true);
-  };
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (error) {
@@ -61,6 +50,50 @@ const CarDetail = () => {
     dispatch(getRCar(car.category, car.price));
   }, [dispatch, car]);
   const seller = car?.user;
+
+  const handleMakeOffer = () => {
+    setSelectedAction('makeOffer');
+    setShowConfirmation(true);
+  };
+
+  const handleContactSeller = () => {
+    setSelectedAction('contactSeller');
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmation = async () => {
+    if (selectedAction === 'makeOffer') {
+      try {
+        const userOrderId = user._id;
+        const carOrderId = car._id;
+        //check if seller._id and userOrderId are same
+        if (seller._id === userOrderId) {
+          alert.error('You cannot make offer on your own car');
+        } else {
+          await dispatch(createOrder(seller._id, userOrderId, carOrderId));
+          alert.success('Request Sent successfully');
+        }
+        setShowConfirmation(false);
+      } catch (error) {
+        alert.error(error.response.data.message);
+      }
+    } else if (selectedAction === 'contactSeller') {
+      try {
+        const userOrderId = user._id;
+        const carOrderId = car._id;
+        if (seller._id === userOrderId) {
+          alert.error('You cannot make offer on your own car');
+        } else {
+          await dispatch(createOrder(seller._id, userOrderId, carOrderId));
+          alert.success('Request Sent successfully');
+        }
+        setShowConfirmation(false);
+      } catch (error) {
+        alert.error(error.response.data.message);
+      }
+    }
+  };
+  
 
   return loading || !car ? (
     <Loader />
@@ -122,26 +155,23 @@ const CarDetail = () => {
               </span>
 
               <span className="flex gap-4 w-full">
-                <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded">
+                <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded" onClick={handleMakeOffer}>
                   Make Offer
                 </button>
-                {showContactForm ? (
-        <SellerContact order={car} />
-      ) : (
-        <button
-          className="contact_seller text-2xl font-bold rounded"
-          onClick={handleContactSeller}
-        >
-          Contact Seller
-        </button>
-      )}
+                  <button
+                    className="contact_seller text-2xl font-bold rounded"
+                    onClick={handleContactSeller}
+                  >
+                    Contact Seller
+                  </button>
               </span>
+              
             </div>
           </div>
 
-          <div className="carDetail_carOverview w-full h-[372px] sm:h-[500px] flex flex-col gap-4 p-8 sm:p-2 rounded-2xl">
+          <div className="carDetail_carOverview overflow-hidden w-full h-[372px] sm:h-[500px] flex flex-col gap-4 p-8 sm:p-2 rounded-2xl">
             <h2 className="text-2xl sm:px-8 sm:py-4 font-bold">Overview</h2>
-            <hr />
+            <hr className="w-full" />
             <ul className="flex gap-8 sm:gap-6 sm:ml-4 sm:text-sm w-[100%] flex-wrap">
               <li className="flex gap-4 items-center">
                 <span className="w-[50%] font-semibold overview-label">
@@ -260,17 +290,41 @@ const CarDetail = () => {
             </span>
 
             <span className="flex gap-4 w-full">
-              <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded">
-                Make Offer
-              </button>
-              <button className="contact_seller text-2xl font-bold rounded">
-                Contact Seller
-              </button>
-            </span>
+        <button className="make_offer bg-[#ee3131] text-white text-2xl font-bold rounded" onClick={handleMakeOffer}>
+          Make Offer
+        </button>
+        <button className="contact_seller text-2xl font-bold rounded" onClick={handleContactSeller}>
+          Contact Seller
+        </button>
+      </span>
+
+       {/* Confirmation Modal */}
+       <Modal
+        isOpen={showConfirmation}
+        onRequestClose={() => setShowConfirmation(false)}
+        className="modal absolute bg-white w-[500px] sm:w-[400px] h-[300px] p-8 justify-center flex flex-col rounded-lg shadow-lg overflow-hidden"
+        overlayClassName="modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+        contentLabel="Confirmation Modal"
+      >
+        <div className="flex flex-col items-center justify-center gap-10">
+          <h2 className="text-2xl font-bold">Confirmation</h2>
+          <p className="text-center">
+            You will be contacted by CarsBecho Team and the seller of <strong>{car.make} {car.model}</strong>  will contact you within 4-5 business hours.
+          </p>
+          <div className="flex space-x-4">
+            <button className="cancel-btn bg-gray-300 text-white text-lg font-bold py-2 px-4 rounded" onClick={() => setShowConfirmation(false)}>
+              Cancel
+            </button>
+            <button className="continue-btn bg-[#ee3131] text-white text-lg font-bold py-2 px-4 rounded" onClick={handleConfirmation}>
+              Continue
+            </button>
+          </div>
+        </div>
+      </Modal>
           </div>
 
-          <WishList carId={car._id} className='flex' />
-          <Link to={`/sellerCar/${seller && seller._id}`} className='sm:px-6'>
+          <WishList carId={car._id} className="flex" />
+          <Link to={`/sellerCar/${seller && seller._id}`} className="sm:px-6">
             <div className="seller_Detail w-full h-[360px] sm:pb-[60px] flex flex-col gap-2 rounded-2xl">
               <div className="top-div w-full overflow-hidden h-[139px]">
                 <span className="seller-title text-sm m-2 py-1 px-4 rounded-2xl bg-[#ffffff60] font-semibold absolute text-white z-10">
@@ -285,11 +339,11 @@ const CarDetail = () => {
                 <div className="seller-img scale-[1.2] w-full h-[50%] flex justify-center items-center">
                   {seller && seller.avatar.length > 0 && (
                     <img
-                    src={seller.avatar[0].url}
-                    alt={seller.name}
-                    className="w-[100px] avatar-image h-[100px] rounded-full border-white border-[5px]"
+                      src={seller.avatar[0].url}
+                      alt={seller.name}
+                      className="w-[100px] avatar-image h-[100px] rounded-full border-white border-[5px]"
                     />
-                    )}
+                  )}
                 </div>
                 <div className="seller-name w-full h-[50%] flex flex-col gap-2">
                   {/* seller name  */}
@@ -333,6 +387,7 @@ const CarDetail = () => {
           </h2>
           <hr />
 
+          <ScrollToTopOnMount />
           <div className="car-container flex w-[1220px] sm:w-[90vw] m-auto overflow-x-auto gap-4 mt-4">
             {cars.map((relatedCar) => {
               return (
@@ -341,7 +396,6 @@ const CarDetail = () => {
                   key={relatedCar._id}
                   className={relatedCar._id === id ? "hidden" : "flex"}
                 >
-                  <ScrollToTopOnMount />
                   <div className="carCard flex flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md w-[294px] sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
                     <div className="img-container-car sm:overflow-hidden">
                       <img

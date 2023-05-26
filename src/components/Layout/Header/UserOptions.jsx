@@ -33,7 +33,7 @@ const UserOptions = ({ user, top, top1 }) => {
     });
   }
 
-  if (user.role === "dealer") {
+  if (user.role === "dealer" || user.role === "broker") {
     options.unshift({
       icon: <AiFillCar />,
       name: "Dealer Store",
@@ -43,7 +43,7 @@ const UserOptions = ({ user, top, top1 }) => {
   const speedDialStyles = {
     zIndex: "11",
     borderColor: "#ee3131",
-    ...(user.role === "admin" || user.role === "dealer" ? { top: top } : { top: top1 }),
+    ...(user.role === "admin" || user.role === "dealer" || user.role === "broker" ? { top: top } : { top: top1 }),
   };
 
   function dashboard() {
@@ -83,9 +83,9 @@ const UserOptions = ({ user, top, top1 }) => {
             src={user.avatar[0].url}
             alt="Profile"
             onError={(e) => {
-              e.target.onerror = null; // prevent infinite loop
-              e.target.src = './Images/man.png'; // fallback image
-              e.target.alt = 'Default Avatar'; // fallback alt text
+              e.target.onerror = null;
+              e.target.src = './Images/man.png';
+              e.target.alt = 'Default Avatar';
             }}
           />
         }

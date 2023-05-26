@@ -1,14 +1,3 @@
-// function NumberWithCommas(x) {
-//     x=x.toString();
-//       var lastThree = x.substring(x.length-3);
-//       var otherNumbers = x.substring(0,x.length-3);
-//       if(otherNumbers != '')
-//           lastThree = ',' + lastThree;
-//       var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-//     return res;
-//   }
-//   export default NumberWithCommas;
-
 function NumberWithCommas(number) {
   const map = {
     Lakh: 100000,
@@ -30,15 +19,14 @@ function NumberWithCommas(number) {
         return `${quotient}.${remainder / 1000} ${words[i]}`;
       } else {
         const remainderInWords = NumberWithCommas(remainder);
-        return `${quotient}.${remainderInWords} ${words[i]}`;
+        const decimalIndex = remainderInWords.indexOf('.');
+        const formattedRemainder = decimalIndex !== -1 ? remainderInWords.substring(0, decimalIndex) : remainderInWords;
+        return `${quotient}.${formattedRemainder} ${words[i]}`;
       }
     }
   }
 
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return number.toLocaleString('en-IN', { useGrouping: false });
 }
 
 export default NumberWithCommas;
-
-
-

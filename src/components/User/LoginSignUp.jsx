@@ -254,6 +254,9 @@ const LoginSignUp = ({ history, location }) => {
                         <option value="dealer" className="text-primary">
                           Dealer
                         </option>
+                        <option value="broker" className="text-primary">
+                        Authentic Brokers
+                        </option>
                       </select>
                     </div>
 
@@ -327,7 +330,7 @@ const LoginSignUp = ({ history, location }) => {
                         onOtpVerification={handleOtpVerification}
                       />
                       <button
-                        className="btn-next relative left-[160px]"
+                        className="btn-next w-full relative left-[160px]"
                         onClick={showFormComponent}
                         disabled={!otpVerified}
                       >

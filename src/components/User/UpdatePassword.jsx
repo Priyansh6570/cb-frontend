@@ -64,7 +64,7 @@ const UpdatePassword = ({ history }) => {
           <div className="updatePasswordContainer sm:p-0 sm:h-[60vh] xs:h-[70vh] flex justify-center align-start">
             <div className="main-container sm:flex-col sm:w-full w-[60%] rounded-xl justify-evenly p-6 h-[550px] flex">
               <div className="updatePass_left h-full w-[50%] rounded-xl">
-                <img src='../../../public/Images/padlock.png' alt="password procted" className=" scale-[0.8] relative sm:absolute sm:top-[-40px] sm:scale-[0.1] sm:right-[-100px] bottom-[-50px]" />
+                <img src='/Images/padlock.png' alt="password procted" className=" scale-[0.8] relative sm:absolute sm:top-[-40px] sm:scale-[0.1] sm:right-[-100px] bottom-[-50px]" />
               </div>
 
               <div className="updatePass_right h-full px-[5%] py-[1%] w-[50%] sm:w-full justify-center">
@@ -109,17 +109,6 @@ const UpdatePassword = ({ history }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                {/* <div className="password-toggle-container">
-                  <input
-                    type="checkbox"
-                    id="password-toggle"
-                    checked={showPassword}
-                    onChange={togglePasswordVisibility}
-                  />
-                  <label htmlFor="password-toggle">
-                    Show Password
-                  </label>
-                </div> */}
                 <input
                   type="submit"
                   value="Change"

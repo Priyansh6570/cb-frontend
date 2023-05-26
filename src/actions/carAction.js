@@ -34,7 +34,7 @@ import {
 const host = "http://localhost:5000";
 
 export const getCar =
-  (keyword = "", currentPage = 1, price = [10000, 10000000], category, fuel, transmission) =>
+  (keyword = "", currentPage = 1, price = [10000, 50000000], category, fuel, transmission) =>
   async (dispatch) => {
     if (typeof dispatch === 'function') {
       try {
@@ -45,9 +45,9 @@ export const getCar =
         // Search for each word in the keyword
         if (keyword) {
           const keywords = keyword.split(' ');
-          keywords.forEach((word) => {
-            link += `&keyword=${word}`;
-          });
+keywords.forEach((word) => {
+  link += `&keyword=${word}`;
+});
         }
 
         if (price.length === 2) {
@@ -78,7 +78,6 @@ export const getCar =
     }
   };
 
-
   export const getRCar =
   (category, price) =>
   async (dispatch) => {
@@ -106,8 +105,6 @@ export const getCar =
       }
     }
   };
-
-
 
 // Get All Cars By Seller
 export const getAllCarsBySeller = (userId) => async (dispatch) => {
@@ -184,8 +181,6 @@ export const approvePendingCar = (id) => async (dispatch) => {
       `${host}/api/v1/cars/pending/${id}`,
       { verified: true } // Include the verified property in the request body
     );
-
-    console.log(data, 'id: ', id);
     dispatch({
       type: ADMIN_CAR_SUCCESS,
       payload: data.approvedCar, // Update the payload to include the approved car object
@@ -209,11 +204,11 @@ export const updateCar = (userId, carId, carData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${host}/api/v1/user/${userId}/car/${carId}`,
+      `${host}/api/v1/${userId}/car/${carId}`,
       carData,
       config
     );
-
+console.log(data.car);
     dispatch({
       type: UPDATE_CAR_SUCCESS,
       payload: data.car, // Pass the updated car object as payload
@@ -239,6 +234,7 @@ export const deleteCar = (id) => async (dispatch) => {
       type: DELETE_CAR_SUCCESS,
       payload: data.success,
     });
+    return data;
   } catch (error) {
     dispatch({
       type: DELETE_CAR_FAIL,

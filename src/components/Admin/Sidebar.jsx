@@ -46,38 +46,32 @@ const Sidebar = () => {
            Dashboard
         </p>
       </Link>
-      {/* <hr /> */}
-      <Link className='mt-6 flex gap-4'>
-        <TreeView className="tree flex gap-4"
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ImportExportIcon />}
-        >
-          <TreeItem nodeId="1" label={` ${isSidebarOpen ? "Cars" : ""} `}>
-            <Link to="/admin/cars" className={`${isSidebarOpen ? "mt-3 relative top-3" : "relative right-4 flex gap-4 "}`}>
-              <TreeItem nodeId="2" label={` ${isSidebarOpen ? "All" : ""} `} icon={<PostAddIcon />} />
-            </Link>
-
-            <Link to="/admin/car" className={`${isSidebarOpen ? "mt-3 relative top-6" : "relative right-4 flex gap-4 "}`}>
-              <TreeItem nodeId="3" label={` ${isSidebarOpen ? "Create" : ""} `} icon={<AddIcon />} />
-            </Link>
-          </TreeItem>
-        </TreeView>
+      <Link className="mt-6 flex gap-4">
+  <TreeView className="tree flex gap-4" defaultCollapseIcon={<ExpandMoreIcon />} defaultExpandIcon={<ImportExportIcon />}>
+    <TreeItem nodeId="1" label={` ${isSidebarOpen ? "Cars" : ""} `}>
+      <Link to="/seller" className={`${isSidebarOpen ? "mt-3 relative top-3" : "relative right-4 flex gap-4 "}`}>
+        <TreeItem nodeId="2" label={` ${isSidebarOpen ? "My Cars" : ""} `} icon={<PostAddIcon />} defaultExpanded /> {/* Add defaultExpanded prop */}
       </Link>
-      {/* <hr className={`${isSidebarOpen ? "relative top-7" : "collapsed"}`} /> */}
-      <Link to="/admin/orders" className='mt-10 flex gap-4'>
+
+      <Link to="/sellCar" className={`${isSidebarOpen ? "mt-3 relative top-6" : "relative right-4 flex gap-4 "}`}>
+        <TreeItem nodeId="3" label={` ${isSidebarOpen ? "Create" : ""} `} icon={<AddIcon />} defaultExpanded /> {/* Add defaultExpanded prop */}
+      </Link>
+    </TreeItem>
+  </TreeView>
+</Link>
+
+      <Link to={`/orders/${user._id}`} className='mt-10 flex gap-4'>
           <ListAltIcon />
         <p>
           Orders
         </p>
       </Link>
-      {/* <hr /> */}
       <Link to="/admin/allUsers" className='mt-6 flex gap-4'>
           <PeopleIcon />
         <p>
            Users
         </p>
       </Link>
-      {/* <hr /> */}
     </div>
   );
 };

@@ -160,7 +160,7 @@ border-radius: 8px;
     width: 100%;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.267);
-    border-radius: 4px;
+    border-radius: 2px;
     font: 300 0.9vmax cursive;
     outline: none;
   }
@@ -302,8 +302,8 @@ height: 710px;
       scale: 1.4;
     }
 .signUpForm > div > input, .loginForm > div > input {
-  padding: 1.6vmax 4vmax;
-  font: 300 1.4vmax 'Arial';
+  padding: 0.8vmax 4vmax;
+  font: 300 1vmax 'Arial';
 }
 
 .loginForm > div > svg, .signUpForm > div > svg {

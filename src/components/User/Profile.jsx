@@ -45,7 +45,7 @@ const Profile = ({ history }) => {
               </div>
 
               <div className="profileContainer__right rounded-xl text-center w-[50%] sm:w-full sm:h-[598px] bg-[#ffffff8f] flex flex-col gap-5 p-6 pl-12">
-                <div className="profileContainer__right__top flex flex-col gap-4">
+                <div className="profileContainer__right__top flex pl-[100px] pt-[50px] sm:p-0 flex-col gap-4">
                   <h4 className="text-xl font-semibold place-self-start">
                     Full Name
                   </h4>
@@ -99,12 +99,18 @@ const Profile = ({ history }) => {
                     </p>
                   </div>
 
-                  <div className="profileContainer__right__top__btns mt-4 ml-[100px] sm:ml-0 xs:flex-col xs:mx-auto gap-4 sm:mt-[30px] flex flex-row">
+                  <div className="profileContainer__right__top__btns mt-8 relative left-[-50px] sm:left-0 sm:flex-wrap sm:justify-center sm:ml-0 xs:flex-col xs:mx-auto gap-4 sm:mt-[30px] flex flex-row">
                     <Link
-                      to="/orders"
+                      to={`/orders/${user._id}`}
                       className="btn btn-primary btn bg-[#ee3131] text-white text-lg place-self-start font-sans flex p-2 rounded justify-center w-[200px] sm:w-[150px] h-[40px]"
                     >
                       My Orders
+                    </Link>
+                    <Link
+                      to={`/seller`}
+                      className="btn btn-primary btn bg-[#ee3131] text-white text-lg place-self-start font-sans flex p-2 rounded justify-center w-[200px] sm:w-[150px] h-[40px]"
+                    >
+                      My Cars
                     </Link>
                     <Link
                       to="/password/update"

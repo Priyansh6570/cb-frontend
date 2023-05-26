@@ -129,7 +129,7 @@ const SellerCarPage = () => {
 
         <section className="seller_cars w-[70%] sm:w-full mx-auto mt-5 sm:mt-0">
           <div className="main w-full bg-[url('/Images/bg-car-side.jpg')] bg-fixed bg-cover mx-auto m-8 h-[200px] sm:h-[150px] rounded-2xl ">
-            <h2 className="-z-1 -left-1 -right-1 -bottom-1 text-black  text-[30px] scale-[1.5] sm:text-[#fff] sm: xs:top-[0.9rem] xs:text-black sm:top-[1.4rem] sm:left-[-20px] font-sans font-bold relative top-9 pt-8 justify-center flex" style={{ textShadow: '2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000' }}>
+            <h2 className="text-[30px] scale-[1.5] sm:text-[#fff] sm: xs:top-[0.9rem] xs:text-black sm:top-[1.4rem] sm:left-[-20px] font-sans font-bold relative top-9 pt-8 justify-center flex">
               Cars
             </h2>
           </div>

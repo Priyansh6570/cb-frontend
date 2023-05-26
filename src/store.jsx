@@ -7,10 +7,10 @@ import {
   carsReducer,
   newCarReducer,
   carReducer,
-  newReviewReducer,
   carDetailsReducer,
-  carReviewsReducer,
-  reviewReducer,
+  // newReviewReducer,
+  // carReviewsReducer,
+  // reviewReducer,
 } from "./reducers/carReducer";
 
 import {
@@ -24,20 +24,22 @@ import {
 
 import {
   allOrdersReducer,
-  myOrdersReducer,
   newOrderReducer,
   orderDetailsReducer,
   orderReducer,
 } from "./reducers/orderReducer";
+
+import {
+  newSubscriptionReducer,
+  subscriptionReducer,
+  subscriptionsReducer,
+} from "./reducers/subscriptionReducer";
 
 const reducer = combineReducers({
   cars: carsReducer,
   newCar: newCarReducer,
   car: carReducer,
   carDetails: carDetailsReducer,
-  // newReview: newReviewReducer,
-  // carReviews: carReviewsReducer,
-  // review: reviewReducer,
   user: userReducer,
   profile: profileReducer,
   forgotPassword: forgotPasswordReducer,
@@ -45,10 +47,12 @@ const reducer = combineReducers({
   allUsers: allUsersReducer,
   userDetails: userDetailsReducer,
   allOrders: allOrdersReducer,
-  myOrders: myOrdersReducer,
   newOrder: newOrderReducer,
   orderDetails: orderDetailsReducer,
   order: orderReducer,
+  newSubscription: newSubscriptionReducer,
+  subscription: subscriptionReducer,
+  subscriptions: subscriptionsReducer,
 });
 
 const initialState = {

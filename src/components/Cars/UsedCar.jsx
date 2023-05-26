@@ -40,7 +40,7 @@ const UsedCar = () => {
 
   const { keyword } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([10000, 10000000]);
+  const [price, setPrice] = useState([10000, 50000000]);
 
   const [category, setCategory] = useState("");
   const [fuel, setFuel] = useState("");
@@ -171,7 +171,7 @@ const UsedCar = () => {
                     aria-labelledby="range-slider"
                     // valueLabelDisplay="auto"
                     min={10000}
-                    max={10000000}
+                    max={50000000}
                     value={price}
                     onChange={handlePriceChange}
                     valueLabelFormat={priceLabelFormat}
@@ -277,7 +277,7 @@ const UsedCar = () => {
                             aria-labelledby="range-slider"
                             valueLabelDisplay="auto"
                             min={10000}
-                            max={10000000}
+                            max={50000000}
                             value={price}
                             onChange={handlePriceChange}
                             valueLabelFormat={priceLabelFormat}
@@ -407,8 +407,12 @@ const UsedCar = () => {
                 </div>
               </div>
 
+              {/* Cars  */}
               <div className="cars left flex justify-start content-start w-[65%] h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px] my-6">
-                {cars && cars.map((car) => <Car key={car._id} car={car} />)}
+                {cars &&
+                  cars
+                    .filter((car) => (car.user && car.user.expireLimit) > 0) // Filter cars based on user's expireLimit
+                    .map((car) => <Car key={car._id} car={car} />)}
               </div>
             </div>
             {

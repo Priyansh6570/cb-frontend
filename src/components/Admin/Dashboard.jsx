@@ -13,14 +13,12 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
     const { carCount, cars } = useSelector((state) => state.cars);
-    console.log('new: ',carCount);
 
     // Getting notVerifiedcar count from cars state
     const notVerifiedCars = cars.filter((car) => car.verified === false);
 
     // Get All Users
     const { users } = useSelector((state) => state.allUsers);
-    console.log('users: ',users);
 
     // Get All Users whose Role is Dealer
     const dealers = users && users.filter((user) => user.role === "dealer");
@@ -51,9 +49,12 @@ const Dashboard = () => {
       <Sidebar />
 
       <div className="dashboard__content overflow-hidden justify-center border-[#999] mx-auto border-[1px] p-8 rounded-xl bg-white h-[90vh] sm:h-fit w-[80%] sm:w-full m-4">
-        <div className="dashboard__content__title">
+        <div className="dashboard__content__title flex justify-between">
           <Typography variant="h4">Dashboard</Typography>
+          <Link to={'/seller'} className="btn bg-[#ee3131] text-white self-center font-medium py-2 px-8">My Cars</Link>
         </div>
+
+        
         <hr className="my-8 w-full" />
 
         <div className="card_container flex flex-col ml-[100px] sm:mx-auto justify-center align-middle w-[300px] bg-slate-300 gap-12 sm:gap-4 my-8 rounded-xl p-4">
@@ -79,14 +80,14 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div style={{ width: '500px', height: '200px' }} className="relative sm:top-[0px] sm:right-[100px] scale-[1.3] xs:right-[150px] top-[-400px] right-[-400px] sm:scale-[0.7]">
+        <div style={{ width: '600px', height: '200px' }} className="relative sm:top-[0px] sm:right-[200px] scale-[1.3] xs:right-[150px] top-[-400px] right-[-400px] sm:scale-[0.7]">
   <ResponsiveContainer width="100%" height="100%">
     <PieChart width={800} height={400} className="chart">
       <Pie
         dataKey="value"
         isAnimationActive={false}
         data={data01}
-        cx="20%"
+        cx="30%"
         cy="50%"
         outerRadius={80}
         fill="#8884d8"
@@ -139,39 +140,30 @@ const Dashboard = () => {
 </div>
 
 
-        <div className="link_to_action_container relative sm:top-[-50px] top-[-400px] right-[-400px] sm:right-0 flex justify-center sm:w-[100%] w-[60%] align-middle bg-slate-50 px-14 sm:px-0 gap-8 my-8 rounded-xl p-4">
+        <div className="link_to_action_container sm:flex-wrap relative sm:top-[-50px] top-[-400px] right-[-400px] sm:right-0 flex justify-center sm:w-[100%] w-[70%] align-middle bg-slate-50 px-14 sm:px-0 gap-8 my-8 rounded-xl p-4">
           <Link
             to="/admin/cars/pending"
             className="link_to_action link_to_action1 flex justify-center align-middle w-[30%] h-[100px] overflow-hidden text-center btn bg-[#ee3131] text-white rounded-xl p-4"
           >
-            {/* <div className="w-full px-auto flex flex-col mb-2"> */}
               <h2 className="text-lg font-semibold p-4 self-center">Approve Pending Cars</h2>
-              {/* <hr /> */}
-              {/* <p className="py-8 px-8 text-center">
-                // Reviw, Update and Approve all pending Car requests by Dealers
-                and Users
-              </p> */}
-            {/* </div> */}
           </Link>
           <Link
             to="/admin/dealers"
             className="link_to_action link_to_action1 flex justify-center align-middle w-[30%] h-[100px] overflow-hidden text-center btn bg-[#ee3131] text-white rounded-xl p-4"
           >
-            {/* <div className="w-full px-auto flex flex-col mb-2"> */}
               <h2 className="text-lg font-semibold p-4 self-center">View All Dealers</h2>
-              {/* <hr /> */}
-              {/* <p className="py-8 px-8 text-center">View all Dealers on Platform and their details</p> */}
-            {/* </div> */}
           </Link>
           <Link
             to="/admin/allUsers"
             className="link_to_action link_to_action1 flex justify-center align-middle w-[30%] h-[100px] overflow-hidden text-center btn bg-[#ee3131] text-white rounded-xl p-4"
           >
-            {/* <div className="w-full px-auto flex flex-col mb-2"> */}
               <h2 className="text-lg font-semibold p-4 self-center">View All Users</h2>
-              {/* <hr /> */}
-              {/* <p className="py-8 px-8 text-center">View all Users on Platform and their details</p> */}
-            {/* </div> */}
+          </Link>
+          <Link
+            to="/admin/subscriptions"
+            className="link_to_action link_to_action1 flex justify-center align-middle w-[30%] h-[100px] overflow-hidden text-center btn bg-[#ee3131] text-white rounded-xl p-4"
+          >
+              <h2 className="text-lg font-semibold p-4 self-center">Subscription Requests</h2>
           </Link>
         </div>
 

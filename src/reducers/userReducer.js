@@ -41,6 +41,10 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
   UPDATE_USER_RESET,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_REQUEST,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_SUCCESS,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_RESET,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
@@ -111,16 +115,18 @@ export const userReducer = (state = { user: {}}, action) => {
 export const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_PROFILE_REQUEST:
-    case UPDATE_PASSWORD_REQUEST:
-    case UPDATE_USER_REQUEST:
-    case DELETE_USER_REQUEST:
+      case UPDATE_PASSWORD_REQUEST:
+        case UPDATE_USER_REQUEST:
+          case DELETE_USER_REQUEST:
+      case UPDATE_CREDIT_AND_EXPIRE_LIMIT_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case UPDATE_PROFILE_SUCCESS:
-    case UPDATE_PASSWORD_SUCCESS:
-    case UPDATE_USER_SUCCESS:
+      case UPDATE_PROFILE_SUCCESS:
+        case UPDATE_PASSWORD_SUCCESS:
+          case UPDATE_USER_SUCCESS:
+      case UPDATE_CREDIT_AND_EXPIRE_LIMIT_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -137,8 +143,9 @@ export const profileReducer = (state = {}, action) => {
 
     case UPDATE_PROFILE_FAIL:
     case UPDATE_PASSWORD_FAIL:
-    case UPDATE_USER_FAIL:
-    case DELETE_USER_FAIL:
+      case UPDATE_USER_FAIL:
+        case DELETE_USER_FAIL:
+      case UPDATE_CREDIT_AND_EXPIRE_LIMIT_FAIL:
       return {
         ...state,
         loading: false,
@@ -147,12 +154,13 @@ export const profileReducer = (state = {}, action) => {
 
     case UPDATE_PROFILE_RESET:
     case UPDATE_PASSWORD_RESET:
-    case UPDATE_USER_RESET:
+      case UPDATE_USER_RESET:
+        case UPDATE_CREDIT_AND_EXPIRE_LIMIT_RESET:
       return {
         ...state,
         isUpdated: false,
       };
-
+      
     case DELETE_USER_RESET:
       return {
         ...state,

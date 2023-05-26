@@ -16,6 +16,10 @@ import {
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_FAIL,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_REQUEST,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_SUCCESS,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_FAIL,
+  UPDATE_CREDIT_AND_EXPIRE_LIMIT_RESET,
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAIL,
@@ -76,7 +80,6 @@ export const register = (userData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
     const { data } = await axios.post(`${host}/api/v1/register`, userData, config);
-    console.log(data);
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
     localStorage.setItem("userInfo", JSON.stringify(data.user));
@@ -89,19 +92,6 @@ export const register = (userData) => async (dispatch) => {
     });
   }
 };
-
-// Load User
-// export const loadUser = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: LOAD_USER_REQUEST });
-
-//     const { data } = await axios.get(`http://localhost:5000/api/v1/me`);
-
-//     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
-//   } catch (error) {
-//     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
-//   }
-// };
 
 export const loadUser = () => async (dispatch) => {
   try {
@@ -138,7 +128,6 @@ export const updateProfile = (userData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
     const { data } = await axios.put(`${host}/api/v1/me/update`, userData, config);
-    console.log(data);
 
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
   } catch (error) {
@@ -215,7 +204,6 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 export const addToWishlist = (id) => async (dispatch) => {
   try {
     dispatch({ type: ADD_TO_WISHLIST_REQUEST });
-    console.log('id from action : ',id);
 
     const { data } = await axios.put(`${host}/api/v1/wishlist/add`, { carId: id });
 
@@ -234,7 +222,6 @@ export const getWishlist = () => async (dispatch) => {
     dispatch({ type: GET_WISHLIST_REQUEST });
     
     const { data } = await axios.get(`${host}/api/v1/wishlist/me`);
-    console.log('wishlist from action : ',data.wishList);
     
     dispatch({ type: GET_WISHLIST_SUCCESS, payload: data.wishList });
   } catch (error) {
@@ -304,6 +291,29 @@ export const deleteUser = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_USER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Update Credit And Expire Limit
+export const updateCreditAndExpireLimit = (userId, updatedCredit, expireTime) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_CREDIT_AND_EXPIRE_LIMIT_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `${host}/api/v1/updateCreditAndExpireLimit`,
+      { userId, updatedCredit, expireTime },
+      config
+    );
+
+    dispatch({ type: UPDATE_CREDIT_AND_EXPIRE_LIMIT_SUCCESS, payload: data.success });
+
+  } catch (error) {
+    dispatch({
+      type: UPDATE_CREDIT_AND_EXPIRE_LIMIT_FAIL,
       payload: error.response.data.message,
     });
   }

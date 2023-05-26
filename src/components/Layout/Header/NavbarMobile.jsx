@@ -80,7 +80,7 @@ const NavbarMobile = () => {
         <input
           className="searchInput border h-[42px] pl-[44px] pt-[4px] bg-[#f7f7f7] text-[#222] rounded-3xl text-sm shadow-inner focus:outline-none m-0 w-full relative "
           type="search"
-          placeholder={`Search Cars or Brands`}
+          placeholder="Search Cars by Name, Colour, City, RTO"
           onChange={(e) => setKeyword(e.target.value)}
           aria-label="Search"
         />

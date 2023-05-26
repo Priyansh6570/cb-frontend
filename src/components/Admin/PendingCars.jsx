@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPendingCars } from "../../actions/carAction";
-import Car from "../Cars/Car";
 import Loader from "../Layout/Loader/Loader";
 import "../../styles/carCard.scss";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
@@ -16,7 +15,6 @@ import "../../styles/carCard.scss";
 const PendingCars = () => {
   const dispatch = useDispatch();
   const { cars, loading, error } = useSelector((state) => state.cars);
-  const notVerifiedCars = cars.filter((car) => car.verified === false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const carsPerPage = 9;
@@ -29,7 +27,7 @@ const PendingCars = () => {
   // Pagination
   const indexOfLastCar = currentPage * carsPerPage;
   const indexOfFirstCar = indexOfLastCar - carsPerPage;
-  const currentCars = notVerifiedCars.slice(indexOfFirstCar, indexOfLastCar);
+  const currentCars = cars.slice(indexOfFirstCar, indexOfLastCar);
 
   // Change page
   const handlePageChange = (page) => {
@@ -37,7 +35,7 @@ const PendingCars = () => {
   };
 
   // Calculate total pages
-  const totalPages = Math.ceil(notVerifiedCars.length / carsPerPage);
+  const totalPages = Math.ceil(cars.length / carsPerPage);
 
   // Determine the range of page numbers to display
   const getPageRange = () => {
@@ -73,18 +71,13 @@ const PendingCars = () => {
     <div>
       <div className="main w-[70vw] sm:w-full bg-[url('/Images/bg-car-side.jpg')] bg-cover mx-auto m-8 h-[200px] sm:h-[150px] rounded-2xl ">
         <h2 className="text-[30px] xs:top-[0.9rem] xs:text-black sm:top-[1.4rem] sm:left-[-20px] font-sans font-bold relative top-9 pt-8 justify-center flex">
-          Pending Cars
+          {cars.length > 0 ? "Pending Cars" : "No Pending Cars"}
         </h2>
       </div>
       {loading ? (
         <Loader />
       ) : (
-        <>
-          {notVerifiedCars.length === 0 ? (
-            <p className="text-[30px] sm:m-10 xs:top-[0.9rem] xs:text-black  font-sans font-bold mx-auto p-8 justify-center flex">
-              No Cars in Shortlist
-            </p>
-          ) : (
+       
             <>
               <ul className="flex rounded-2xl mb-14 p-6 sm:flex-col m-4 sm:m-1 sm:mr-2 sm:p-0 gap-6 flex-wrap justify-center w-[70vw] mx-auto">
                 {currentCars.map((car) => (
@@ -210,8 +203,7 @@ const PendingCars = () => {
               </div>
             </>
           )}
-        </>
-      )}
+      
     </div>
   );
 };

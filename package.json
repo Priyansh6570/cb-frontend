@@ -33,6 +33,7 @@
     "react-icons": "^4.2.0",
     "react-js-pagination": "^3.0.2",
     "react-material-ui-carousel": "^2.3.1",
+    "react-modal": "^3.16.1",
     "react-paginate": "^8.2.0",
     "react-redux": "^7.2.4",
     "react-responsive-carousel": "^3.2.23",
