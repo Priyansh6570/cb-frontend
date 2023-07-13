@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../styles/Footer.scss';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BsLinkedin } from 'react-icons/bs';
 import { RiInstagramFill } from 'react-icons/ri';
 import { TiSocialFacebook, TiSocialTwitter, TiSocialYoutube } from 'react-icons/ti';
@@ -9,7 +9,7 @@ import { TiSocialFacebook, TiSocialTwitter, TiSocialYoutube } from 'react-icons/
 
 const Footer = () => {
   return (
-    <section className="footer w-full h-[70vh] border-t-2 relative sm:hidden">
+    <section className="footer w-full h-[70vh] border-t-2 relative md:hidden sm:hidden">
 
       <div className="perk-section border-b-2 h-[150px] w-full">
         <div className="perk-container w-[80vw] h-[100%] mx-auto flex items-center gap-16">
@@ -68,8 +68,8 @@ const Footer = () => {
                 <div className="links flex gap-8 text-[#888]">
                 <a href="#" target={'_blank'}> <TiSocialFacebook className='scale-[1.9]'/> </a>
                 <a href="#" target={'_blank'}> <TiSocialTwitter className='scale-[2]'/> </a>
-                <a href="#" target={'_blank'}> <TiSocialYoutube className='scale-[2]'/> </a>
-                <a href="#" target={'_blank'}> <RiInstagramFill className='scale-[1.6]'/> </a>
+                <a href="https://youtube.com/@CarsBecho" target={'_blank'}> <TiSocialYoutube className='scale-[2]'/> </a>
+                <a href="https://instagram.com/carsbecho.in?igshid=YzcxN2Q2NzY0OA==" target={'_blank'}> <RiInstagramFill className='scale-[1.6]'/> </a>
                 <a href="#" target={'_blank'}> <BsLinkedin className='scale-[1.4]'/> </a>
                 </div>
             </div>
@@ -79,18 +79,18 @@ const Footer = () => {
             <div className="overview flex flex-col gap-8 text-base font-medium">
               <h3>OVERVIEW</h3>
               <ul className='gap-4 flex flex-col text-sm text-[#666]'>
-                <li className='cursor-pointer'>About us</li>
-                <li className='cursor-pointer'>FAQ</li>
-                <li className='cursor-pointer'>Corporate Policies</li>
-                <li className='cursor-pointer'>Terms & Conditions</li>
-                <li className='cursor-pointer'>Privacy Policy</li>
+                <li className='cursor-pointer'><Link to='/about'>About Us</Link></li>
+                <li className='cursor-pointer'> <Link to='/faqs'>FAQ</Link> </li>
+                <li className='cursor-pointer'><Link to='/sellcar'>Sell Car</Link></li>
+                <li className='cursor-pointer'><Link to='/info/terms-and-conditions'>Terms & Conditions</Link></li>
+                <li className='cursor-pointer'><Link to='/info/privacy-policy'>Privacy Policy</Link> </li>
               </ul>
             </div>
             <div className="contact flex flex-col gap-8 text-base font-medium">
               <h3>CONNECT WITH US</h3>
               <ul className='gap-4 flex flex-col text-sm text-[#666]'>
-                <li>8269944190</li>
-                <li>Care@CarsBecho.com</li>
+                <li></li>
+                <li><a href="mailto:team@carsbecho.com">Team@CarsBecho.com</a></li>
                 <li className='cursor-pointer'>Customer Care</li>
                 <li className='cursor-pointer'>Contact Us</li>
                 <li className='cursor-pointer'>Feedback</li>
@@ -111,8 +111,9 @@ const Footer = () => {
       </div>
 
         <div className="footer-bottom-section w-full">
-            <div className="footer-copyright-container w-[80%] h-[100%] mx-auto flex justify-center my-auto pt-7">
-                <p className='text-[#888] text-xs'>Copyright © 2022 CarsBecho All rights reserved.</p>
+            <div className="footer-copyright-container w-[80%] h-[100%] mx-auto flex justify-evenly my-auto pt-7">
+                <p className='text-[#888] copyright capatalize text-xs'>Ramdhan Automotives Pvt. Ltd.</p>
+                <p className='text-[#888] copyright text-xs'>© 2023 Ramdhan Automotives Pvt. Ltd.</p>
             </div>
         </div>
     </section>

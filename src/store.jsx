@@ -56,11 +56,11 @@ const reducer = combineReducers({
 });
 
 const initialState = {
-  user: {
-    userInfo: localStorage.getItem("userInfo")
-      ? JSON.parse(localStorage.getItem("userInfo"))
-      : null,
-  },
+  // user: {
+  //   userInfo: localStorage.getItem("userInfo")
+  //     ? JSON.parse(localStorage.getItem("userInfo"))
+  //     : null,
+  // },
 
   wishlist: {
     wishlistItems: localStorage.getItem("wishlistItems")

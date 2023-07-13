@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
-import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
@@ -33,16 +32,14 @@ const LoginSignUp = ({ history, location }) => {
     password: "",
     mobile: "",
     role: "user",
-    address: "",
-    dealershipName: "",
     verifyButton: false,
     verifyOtp: false,
     otp: "",
   });
 
-  const { name, email, password, mobile, role, address, dealershipName } = user;
+  const { name, email, password, mobile, role } = user;
 
-  const [avatar, setAvatar] = useState("/Images/Profile.png");
+  const [avatar, setAvatar] = useState("https://res.cloudinary.com/dtwkhnkns/image/upload/v1688298076/avatars/man_p7cnjn.png");
   const [avatarPreview, setAvatarPreview] = useState("/Images/Profile.png");
 
   const handleOtpVerification = () => {
@@ -59,20 +56,26 @@ const LoginSignUp = ({ history, location }) => {
   // Register Submition
 
   const registerSubmit = (e) => {
-    e.preventDefault(); // prevent default form submission
+    e.preventDefault();
+  
     const myForm = new FormData();
-
+  
     myForm.set("name", name);
     myForm.set("email", email);
     myForm.set("password", password);
-    myForm.set("avatar", avatar);
+    
+    if (avatar) {
+      myForm.set("avatar", avatar);
+    } else {
+      myForm.set("avatar", "https://res.cloudinary.com/dtwkhnkns/image/upload/v1688298076/avatars/man_p7cnjn.png");
+    }
+  
     myForm.set("mobile", mobile);
     myForm.set("role", role);
-    myForm.set("address", address);
-    myForm.set("dealershipName", dealershipName);
-
+  
     dispatch(register(myForm));
   };
+  
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -149,13 +152,13 @@ const LoginSignUp = ({ history, location }) => {
         <Loader />
       ) : (
         <Fragment>
-          <div className="LoginSignUpContainer pt-[50px] flex justify-center">
+          <div className="LoginSignUpContainer pt-[50px] overflow-x-hidden flex justify-center">
             <div id="recaptcha-container"></div>
             <div className="left-main-container sm:relative sm:top-[-100px] sm:h-[920px] p-3 flex flex-row h-[550px] w-[60vw] sm:w-[100vw] sm:flex-col sm:justify-center sm:align-baseline">
               <img
                 src="./Images/user-action-bg.jpg"
                 alt=""
-                className="user-action-img w-[880px] sm:right-1 sm:rounded-none absolute h-[70%] sm:h-[113%] rounded-3xl"
+                className="user-action-img w-[880px] sm:w-full sm:object-cover sm:scale-[1.3] blur-[2px] sm:right-1 sm:rounded-none absolute h-[70%] rounded-3xl"
               />
               <img
                 src="./Images/monitoring-login.png"
@@ -198,7 +201,7 @@ const LoginSignUp = ({ history, location }) => {
                         onChange={(e) => setLoginPassword(e.target.value)}
                       />
                     </div>
-                    <Link to="/password/forgot">Forget Password ?</Link>
+                    <Link to="/password/forgot">Forgot Password ?</Link>
                     <input
                       type="submit"
                       value="Login"
@@ -210,7 +213,7 @@ const LoginSignUp = ({ history, location }) => {
                 {/* signup or Register  */}
                 {activeTab === "register" && showForm ? (
                   <form
-                    className="signUpForm sm:h-[400px] xs:px-6 flex flex-col gap-2 mt-[6rem] sm:mt-[120px]"
+                    className="signUpForm sm:h-[330px] mb-16 xs:px-6 flex flex-col gap-2 mt-4 sm:mt-20"
                     ref={registerTab}
                     encType="multipart/form-data"
                     onSubmit={registerSubmit}
@@ -238,54 +241,6 @@ const LoginSignUp = ({ history, location }) => {
                         name="email"
                         value={user.email}
                         onChange={registerDataChange}
-                      />
-                    </div>
-                    {/* Role input */}
-                    <div className="signUpRole">
-                      <select
-                        name="role"
-                        value={user.role}
-                        onChange={registerDataChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                      >
-                        <option value="user" className="text-primary">
-                          User
-                        </option>
-                        <option value="dealer" className="text-primary">
-                          Dealer
-                        </option>
-                        <option value="broker" className="text-primary">
-                        Authentic Brokers
-                        </option>
-                      </select>
-                    </div>
-
-                    {/* dealershipName  */}
-                    {user.role === "dealer" && (
-                      <div className="signUpDealershipName">
-                        <MdDriveFileRenameOutline />
-                        <input
-                          type="text"
-                          placeholder="Dealership Name"
-                          required
-                          name="dealershipName"
-                          value={user.dealershipName}
-                          onChange={registerDataChange}
-                          className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                        />
-                      </div>
-                    )}
-
-                    {/* address input  */}
-                    <div className="signUpAddress">
-                      <textarea 
-                        type="text"
-                        placeholder="Address"
-                        required
-                        name="address"
-                        value={user.address}
-                        onChange={registerDataChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
                       />
                     </div>
 

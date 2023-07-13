@@ -49,7 +49,7 @@ const ForgotPassword = () => {
             <div className="main-container sm:flex-col sm:w-full w-[60%] rounded-xl justify-evenly p-6 h-[550px] flex">
               <div className="updatePass_left h-full w-[50%] rounded-xl">
                 <img
-                  src="../../../public/Images/forgot-password.png"
+                  src="/Images/forgot-password.png"
                   alt="password procted"
                   className=" scale-[0.6] relative sm:absolute xs:top-[0px] sm:top-[-30px] sm:scale-[0.1] sm:right-[-100px] bottom-[-50px]"
                 />

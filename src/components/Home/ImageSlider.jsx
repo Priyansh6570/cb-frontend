@@ -62,7 +62,7 @@ const ImageSlider = ({ slides, parentWidth }) => {
   const getSlidesContainerStylesWithWidth = () => ({
     ...slidesContainerStyles,
     width: parentWidth * slides.length,
-    transform: `translateX(${-(currentIndex * parentWidth-200)}px)`,
+    transform: `translateX(${-(currentIndex * `${parentWidth > 1000 ? parentWidth-200 : parentWidth}`)}px)`,
   });
 
   useEffect(() => {

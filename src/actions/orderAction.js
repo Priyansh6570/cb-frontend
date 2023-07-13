@@ -1,4 +1,5 @@
 import axios from "axios";
+import {host} from "./host"
 import {
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAIL,
@@ -11,10 +12,9 @@ import {
   CLEAR_ERRORS,
 } from "../constants/orderConstants";
 
-const host = "http://localhost:5000";
 
 // Create new Order
-export const createOrder = (userId, userOrderId, carOrderId) => async (dispatch) => {
+export const createOrder = (userId, userOrderId, carOrderId, urls, offer) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -22,7 +22,9 @@ export const createOrder = (userId, userOrderId, carOrderId) => async (dispatch)
       },
     };
 
-    const { data } = await axios.post(`${host}/api/v1/sellerContact/new`, { userId, userOrderId, carOrderId }, config);
+    const requestData = { userId, userOrderId, carOrderId, urls, offer }; // Include the offer in the request payload
+console.log('action : ',urls);
+    const { data } = await axios.post(`${host}/api/v1/sellerContact/new`, requestData, config);
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
 
@@ -33,6 +35,7 @@ export const createOrder = (userId, userOrderId, carOrderId) => async (dispatch)
     });
   }
 };
+
 
 // Get Single Order
 export const getOrder = (id) => async (dispatch) => {
@@ -52,7 +55,6 @@ export const getOrder = (id) => async (dispatch) => {
 export const getAllOrders = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${host}/api/v1/orders/${id}`);
-
 
     dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
 

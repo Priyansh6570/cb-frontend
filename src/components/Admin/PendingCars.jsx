@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPendingCars } from "../../actions/carAction";
 import Loader from "../Layout/Loader/Loader";
 import "../../styles/carCard.scss";
+import {useHistory} from "react-router-dom";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import NumberWithCommas from "../PriceSeperator";
 import { FaGasPump } from "react-icons/fa";
@@ -14,7 +15,8 @@ import "../../styles/carCard.scss";
 
 const PendingCars = () => {
   const dispatch = useDispatch();
-  const { cars, loading, error } = useSelector((state) => state.cars);
+  const history = useHistory();
+  const { loading, notVerifiedCars } = useSelector((state) => state.cars);
 
   const [currentPage, setCurrentPage] = useState(1);
   const carsPerPage = 9;
@@ -24,10 +26,23 @@ const PendingCars = () => {
     dispatch(getAllPendingCars());
   }, [dispatch]);
 
+  useEffect(() => {
+    const unlisten = history.listen((location, action) => {
+      if (action === 'POP' && location.pathname === '/admin/cars/pending') {
+        // Trigger a reload when coming from the "approve car" page
+        window.location.reload();
+      }
+    });
+
+    return () => {
+      unlisten();
+    };
+  }, [history]);
+
   // Pagination
   const indexOfLastCar = currentPage * carsPerPage;
   const indexOfFirstCar = indexOfLastCar - carsPerPage;
-  const currentCars = cars.slice(indexOfFirstCar, indexOfLastCar);
+  const currentCars = notVerifiedCars
 
   // Change page
   const handlePageChange = (page) => {
@@ -35,7 +50,7 @@ const PendingCars = () => {
   };
 
   // Calculate total pages
-  const totalPages = Math.ceil(cars.length / carsPerPage);
+  const totalPages = Math.ceil(notVerifiedCars.length / carsPerPage);
 
   // Determine the range of page numbers to display
   const getPageRange = () => {
@@ -71,7 +86,7 @@ const PendingCars = () => {
     <div>
       <div className="main w-[70vw] sm:w-full bg-[url('/Images/bg-car-side.jpg')] bg-cover mx-auto m-8 h-[200px] sm:h-[150px] rounded-2xl ">
         <h2 className="text-[30px] xs:top-[0.9rem] xs:text-black sm:top-[1.4rem] sm:left-[-20px] font-sans font-bold relative top-9 pt-8 justify-center flex">
-          {cars.length > 0 ? "Pending Cars" : "No Pending Cars"}
+          {notVerifiedCars.length > 0 ? "Pending Cars" : "No Pending Cars"}
         </h2>
       </div>
       {loading ? (
@@ -87,7 +102,7 @@ const PendingCars = () => {
                       className="h-fit"
                       key={car._id}
                     >
-                      <div className="carCard sm:hidden flex flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
+                      <div className="carCard sm:hidden w-[300px] h-fit flex flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
                         <div className="img-container-car sm:overflow-hidden">
                           <img
                             src={car && car.image[0].url}
@@ -96,7 +111,7 @@ const PendingCars = () => {
                           />
                         </div>
                         <div className="carDetails flex flex-col gap-[10px] sm:px-2">
-                          <span className="flex gap-1 sm:text-sm text-lg font-semibold">
+                          <span className="flex flex-wrap gap-1 sm:text-sm text-lg font-semibold">
                             <h2>{car.make}</h2>
                             <h2>{car.model}</h2>
                             <h4 className="font-normal sm:hidden">{`(${car.year})`}</h4>
@@ -130,7 +145,7 @@ const PendingCars = () => {
                       <div className="mobile-carCard hidden sm:flex w-[100vw] h-fit p-1 rounded-xl gap-4 cursor pointer">
                         <div className="image-container w-[35%] h-[100px] p-1">
                           <img
-                            src={car.image[0].url}
+                            src={car && car.image[0].url}
                             alt={car.model}
                             className="w-full h-full object-cover rounded"
                           />

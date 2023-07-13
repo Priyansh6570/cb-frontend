@@ -20,6 +20,7 @@ import {
     CAR_DETAILS_REQUEST,
     CAR_DETAILS_FAIL,
     CAR_DETAILS_SUCCESS,
+    SELLER_CAR_SUCCESS,
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,
@@ -78,6 +79,7 @@ import {
     state = {
       loading: false,
       cars: [],
+      notVerifiedCars: [],
       currentPage: 1,
       totalPages: 1,
     },
@@ -90,24 +92,39 @@ import {
           ...state,
           loading: true,
         };
-      case ALL_CAR_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-          cars: [...state.cars, ...action.payload.cars],
-          currentPage: action.payload.currentPage,
-          totalPages: action.payload.totalPages,
-          resperpage: action.payload.resperpage,
-          carCount: action.payload.carCount,
-        };
-        
-        case ADMIN_CAR_SUCCESS:
+        case ALL_CAR_SUCCESS:
           return {
             ...state,
             loading: false,
-            cars: action.payload,
-            notVerified: action.payload.notVerified,
-        };
+            cars: action.payload.cars,
+            currentPage: action.payload.currentPage,
+            totalPages: action.payload.totalPages,
+            carCount: action.payload.carCount,
+          };
+
+
+        case ADMIN_CAR_SUCCESS:
+  return {
+    ...state,
+    loading: false,
+    notVerifiedCars: action.payload,
+  };
+case SELLER_CAR_SUCCESS:
+  return {
+    ...state,
+    loading: false,
+    cars: action.payload,
+  };
+
+        
+        // case ADMIN_CAR_SUCCESS:
+        //   return {
+        //     ...state,
+        //       loading: false,
+        //       cars: [...state.cars, action.payload],
+        //       notVerifiedCars: action.payload,
+        //     };
+            
       case ALL_CAR_FAIL:
       case ADMIN_CAR_FAIL:
         return {
@@ -220,7 +237,7 @@ import {
     }
   };
   
-  export const carDetailsReducer = (state = { loading: false, car: {} }, action) => {
+  export const carDetailsReducer = (state = { loading: false, car: {}, error: null }, action) => {
     switch (action.type) {
       case CAR_DETAILS_REQUEST:
         return {

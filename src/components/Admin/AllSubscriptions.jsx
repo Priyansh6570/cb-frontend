@@ -4,6 +4,7 @@ import { getSubscriptions } from "../../actions/subscriptionAction";
 import Modal from "react-modal";
 import { updateCreditAndExpireLimit } from "../../actions/userAction";
 import { useAlert } from "react-alert";
+import Loader from '../Layout/Loader/Loader'
 
 const formatDateTime = (dateTimeString) => {
   const options = {
@@ -60,7 +61,7 @@ const AllSubscriptions = () => {
   }, [dispatch]);
 
   return loading ? (
-    <loading />
+    <Loader />
   ) : (
     <main className="container mx-auto py-6">
       <div>
@@ -98,16 +99,16 @@ const AllSubscriptions = () => {
                         User Details:
                       </h3>
                       <div className="flex flex-col xs:px-2 gap-4">
-                        <div className="flex gap-8 mt-4">
+                        <div className="flex gap-8 mt-4 justify-between">
                           <span className="font-medium bg-slate-50 rounded w-fit p-2 mx-auto text-center py-1 px-2 text-base">
-                            <img
+                            {/* <img
                               src={subscription.userId.avatar[0].url}
                               alt={subscription.userId.name}
                               className="w-[200px] h-fit rounded self-center mx-auto"
-                            />
+                            /> */}
                           </span>
                         </div>
-                        <div className="flex gap-8 mt-4">
+                        <div className="flex gap-8 mt-4 justify-between">
                           <span className="font-bold">Name:</span>
                           <span className="font-medium bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
                             {subscription.userId.name}
@@ -115,7 +116,7 @@ const AllSubscriptions = () => {
                         </div>
 
                         {subscription.userId.role === "dealer" && (
-                          <div className="flex gap-8 mt-4">
+                          <div className="flex gap-8 mt-4 justify-between">
                             <span className="font-bold">Dealership Name:</span>
                             <span className="font-medium bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
                               {subscription.userId.dealershipName}
@@ -123,20 +124,19 @@ const AllSubscriptions = () => {
                           </div>
                         )}
 
-                        <div className="flex gap-8 mt-2">
-                          <span className="font-bold">Email:</span>
+                        <div className="flex gap-8 mt-2 justify-between">
+                          <span className="font-bold">Location:</span>
                           <span className="font-medium bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
-                            {subscription.userId.email}
+                            {subscription.userId.city}
                           </span>
                         </div>
-                        <div className="flex gap-8 mt-2">
+                        <div className="flex gap-8 mt-2 justify-between">
                           <span className="font-bold">Mobile:</span>
                           <span className="font-medium font-mono  bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
                             {subscription.userId.mobile}
                           </span>
                         </div>
-                        <div className="flex gap-8 mt-2">
-                          <span className="font-bold">Address:</span>
+                        <div className="flex gap-8 mt-2 justify-center">
                           <span className="font-medium bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
                             {subscription.userId.address}
                           </span>
@@ -174,30 +174,7 @@ const AllSubscriptions = () => {
                             </span>
                           </p>
                           {/* Features */}
-                          <hr className="mt-4 border-1 border-gray-600" />
-                          <div className="pt-8">
-                            <p className="font-semibold flex justify-center text-gray-400 text-left">
-                              <span className="material-icons align-middle">
-                                Credit
-                              </span>
-                              <span className="pl-2">60 Ads</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="material-icons align-middle">
-                                Duration
-                              </span>
-                              <span className="pl-2">Validity 30 days</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Single location</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Store Branding & PR</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Inventory shoot</span>
-                            </p>
-                          </div>
+                          
                         </div>
                       )}
                       {subscription.planName === "Platinum" && (
@@ -215,36 +192,7 @@ const AllSubscriptions = () => {
                             </span>
                           </p>
                           {/* Features */}
-                          <hr className="mt-4 border-1 translate-x-[30px] " />
-                          <div className="pt-8">
-                            <p className="font-semibold flex justify-center text-gray-400 text-left">
-                              <span className="material-icons align-middle">
-                                Credit
-                              </span>
-                              <span className="pl-2">60 Ads</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="material-icons align-middle">
-                                Duration
-                              </span>
-                              <span className="pl-2">Validity 3 months</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="material-icons align-middle">
-                                Location
-                              </span>
-                              <span className="pl-2">Single location</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Store Branding & PR</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Inventory shoot</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">CRM support</span>
-                            </p>
-                          </div>
+                          
                         </div>
                       )}
 
@@ -263,27 +211,7 @@ const AllSubscriptions = () => {
                             </span>
                           </p>
                           {/* Features */}
-                          <hr className="mt-4 border-1" />
-                          <div className="pt-8">
-                            <p className="font-semibold flex justify-center text-gray-400 text-left">
-                              <span className="material-icons align-middle">
-                                Credit
-                              </span>
-                              <span className="pl-2">50 Ads</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="material-icons align-middle">
-                                Duration
-                              </span>
-                              <span className="pl-2">Validity 30 days</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="material-icons align-middle">
-                                Location
-                              </span>
-                              <span className="pl-2">Single location</span>
-                            </p>
-                          </div>
+                         
                         </div>
                       )}
                       {subscription.planName === "True value package" && (
@@ -301,27 +229,7 @@ const AllSubscriptions = () => {
                             </span>
                           </p>
                           {/* Features */}
-                          <hr className="mt-4 border-1 border-gray-600" />
-                          <div className="pt-8">
-                            <p className="font-semibold flex justify-center text-gray-400 text-left">
-                              <span className="material-icons align-middle">
-                                Credit
-                              </span>
-                              <span className="pl-2">10 Ads</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="material-icons align-middle">
-                                Duration
-                              </span>
-                              <span className="pl-2">Validity 30 days</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Single location</span>
-                            </p>
-                            <p className="font-semibold flex justify-center text-gray-400 text-left pt-5">
-                              <span className="pl-2">Organic boosting</span>
-                            </p>
-                          </div>
+                         
                         </div>
                       )}
                     </div>

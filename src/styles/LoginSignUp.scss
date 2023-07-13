@@ -1,6 +1,6 @@
 .verify {
   border-radius: 0 0 8px 8px !important;
-  font: 900 1vmax "Arial" !important;
+  font: 900 14px "Arial" !important;
   color: #ee3131;
   box-shadow: none;
   border: 1px solid #ee3131 !important;
@@ -22,7 +22,7 @@
   border: none;
   background-color: tomato;
   color: white;
-  font: 300 0.5vmax "Roboto";
+  font: 300 8px "Arial";
   width: 100%;
   padding: 0.4vmax;
   cursor: pointer;
@@ -98,7 +98,7 @@ border-radius: 8px;
   }
   .login_signUp_toggle > p {
     color: rgba(0, 0, 0, 0.678);
-    font: 300 1vmax "Roboto";
+    font: 300 1vmax "Arial";
     transition: all 0.5s;
     cursor: pointer;
     display: grid;
@@ -119,8 +119,7 @@ border-radius: 8px;
 
   .btn-next {
     height: 30px !important;
-    border-radius: 8px;
-    width: fit-content;
+    border-radius: 4px;
     padding: auto 5px;
     color: #fff;
     font: 1.2rem !important;
@@ -161,7 +160,8 @@ border-radius: 8px;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.267);
     border-radius: 2px;
-    font: 300 0.9vmax cursive;
+    font: 300 0.9vmax 'Arial';
+    letter-spacing: 0.5px;
     outline: none;
   }
   
@@ -169,7 +169,7 @@ border-radius: 8px;
   .signUpForm > div > svg {
     position: absolute;
     transform: translateX(1vmax);
-    font-size: 1.6vmax;
+    font-size: 20px;
     color: rgba(0, 0, 0, 0.623);
   }
 
@@ -196,6 +196,7 @@ border-radius: 8px;
   #registerImage > img {
     width: 3.5vmax;
     border-radius: 100%;
+    object-fit: cover;
   }
   #registerImage > input {
     display: flex;
@@ -209,7 +210,7 @@ border-radius: 8px;
     height: 5vh;
     border: none;
     margin: 0%;
-    font: 400 0.8vmax cursive;
+    font: 400 0.8vmax 'Arial';
     transition: all 0.5s;
     padding: 0 1vmax;
     color: rgba(0, 0, 0, 0.623);
@@ -302,12 +303,12 @@ height: 710px;
       scale: 1.4;
     }
 .signUpForm > div > input, .loginForm > div > input {
-  padding: 0.8vmax 4vmax;
-  font: 300 1vmax 'Arial';
+  padding: 10px 10px 10px 40px;
+  font: 300 10px 'Arial';
 }
 
 .loginForm > div > svg, .signUpForm > div > svg {
-  scale: 1.3;
+  scale: 0.9;
 }
 
     #registerImage > img {

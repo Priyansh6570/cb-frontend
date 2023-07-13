@@ -22,6 +22,14 @@ import "../../styles/carDetail.scss";
 import { FaGasPump } from "react-icons/fa";
 import { SlSpeedometer } from "react-icons/sl";
 import { GiGearStickPattern } from "react-icons/gi";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { BiCategory } from "react-icons/bi";
+import { VscSymbolColor } from "react-icons/vsc";
+import { IoCarSportOutline } from "react-icons/io5";
+import { TfiBriefcase } from "react-icons/tfi";
+import { IoIosArrowDroprightCircle } from "react-icons/io";
+import { BsCalendar2Check } from "react-icons/bs";
+import { BsBuilding } from "react-icons/bs";
 
 const SellerCarDetail = ({ history }) => {
   const dispatch = useDispatch();
@@ -39,7 +47,6 @@ const SellerCarDetail = ({ history }) => {
       console.log(response);
       if (response && response.success) {
         alert.success("Car deleted successfully");
-        console.log(response.message);
         history.push("/seller");
       } else {
         console.log(response);
@@ -81,16 +88,20 @@ const SellerCarDetail = ({ history }) => {
     <div className="carName">
       <main className="carDetail__mainContainer sm:overflow-hidden flex sm:flex-col gap-10 sm:gap-0 my-[50px] sm:my-2 w-[1220px] sm:w-[100vw] mx-auto  ">
         <div className="left w-[800px] sm:w-full text-justify flex flex-col justify-center gap-8 sm:gap-0">
-          <div className="carousel w-full h-[372px] xs:h-[200px] sm:h-[230px] bg-slate-900 rounded-2xl">
+          <div className="carousel w-full h-[372px] xs:h-[200px] sm:h-[230px] bg-[#eae9e9] rounded-2xl">
             <Carousel className="h-[372px] xs:h-[200px] sm:h-[230px] rounded-2xl">
               {car.image &&
                 car.image.map((item, i) => (
+                  <div
+                    key={item.url}
+                    className="carousel-image-container flex justify-center items-center h-full"
+                  >
                   <img
                     key={item.url}
                     src={item.url}
                     alt={`${i} Slide`}
-                    className="CarouselImage rounded-2xl h-[372px] relative sm:top-[0px] object-contain"
-                  />
+                    className="CarouselImage h-[372px] xs:h-[200px] sm:h-[230px] object-contain"
+                  /></div>
                 ))}
             </Carousel>
           </div>
@@ -132,73 +143,125 @@ const SellerCarDetail = ({ history }) => {
           <div className="carDetail_carOverview w-full h-[372px] sm:h-[500px] flex flex-col gap-4 p-8 sm:p-2 rounded-2xl">
             <h2 className="text-2xl sm:px-8 sm:py-4 font-bold">Overview</h2>
             {/* <hr /> */}
-            <ul className="flex gap-8 sm:gap-6 sm:ml-4 sm:text-sm w-[100%] flex-wrap">
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Model :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.model}</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Brand :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.make}</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Year :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.year}</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Km Driven :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.Km_Driven}km</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  RTO :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.RTO}</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Transmission :{" "}
-                </span>
-                <span className="w-[50%] lable-content">
-                  {car.transmission}
-                </span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Fuel :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.fuel}</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Past Owners :{" "}
-                </span>
-                <span className="w-[50%] lable-content">
-                  {car.no_of_owners}
-                </span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Color :{" "}
-                </span>
-                <span className="w-[50%] lable-content">{car.color}</span>
-              </li>
-              <li className="flex gap-4 items-center">
-                <span className="w-[50%] font-semibold overview-label">
-                  Category :{" "}
-                </span>
+            <ul className="flex gap-8 sm:gap-6 sm:ml-4 sm:text-sm w-[100%] flex-wrap sm:pr-12">
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <IoCarSportOutline />
+                      </span>
+                      Model{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.model}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <TfiBriefcase />
+                      </span>
+                      Brand{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.make}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <BsCalendar2Check />
+                      </span>
+                      Year{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.year}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <SlSpeedometer />
+                      </span>
+                      Km Driven{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.Km_Driven}km
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <BsBuilding />
+                      </span>
+                      RTO{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.RTO}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <GiGearStickPattern />
+                      </span>
+                      Transmission{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.transmission}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center text-[#999]">
+                        <FaGasPump />
+                      </span>
+                      Fuel{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.fuel}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center text-[#999]">
+                        <IoPersonCircleOutline className="scale-[1.2]" />
+                      </span>
+                      Ownership{" "}
+                    </span>
+                    <span className="w-[35%] sm:w-[30%] text-right font-semibold label-content">
+                      {car.no_of_owners === 1 && "First Owner"}
+                      {car.no_of_owners === 2 && "Second Owner"}
+                      {car.no_of_owners === 3 && "Third Owner"}
+                      {car.no_of_owners === 4 && "Fourth Owner"}
+                      {car.no_of_owners === 5 && "Fifth Owner"}
+                      {car.no_of_owners === 6 && "Sixth Owner"}
+                      {car.no_of_owners === 7 && "Seventh Owner"}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <VscSymbolColor />
+                      </span>
+                      Color{" "}
+                    </span>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.color}
+                    </span>
+                  </li>
+                  <li className="flex gap-4 items-center justify-evenly">
+                    <span className="w-[55%] font-medium flex gap-4 overview-label">
+                      <span className=" font-semibold self-center">
+                        <BiCategory />
+                      </span>
+                      Category{" "}
+                    </span>
 
-                <span className="w-[50%] lable-content">{car.category}</span>
-              </li>
-            </ul>
+                    <span className="w-[30%] text-right text-base sm:text-sm  lable-content">
+                      {car.category}
+                    </span>
+                  </li>
+                </ul>
           </div>
 
           <div className="carDescription w-full h-fit sm:h-fit flex flex-col gap-4 p-8 sm:px-2 rounded-2xl">
@@ -254,60 +317,6 @@ const SellerCarDetail = ({ history }) => {
               ₹ {NumberWithCommas(`${car.price}`)}
             </span>
           </div>
-          <Link
-            to={`/sellerCar/${seller && seller._id}`}
-            className="sm:px-6 w-full"
-          >
-            <div className="seller_Detail w-full h-[360px] sm:pb-[60px] flex flex-col gap-2 rounded-2xl">
-              <div className="top-div w-full overflow-hidden h-[139px]">
-                <span className="seller-title text-sm m-2 py-1 px-4 rounded-2xl bg-[#ffffff60] font-semibold absolute text-white z-10">
-                  SELLER DETAILS
-                </span>
-                <img src={car.image && car.image[0].url} alt={car.name} />
-                <div className="overlay bg-black opacity-40"></div>
-              </div>
-
-              <div className="bottom-div relative top-[-73px] p-8 w-full h-[50%] flex flex-col gap-4">
-                {/* seller image  */}
-                <div className="seller-img scale-[1.2] w-full h-[50%] flex justify-center items-center">
-                  {seller && seller.avatar.length > 0 && (
-                    <img
-                      src={seller.avatar[0].url}
-                      alt={seller.name}
-                      className="w-[100px] avatar-image h-[100px] rounded-full border-white border-[5px]"
-                    />
-                  )}
-                </div>
-                <div className="seller-name w-full h-[50%] flex flex-col gap-2">
-                  {/* seller name  */}
-                  <h3 className="text-2xl font-bold place-self-center capitalize py-6">
-                    {seller && seller.name}
-                  </h3>
-
-                  {/* seller email  */}
-                  <span className="text-base xs:text-[0.9rem] py-2 px-6 rounded-2xl bg-[#ffffff7c] font-medium">
-                    {seller && seller.email}
-                  </span>
-
-                  {/* seller mobile  */}
-                  {/* <span className="text-base xs:text-[0.9rem] py-2 px-6 rounded-2xl bg-[#ffffff7c] font-medium">
-                    {seller && seller.mobile}
-                  </span> */}
-
-                  <small className="text-base py-2 px-6 rounded-2xl bg-[#ffffff8c] font-medium">
-                    Posted on :{" "}
-                    {new Date(car.createdAt)
-                      .toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })
-                      .replace(/(\d+)(?:st|nd|rd|th)/, "$1$2")}
-                  </small>
-                </div>
-              </div>
-            </div>
-          </Link>
         </div>
       </main>
     </div>

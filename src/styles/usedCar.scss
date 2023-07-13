@@ -17,6 +17,15 @@
     width: 100%;
     cursor: pointer;
 }
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}
+.infinite-scroll-component {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 .right-filter-secondary-container {
     background: #fff;
     border: 1px solid rgba(36,39,44,.1);
@@ -28,7 +37,7 @@
 }
 .page-link {
   text-decoration: none;
-  font: 300 0.7vmax "Roboto";
+  font: 300 0.7vmax;
   color: rgb(80, 80, 80);
   transition: all 0.3s;
 }
@@ -42,6 +51,7 @@
     display: flex;
     justify-content: center;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .warranty-alert img {
     object-position: center top -40px;
@@ -53,27 +63,25 @@
 
 // for slider 
 
-@for $i from 1 through 50 {
-  .PrivateValueLabel-circle-#{$i} {
-    transform: rotate(0deg) !important;
-    border-radius: 8px !important;
-    justify-content: center;
-    padding-left: auto !important;
-    width: 71px !important;
-    height: 40px !important;
-  }
+[class^="PrivateValueLabel-circle-"] {
+  transform: rotate(0deg) !important;
+  border-radius: 8px !important;
+  justify-content: center;
+  padding-left: auto !important;
+  width: 71px !important;
+  height: 40px !important;
 }
+
 
 .MuiSlider-root {
   width: 95% !important;
   }
 
-@for $i from 1 through 50 {
-  .PrivateValueLabel-label-#{$i} {
+  [class^="PrivateValueLabel-label-"] {
     transform: rotate(0deg) !important;
     padding-left: auto !important;
   }
-}
+  
 
 //for categories
 .selected {
@@ -125,7 +133,7 @@
             margin-bottom: 0;
         }
         .page-link {
-            font:300 1.4vmax "Roboto";
+            font:300 1.4vmax;
         }
       }
       @media screen and (max-width: 400px) {
@@ -139,6 +147,6 @@
           margin-bottom: 0;
         }
         .page-link {
-          font:300 1.4vmax "Roboto";
+          font:300 1.4vmax;
     }
     }

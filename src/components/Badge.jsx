@@ -1,12 +1,23 @@
 import React from 'react'
 
-const Badge = () => {
+export const Badge = () => {
   return (
-    <span className="badge flex gap-2 items-center bg-[#ffa2a253] rounded-2xl p-1">
-              <img src={'/Images/cbLogo.png'} alt="carsbecho Logo" className='w-[16px]' />
-              <span className="badge_text text-sm font-bold text-[#ee3131] uppercase">Verified</span>
+    <main className='flex items-center'>
+    <span className="badge flex sm:hidden left-[1rem] gap-2 items-center bg-[#000000] rounded-2xl py-1 px-2">
+    <img src={'/Images/cbGold.png'} alt="carsbecho Logo" className='w-[16px]' />
+              <span className="badge_text text-sm font-bold text-[#eee831] uppercase">Warranty</span>
     </span>
+    </main>
   )
 }
 
-export default Badge
+export const BadgeMobile = () => {
+  return (
+    <main>
+    <span className="badge absolute top-[8.5rem] scale-90 left-[1rem] sm:flex hidden gap-2 items-center bg-[#000000] rounded-2xl py-1 px-2">
+              <img src={'/Images/cbGold.png'} alt="carsbecho Logo" className='w-[16px]' />
+              <span className="badge_text text-sm font-bold text-[#eee831] uppercase">Warranty</span>
+    </span>
+    </main>
+  )
+}

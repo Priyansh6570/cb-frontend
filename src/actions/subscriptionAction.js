@@ -13,8 +13,8 @@ import {
     NEW_SUBSCRIPTION_SUCCESS,
     CLEAR_ERRORS,
 } from "../constants/subscriptionConstants";
+import {host} from "./host"
 
-const host = "http://localhost:5000";
 
 // New Subscription
 export const newSubscription = (subscription) => async (dispatch) => {

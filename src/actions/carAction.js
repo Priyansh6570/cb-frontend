@@ -1,4 +1,5 @@
 import axios from "axios";
+import { host } from "./host";
 
 import {
   ALL_CAR_FAIL,
@@ -19,6 +20,7 @@ import {
   CAR_DETAILS_REQUEST,
   CAR_DETAILS_FAIL,
   CAR_DETAILS_SUCCESS,
+  SELLER_CAR_SUCCESS,
   NEW_REVIEW_REQUEST,
   NEW_REVIEW_SUCCESS,
   NEW_REVIEW_FAIL,
@@ -31,12 +33,18 @@ import {
   CLEAR_ERRORS,
 } from "../constants/carConstants";
 
-const host = "http://localhost:5000";
-
 export const getCar =
-  (keyword = "", currentPage = 1, price = [10000, 50000000], category, fuel, transmission) =>
+  (
+    keyword = "",
+    currentPage = 1,
+    price = [10000, 50000000],
+    category,
+    fuel,
+    transmission,
+    city
+  ) =>
   async (dispatch) => {
-    if (typeof dispatch === 'function') {
+    if (typeof dispatch === "function") {
       try {
         dispatch({ type: ALL_CAR_REQUEST });
 
@@ -44,10 +52,10 @@ export const getCar =
 
         // Search for each word in the keyword
         if (keyword) {
-          const keywords = keyword.split(' ');
-keywords.forEach((word) => {
-  link += `&keyword=${word}`;
-});
+          const keywords = keyword.split(" ");
+          keywords.forEach((word) => {
+            link += `&keyword=${word}`;
+          });
         }
 
         if (price.length === 2) {
@@ -62,35 +70,10 @@ keywords.forEach((word) => {
         if (transmission && transmission !== "All") {
           link += `&transmission=${transmission}`;
         }
-
-        const { data } = await axios.get(link);
-        
-        dispatch({
-          type: ALL_CAR_SUCCESS,
-          payload: data,
-        });
-      } catch (error) {
-        dispatch({
-          type: ALL_CAR_FAIL,
-          payload: error.response ? error.response.data.message : error.message,
-        });
-      }
-    }
-  };
-
-  export const getRCar =
-  (category, price) =>
-  async (dispatch) => {
-    if (typeof dispatch === 'function') {
-      try {
-        dispatch({ type: ALL_CAR_REQUEST });
-        
-        // let link = `${host}/api/v1/cars?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
-        let link = `${host}/api/v1/cars?&price[gte]=${price-100000 ? price-100000 : price }&price[lte]=${price+1000000000}`;
-        if (category) {
-          link += `&category=${category}`;
+        if (city && city !== "") {
+          link += `&city=${encodeURIComponent(city)}`;
         }
-        
+
         const { data } = await axios.get(link);
 
         dispatch({
@@ -105,6 +88,33 @@ keywords.forEach((word) => {
       }
     }
   };
+export const getRCar = (category, price) => async (dispatch) => {
+  if (typeof dispatch === "function") {
+    try {
+      dispatch({ type: ALL_CAR_REQUEST });
+
+      // let link = `${host}/api/v1/cars?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `${host}/api/v1/cars?&price[gte]=${
+        price - 100000 ? price - 100000 : price
+      }&price[lte]=${price + 1000000000}`;
+      if (category) {
+        link += `&category=${category}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({
+        type: ALL_CAR_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_CAR_FAIL,
+        payload: error.response ? error.response.data.message : error.message,
+      });
+    }
+  }
+};
 
 // Get All Cars By Seller
 export const getAllCarsBySeller = (userId) => async (dispatch) => {
@@ -113,15 +123,14 @@ export const getAllCarsBySeller = (userId) => async (dispatch) => {
 
     const { data } = await axios.get(`${host}/api/v1/${userId}/cars`);
     dispatch({
-      type: ADMIN_CAR_SUCCESS,
+      type: SELLER_CAR_SUCCESS,
       payload: data.cars,
     });
   } catch (error) {
     dispatch({
       type: ADMIN_CAR_FAIL,
-      payload: error.response.data.message,
+      payload: error.response ? error.response.data.message : error.message,
     });
-
   }
 };
 
@@ -132,24 +141,24 @@ export const getAllPendingCars = () => async (dispatch) => {
 
     const { data } = await axios.get(`${host}/api/v1/cars/pending`);
 
+    const notVerifiedCars = data.cars.filter((car) => !car.verified);
+
     dispatch({
       type: ADMIN_CAR_SUCCESS,
-      payload: data.cars,
+      payload: notVerifiedCars,
     });
   } catch (error) {
     dispatch({
       type: ADMIN_CAR_FAIL,
-      payload: error.response.data.message,
+      payload: error.response ? error.response.data.message : error.message,
     });
   }
 };
-
 
 // Create Car
 export const createCar = (id, carData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_CAR_REQUEST });
-
     const config = {
       headers: { "Content-Type": "application/json" },
     };
@@ -193,7 +202,6 @@ export const approvePendingCar = (id) => async (dispatch) => {
   }
 };
 
-
 // Update Car
 export const updateCar = (userId, carId, carData) => async (dispatch) => {
   try {
@@ -208,7 +216,6 @@ export const updateCar = (userId, carId, carData) => async (dispatch) => {
       carData,
       config
     );
-console.log(data.car);
     dispatch({
       type: UPDATE_CAR_SUCCESS,
       payload: data.car, // Pass the updated car object as payload
@@ -220,8 +227,6 @@ console.log(data.car);
     });
   }
 };
-
-
 
 // Delete Car
 export const deleteCar = (id) => async (dispatch) => {
@@ -252,13 +257,15 @@ export const getCarDetails = (id) => async (dispatch) => {
 
     dispatch({
       type: CAR_DETAILS_SUCCESS,
-      payload: data.car,
+      payload: data.car, // Update the payload to include the car data
     });
+    return data; // Return the response data
   } catch (error) {
     dispatch({
       type: CAR_DETAILS_FAIL,
-      payload: error.response.data.message,
+      payload: error.response.data.error,
     });
+    throw error; // Re-throw the error to be caught in the component
   }
 };
 

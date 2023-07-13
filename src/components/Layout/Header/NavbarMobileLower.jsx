@@ -5,20 +5,13 @@ import { IoIosArrowDroprightCircle } from "react-icons/io";
 
 const NavbarMobileLower = () => {
   return (
-    <section className="lowerNav flex flex-wrap p-4 xs:p-0 gap-4 w-[97vw] object-contain justify-center mx-auto relative">
-      {/* <Link
-        to={'./newCar'}Car
-        className="lower-nav-link active:scale-[0.95] w-[48%] h-[150px] flex flex-col justify-center items-center rounded-xl bg-[#995ded]"
-      >
-        <h3 className='text-xl font-semibold text-white'>New Car</h3>
-        <img src={'Images/new-car.png'} alt="new-car logo" />
-      </Link> */}
+    <section className="lowerNav flex flex-wrap xs:p-0 gap-4 w-[97vw] object-contain justify-center mx-auto relative">
       <Link
         to={"./cars"}
         className="lower-nav-link active:scale-[0.95] w-[98%] h-[150px] flex justify-center rounded-xl bg-[#222233]"
       >
-        <h3 className="text-[30px] absolute top-[50px] left-[50px] font-bold text-white">
-          Used Car
+        <h3 className="text-[26px] xs:text-[22px] absolute top-[50px] left-[50px] font-bold text-white">
+         Buy Used Car
         </h3>
         <img
           src={"Images/usedcar-home-stiker.gif"}
@@ -35,24 +28,27 @@ const NavbarMobileLower = () => {
           <IoIosArrowDroprightCircle />
         </div>
       </Link>
-      <Link
-        to={"./sellCar"}
-        className="lower-nav-link active:scale-[0.95] w-[48%] h-[150px] flex flex-col justify-center items-center rounded-xl bg-[#ED2B2A]"
-      >
-        <h3 className="text-xl font-semibold text-white">Sell Car</h3>
-        <img src={"Images/car.png"} alt="sell-car logo" className="w-[70px]" />
-      </Link>
-      <Link
-        to={'/in-progress'}
-        className="lower-nav-link active:scale-[0.95] w-[48%] h-[150px] flex flex-col justify-center items-center rounded-xl bg-[#576CBC]"
-      >
-        <h3 className="text-xl font-semibold text-white">Workshop</h3>
-        <img
-          src={"Images/mechanic.png"}
-          alt="mechanic logo"
-          className="w-[70px]"
-        />
-      </Link>
+      <div className="lower_links z-10 grid w-[98%] grid-cols-2 gap-4">
+  <Link
+    to={"/newcar"}
+    className="lower-nav-link active:scale-[0.95] w-[100%] h-[150px] flex flex-col justify-center items-center rounded-xl backdrop-filter backdrop-blur-sm bg-[#e63636]"
+  >
+    <h3 className="text-2xl xs:text-[18px] font-bold relative top-[-5px] text-white">Sell Car</h3>
+    <img src={"Images/car.png"} alt="sell-car logo" className="w-[70px]" />
+  </Link>
+  <Link
+    to={'/in-progress'}
+    className="lower-nav-link active:scale-[0.95] w-[100%] h-[150px] flex flex-col justify-center backdrop-filter backdrop-blur-sm items-center rounded-xl bg-[#0967ab]"
+  >
+    <h3 className="text-[20px] xs:text-[18px] font-bold relative top-[-5px] text-white">Workshop</h3>
+    <img
+      src={"Images/mechanic.png"}
+      alt="mechanic logo"
+      className="w-[70px]"
+    />
+  </Link>
+</div>
+
     </section>
   );
 };

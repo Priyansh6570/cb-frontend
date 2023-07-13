@@ -22,7 +22,7 @@ const UpdateProfile = ({ history }) => {
   const [address, setAddress] = useState("");
   const [dealershipName, setDealershipName] = useState("");
   const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState("../../../public/Images/Profile.png");
+  const [avatarPreview, setAvatarPreview] = useState("/Images/Profile.png");
 
   const updateProfileSubmit = (e) => {
     e.preventDefault();
@@ -155,6 +155,7 @@ const UpdateProfile = ({ history }) => {
                   />
                 </div>
 
+                {(user.role === "dealer" || user.role === "broker") && (
                 <div className="updateProfileAddress">
                   <textarea
                     type="text"
@@ -166,6 +167,7 @@ const UpdateProfile = ({ history }) => {
                     className="w-[120%] px-4 pt-4 border-[1px] border-[#7b7b7b77] rounded"
                   />
                 </div>
+                )}
 
                   <input
                   type="submit"

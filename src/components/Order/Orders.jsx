@@ -4,6 +4,7 @@ import { getAllOrders, deleteOrder } from "../../actions/orderAction";
 import Car from "../Cars/Car";
 import Modal from "react-modal";
 import { useAlert } from "react-alert";
+import NumberWithCommas from "../PriceSeperator";
 
 const formatDateTime = (dateTimeString) => {
   const options = {
@@ -93,12 +94,15 @@ const Orders = () => {
                           {order.userOrder.name}
                         </span>
                       </div>
-                      <div className="flex gap-8 mt-2">
-                        <span className="font-bold">Email:</span>
-                        <span className="font-medium bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
-                          {order.userOrder.email}
-                        </span>
-                      </div>
+                      {order.offer && typeof order.offer === 'number' && order.offer !== 0 && (
+  <div className="flex gap-8 mt-2">
+    <span className="font-bold">Offer price:</span>
+    <span className="font-medium bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
+      {NumberWithCommas(order.offer)}
+    </span>
+  </div>
+)}
+
                       <div className="flex gap-8 mt-2">
                         <span className="font-bold">Mobile:</span>
                         <span className="font-medium font-mono  bg-slate-50 rounded w-fit text-center py-1 px-2 text-base">
@@ -118,7 +122,7 @@ const Orders = () => {
                     <Car car={order.carOrder} />
                   </div>
                 </div>
-              </div>
+              </div> 
             ))}
         </div>
       )}

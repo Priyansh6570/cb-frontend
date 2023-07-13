@@ -47,8 +47,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 import axios from "axios";
-
-const host = "http://localhost:5000";
+import {host} from "./host";
 
 // Login
 export const login = (email, password) => async (dispatch) => {
@@ -62,15 +61,33 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
+    const token = data.token; 
+
+    let cookieOptions = {
+      secure: true,
+      httpOnly: true,
+    };
+
+    // Check if the user agent is iOS or macOS
+    const userAgent = window.navigator.userAgent;
+    const isIOSorMac = /(iPhone|iPod|iPad|Macintosh)/.test(userAgent);
+    if (isIOSorMac) {
+      cookieOptions = {
+        ...cookieOptions,
+        sameSite: "None",
+      };
+    }
+
+    document.cookie = `token=${token}; ${Object.entries(cookieOptions)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("; ")}`;
 
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
-    localStorage.setItem("userInfo", JSON.stringify(data.user));
-    localStorage.setItem("isAuthenticated", true);
-
   } catch (error) {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
   }
 };
+
 
 // Register
 export const register = (userData) => async (dispatch) => {
@@ -82,8 +99,6 @@ export const register = (userData) => async (dispatch) => {
     const { data } = await axios.post(`${host}/api/v1/register`, userData, config);
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
-    localStorage.setItem("userInfo", JSON.stringify(data.user));
-    localStorage.setItem("isAuthenticated", true);
 
   } catch (error) {
     dispatch({
@@ -101,10 +116,8 @@ export const loadUser = () => async (dispatch) => {
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
-    const errorMessage = error.response ? error.response.data.message : 'Error occurred';
     dispatch({
       type: LOAD_USER_FAIL,
-      payload: errorMessage,
     });
   }
 };
@@ -266,7 +279,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(
-      `${host}/api/v1/me/user`,
+      `${host}/api/v1/admin/user/${id}`,
       userData,
       config
     );
