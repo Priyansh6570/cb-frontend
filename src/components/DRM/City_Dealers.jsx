@@ -70,7 +70,7 @@ const City_Dealers = () => {
 
                   <div className="profile_info__right w-[70%] py-10 h-full flex flex-col gap-1">
                     <h1 className="font-semibold flex items-center gap-2">
-                      {dealer.name} ?
+                      {dealer.name}
                       <img
                         src="/Images/blue_tick.png"
                         alt={`Verified ${dealer.role}`}

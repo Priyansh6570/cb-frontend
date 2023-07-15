@@ -65,18 +65,9 @@ export const login = (email, password) => async (dispatch) => {
 
     let cookieOptions = {
       secure: true,
+      sameSite: "None",
       httpOnly: true,
     };
-
-    // Check if the user agent is iOS or macOS
-    const userAgent = window.navigator.userAgent;
-    const isIOSorMac = /(iPhone|iPod|iPad|Macintosh)/.test(userAgent);
-    if (isIOSorMac) {
-      cookieOptions = {
-        ...cookieOptions,
-        sameSite: "None",
-      };
-    }
 
     document.cookie = `token=${token}; ${Object.entries(cookieOptions)
       .map(([key, value]) => `${key}=${value}`)
@@ -108,6 +99,7 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
+// Load User
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });

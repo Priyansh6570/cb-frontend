@@ -49,6 +49,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^5.2.0",
     "react-share": "^4.4.1",
+    "react-virtualized": "^9.22.5",
+    "react-virtualized-auto-sizer": "^1.0.20",
     "recharts": "^2.6.2",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",

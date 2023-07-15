@@ -38,9 +38,11 @@ const FreeTrial = () => {
   };
 
   const handleCitySelection = (selectedCity) => {
-    setCity(selectedCity);
+    const trimmedCity = selectedCity.trim();    
+    setCity(trimmedCity);
     setFilteredCities([]);
   };
+  
 
   const filterCities = (value) => {
     if (value.trim() === "") {

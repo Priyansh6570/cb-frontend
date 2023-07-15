@@ -9,8 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import Register_Mobile from "./Register_Mobile";
+import CircularProgress from "@mui/material/CircularProgress";
+import Stack from "@mui/material/Stack";
 
 const LoginSignUp = ({ history, location }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -39,7 +42,9 @@ const LoginSignUp = ({ history, location }) => {
 
   const { name, email, password, mobile, role } = user;
 
-  const [avatar, setAvatar] = useState("https://res.cloudinary.com/dtwkhnkns/image/upload/v1688298076/avatars/man_p7cnjn.png");
+  const [avatar, setAvatar] = useState(
+    "https://res.cloudinary.com/dtwkhnkns/image/upload/v1688298076/avatars/man_p7cnjn.png"
+  );
   const [avatarPreview, setAvatarPreview] = useState("/Images/Profile.png");
 
   const handleOtpVerification = () => {
@@ -50,6 +55,7 @@ const LoginSignUp = ({ history, location }) => {
 
   const loginSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     dispatch(login(loginEmail, loginPassword));
   };
 
@@ -57,25 +63,27 @@ const LoginSignUp = ({ history, location }) => {
 
   const registerSubmit = (e) => {
     e.preventDefault();
-  
+    setIsSubmitting(true);
     const myForm = new FormData();
-  
+
     myForm.set("name", name);
     myForm.set("email", email);
     myForm.set("password", password);
-    
+
     if (avatar) {
       myForm.set("avatar", avatar);
     } else {
-      myForm.set("avatar", "https://res.cloudinary.com/dtwkhnkns/image/upload/v1688298076/avatars/man_p7cnjn.png");
+      myForm.set(
+        "avatar",
+        "https://res.cloudinary.com/dtwkhnkns/image/upload/v1688298076/avatars/man_p7cnjn.png"
+      );
     }
-  
+
     myForm.set("mobile", mobile);
     myForm.set("role", role);
-  
+
     dispatch(register(myForm));
   };
-  
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -106,6 +114,7 @@ const LoginSignUp = ({ history, location }) => {
   useEffect(() => {
     if (error) {
       console.log(error);
+      setIsSubmitting(false);
       alert.error(error);
       dispatch(clearErrors());
     }
@@ -146,117 +155,128 @@ const LoginSignUp = ({ history, location }) => {
 
   return (
     <Fragment>
-      {loading &&
-      !"./Images/user-action-bg.jpg" &&
-      !"./Images/monitoring-login.png" ? (
-        <Loader />
-      ) : (
-        <Fragment>
-          <div className="LoginSignUpContainer pt-[50px] overflow-x-hidden flex justify-center">
-            <div id="recaptcha-container"></div>
-            <div className="left-main-container sm:relative sm:top-[-100px] sm:h-[920px] p-3 flex flex-row h-[550px] w-[60vw] sm:w-[100vw] sm:flex-col sm:justify-center sm:align-baseline">
-              <img
-                src="./Images/user-action-bg.jpg"
-                alt=""
-                className="user-action-img w-[880px] sm:w-full sm:object-cover sm:scale-[1.3] blur-[2px] sm:right-1 sm:rounded-none absolute h-[70%] rounded-3xl"
-              />
-              <img
-                src="./Images/monitoring-login.png"
-                alt="login-logo"
-                className="login-img sm:hidden relative scale-[0.5] left-[-20px] bottom-[-60px]"
-              />
-              <div className="LoginSignUpBox overflow-x-hidden overflow-y-auto relative right-[50px] sm:top-[-14px] sm:right-0 shrink-0 scale-[1] self-center">
-                <div>
-                  <div className="login_signUp_toggle">
-                    <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
-                    <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
-                  </div>
-                  <button ref={switcherTab}></button>
+      (
+      <Fragment>
+        <div className="LoginSignUpContainer pt-[50px] overflow-x-hidden flex justify-center">
+          <div id="recaptcha-container"></div>
+          <div className="left-main-container sm:relative sm:top-[-100px] sm:h-[920px] p-3 flex flex-row h-[550px] w-[60vw] sm:w-[100vw] sm:flex-col sm:justify-center sm:align-baseline">
+            <img
+              src="./Images/user-action-bg.jpg"
+              alt=""
+              className="user-action-img w-[880px] sm:w-full sm:object-cover sm:scale-[1.3] blur-[2px] sm:right-1 sm:rounded-none absolute h-[70%] rounded-3xl"
+            />
+            <img
+              src="./Images/monitoring-login.png"
+              alt="login-logo"
+              className="login-img sm:hidden relative scale-[0.5] left-[-20px] bottom-[-60px]"
+            />
+            <div className="LoginSignUpBox overflow-x-hidden overflow-y-auto relative right-[50px] sm:top-[-14px] sm:right-0 shrink-0 scale-[1] self-center">
+              <div>
+                <div className="login_signUp_toggle">
+                  <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
+                  <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
                 </div>
+                <button ref={switcherTab}></button>
+              </div>
 
-                {/* login  */}
-                {activeTab === "login" && (
-                  <form
-                    className="loginForm xs:px-10"
-                    ref={loginTab}
-                    onSubmit={loginSubmit}
-                  >
-                    <div className="loginEmail">
-                      <MailOutlineIcon />
-                      <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                      />
+              {/* login  */}
+              {activeTab === "login" && (
+                <form
+                  className="loginForm xs:px-10"
+                  ref={loginTab}
+                  onSubmit={loginSubmit}
+                >
+                  {isSubmitting ? (
+                    <div className="flex justify-center mt-2">
+                      <CircularProgress size={40} style={{ color: "#ee3131" }} />
                     </div>
-                    <div className="loginPassword">
-                      <LockOpenIcon />
+                  ) : (
+                    <>
+                      <div className="loginEmail">
+                        <MailOutlineIcon />
+                        <input
+                          type="email"
+                          placeholder="Email"
+                          required
+                          value={loginEmail}
+                          onChange={(e) => setLoginEmail(e.target.value)}
+                        />
+                      </div>
+                      <div className="loginPassword">
+                        <LockOpenIcon />
+                        <input
+                          type="password"
+                          placeholder="Password"
+                          required
+                          value={loginPassword}
+                          onChange={(e) => setLoginPassword(e.target.value)}
+                        />
+                      </div>
+                      <Link to="/password/forgot">Forgot Password ?</Link>
                       <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
+                        type="submit"
+                        value={isSubmitting ? "Logging in..." : "Login"}
+                        className="loginBtn sm:scale-[1] bg-[#ee3131] text-white text-xl sm:text-sm sm:h-[30px] font-bold rounded font-sans"
+                        disabled={isSubmitting}
                       />
-                    </div>
-                    <Link to="/password/forgot">Forgot Password ?</Link>
+                    </>
+                  )}
+                </form>
+              )}
+
+              {/* signup or Register  */}
+              {activeTab === "register" && showForm ? (
+                <form
+                  className="signUpForm sm:h-[330px] mb-16 xs:px-6 flex flex-col gap-2 mt-4 sm:mt-20"
+                  ref={registerTab}
+                  encType="multipart/form-data"
+                  onSubmit={registerSubmit}
+                >
+                  {isSubmitting ? (
+                    <div className="flex justify-center mt-2">
+                    <CircularProgress size={40} style={{ color: "#ee3131" }} />
+                  </div>
+                  ) : (
+                    <>
+                  {/* Name input */}
+                  <div className="signUpName">
+                    <FaceIcon />
                     <input
-                      type="submit"
-                      value="Login"
-                      className="loginBtn sm:scale-[1] bg-[#ee3131] text-white text-xl sm:text-sm sm:h-[30px] font-bold rounded font-sans"
+                      type="text"
+                      placeholder="Name"
+                      required
+                      name="name"
+                      value={user.name}
+                      onChange={registerDataChange}
                     />
-                  </form>
-                )}
+                  </div>
 
-                {/* signup or Register  */}
-                {activeTab === "register" && showForm ? (
-                  <form
-                    className="signUpForm sm:h-[330px] mb-16 xs:px-6 flex flex-col gap-2 mt-4 sm:mt-20"
-                    ref={registerTab}
-                    encType="multipart/form-data"
-                    onSubmit={registerSubmit}
-                  >
-                    {/* Name input */}
-                    <div className="signUpName">
-                      <FaceIcon />
-                      <input
-                        type="text"
-                        placeholder="Name"
-                        required
-                        name="name"
-                        value={user.name}
-                        onChange={registerDataChange}
-                      />
-                    </div>
+                  {/* Email input */}
+                  <div className="signUpEmail">
+                    <MailOutlineIcon />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      required
+                      name="email"
+                      value={user.email}
+                      onChange={registerDataChange}
+                    />
+                  </div>
 
-                    {/* Email input */}
-                    <div className="signUpEmail">
-                      <MailOutlineIcon />
-                      <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        name="email"
-                        value={user.email}
-                        onChange={registerDataChange}
-                      />
-                    </div>
-
-                    {/* Password */}
-                    <div className="signUpPassword">
-                      <LockOpenIcon />
-                      <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        name="password"
-                        value={user.password}
-                        onChange={registerDataChange}
-                      />
-                    </div>
-                    <div id="registerImage" className="mt-6">
+                  {/* Password */}
+                  <div className="signUpPassword">
+                    <LockOpenIcon />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      required
+                      name="password"
+                      value={user.password}
+                      onChange={registerDataChange}
+                    />
+                  </div>
+                  {/* <div id="registerImage" className="mt-6">
                       <img
                         src={avatarPreview}
                         alt="Avatar Preview"
@@ -268,37 +288,45 @@ const LoginSignUp = ({ history, location }) => {
                         accept="image/*"
                         onChange={registerDataChange}
                       />
-                    </div>
-                    <input
-                      type="submit"
-                      value="Register"
-                      className="signUpBtn bg-[#ee3131] text-white text-xl sm:text-sm sm:scale-[1] font-bold font-sans rounded"
+                    </div> */}
+                  <input
+                    type="submit"
+                    value={
+                      isSubmitting ? (
+                        "Registering..."
+                      ) : (
+                        "Register"
+                      )
+                    }
+                    className="loginBtn sm:scale-[1] bg-[#ee3131] text-white text-xl sm:text-sm sm:h-[30px] font-bold rounded font-sans"
+                    disabled={isSubmitting}
+                  /></>
+      )}
+                </form>
+              ) : (
+                activeTab === "register" && (
+                  <div>
+                    <Register_Mobile
+                      onNext={showFormComponent}
+                      user={user}
+                      setUser={setUser}
+                      onOtpVerification={handleOtpVerification}
                     />
-                  </form>
-                ) : (
-                  activeTab === "register" && (
-                    <div>
-                      <Register_Mobile
-                        onNext={showFormComponent}
-                        user={user}
-                        setUser={setUser}
-                        onOtpVerification={handleOtpVerification}
-                      />
-                      <button
-                        className="btn-next w-full relative left-[160px]"
-                        onClick={showFormComponent}
-                        disabled={!otpVerified}
-                      >
-                        Next
-                      </button>
-                    </div>
-                  )
-                )}
-              </div>
+                    <button
+                      className="btn-next w-full relative left-[160px]"
+                      onClick={showFormComponent}
+                      disabled={!otpVerified}
+                    >
+                      Next
+                    </button>
+                  </div>
+                )
+              )}
             </div>
           </div>
-        </Fragment>
-      )}
+        </div>
+      </Fragment>
+      )
     </Fragment>
   );
 };

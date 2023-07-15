@@ -213,11 +213,11 @@ const Home = () => {
                   {[...Array(9)].map((_, index) => (
                     <>
                       <div
-                        key={index}
+                        key={`${index}_car`}
                         className="carCard sm:hidden flex w-[300px] h-fit flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden"
                       >
                         <Skeleton
-                          variant="rectangular"
+                          variant="rect"
                           animation="wave"
                           height={150}
                         />
@@ -257,11 +257,11 @@ const Home = () => {
 
                       {/* for mobile  */}
                       <div
-                        key={index + 9}
+                        key={`${index}_car` + "mobile"}
                         className="hidden sm:flex  carCard flex-col gap-[4px] sm:border-1 sm:text-sm hover:border-3 hover:shadow-md w-[294px] sm:w-[164px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden"
                       >
                         <Skeleton
-                          variant="rectangular"
+                          variant="rect"
                           animation="wave"
                           height={90}
                         />
@@ -295,7 +295,6 @@ const Home = () => {
                   return (
                     <Link to={`/car/${car._id}`} key={car._id}>
                       <div
-                        key={car._id}
                         className="carCard flex flex-col gap-[4px] mb-0 sm:border-1 sm:text-sm hover:border-3 hover:shadow-md w-[294px] sm:w-[164px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden"
                       >
                         <div className="img-container-car sm:overflow-hidden">

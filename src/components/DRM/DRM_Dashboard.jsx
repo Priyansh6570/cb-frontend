@@ -83,7 +83,7 @@ const DRM_Dashboard = () => {
       <div className="absolute top-0 left-0 mt-4 ml-4">
         <Link
           className="bg-[#ffffff20] rounded-full p-2"
-          onClick={() => history.push("/account")}
+          to='/account'
         >
           <span className="material-icons flex items-center gap-2 align-middle text-xl">
             <IoIosArrowBack className="text-[#434343]" />

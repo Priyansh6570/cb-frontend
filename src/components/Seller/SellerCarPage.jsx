@@ -103,30 +103,30 @@ const SellerCarPage = () => {
     <>
       <MetaData title={"Seller Page"} />
       <main className='p-2 flex sm:flex-col w-full h-fit gap-8 md:gap-0 bg-[url("/Images/user-action-bg.jpg")] bg-fixed bg-cover overflow-hidden'>
-           <section className="seller_details sm:pt-8 h-fit w-[400px] md:w-full mt-4 sm:m-0 p-8 md:p-1 rounded-xl bg-[#fffffff7] shadow-lg sticky top-[50px] md:top-0 mb-8 md:mb-0">
-          {user && 
+        <section className="seller_details sm:pt-8 h-fit w-[400px] md:w-full mt-4 sm:m-0 p-8 md:p-1 rounded-xl bg-[#fffffff7] shadow-lg sticky top-[50px] md:top-0 mb-8 md:mb-0">
+          {user && (
             <div className="profileContainer__left bg-[#ffffff95] sm:h-fit sm:w-full rounded-xl flex flex-col p-1 justify-center gap-6 sm:gap-0 items-center">
               <div className="profile_info w-full p-2 bg-[#ffffff76] rounded-lg flex flex-col items-center gap-1">
                 <div className="profile_info__left md:w-[40%] w-[30%] h-full flex flex-col justify-center items-center">
                   <div className="profileContainer__left__imgContainer w-[80px] mr-2 h-[80px] md:w-[100px] md:h-[100px] border-[0.5px] border-[#ee3131] rounded-[100%] overflow-hidden">
-                  {user.avatar ? (
-        <img
-          src={user.avatar[0].url}
-          alt={user.name}
-          className="rounded-[100%] w-full h-full object-cover"
-          onError={(e) => {
-            e.target.onerror = null; // prevent infinite loop
-            e.target.src = "./Images/man.png"; // fallback image
-            e.target.alt = "Default Avatar"; // fallback alt text
-          }}
-        />
-      ) : (
-        <img
-          src="./Images/man.png" // fallback image
-          alt="Default Avatar" // fallback alt text
-          className="rounded-[100%] w-full h-full object-cover"
-        />
-      )}
+                    {user.avatar ? (
+                      <img
+                        src={user.avatar[0].url}
+                        alt={user.name}
+                        className="rounded-[100%] w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.onerror = null; // prevent infinite loop
+                          e.target.src = "./Images/man.png"; // fallback image
+                          e.target.alt = "Default Avatar"; // fallback alt text
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src="./Images/man.png" // fallback image
+                        alt="Default Avatar" // fallback alt text
+                        className="rounded-[100%] w-full h-full object-cover"
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -146,7 +146,9 @@ const SellerCarPage = () => {
                     )}{" "}
                   </h1>
                   {user.role === "dealer" || user.role === "superUser" ? (
-                    <h1 className=" font-normal text-[#28254d] text-sm">{user.dealershipName}</h1>
+                    <h1 className=" font-normal text-[#28254d] text-sm">
+                      {user.dealershipName}
+                    </h1>
                   ) : (
                     ""
                   )}
@@ -161,20 +163,22 @@ const SellerCarPage = () => {
                       .replace(/(\d+)(?:st|nd|rd|th)/, "$1$2")}
                   </p>
                   {user.role === "dealer" || user.role === "superUser" ? (
-                    <h1 className=" font-medium text-[#000000] text-lg">{user.tagline}</h1>
+                    <h1 className=" font-medium text-[#000000] text-lg">
+                      {user.tagline}
+                    </h1>
                   ) : (
                     ""
                   )}
                   <h1 className="text-sm font-normal flex items-center text-[#ee3131] overflow-hidden whitespace-nowrap overflow-ellipsis">
                     <ImLocation /> {user.city}
                   </h1>
-                <button
-                  className="flex border-[1px] mt-2 rounded-full px-2 py-2 bg-[#0000000a] text-[#000000] justify-evenly align-middle text-center text-base font-semibold"
-                  onClick={handleCopyLink}
-                >
-                  <AiOutlineShareAlt className="self-center mr-1" />
-                  Share
-                </button>
+                  <button
+                    className="flex border-[1px] mt-2 rounded-full px-2 py-2 bg-[#0000000a] text-[#000000] justify-evenly align-middle text-center text-base font-semibold"
+                    onClick={handleCopyLink}
+                  >
+                    <AiOutlineShareAlt className="self-center mr-1" />
+                    Share
+                  </button>
                 </div>
               </div>
 
@@ -283,15 +287,15 @@ const SellerCarPage = () => {
                 </div>
               </div>
             </div>
-          }
+          )}
         </section>
 
         <section className="seller_cars w-[70%] sm:w-full mx-auto mt-4 sm:mt-4">
           <div className="main w-full md:hidden bg-[url('/Images/bg-car-side.jpg')] bg-cover mx-auto m-8 h-[100px] rounded-2xl ">
             <div className="w-full md:hidden h-full sm:bg-[#00000040] rounded-2xl">
-            <h2 className="text-[30px] z-10 sm:text-[#fff] font-sans font-medium pt-8 justify-center flex">
-              Cars
-            </h2>
+              <h2 className="text-[30px] z-10 sm:text-[#fff] font-sans font-medium pt-8 justify-center flex">
+                Cars
+              </h2>
             </div>
           </div>
           <div className=" grid-cols-1 flex flex-wrap md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-1 sm:mx-1">

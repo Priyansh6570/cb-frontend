@@ -39,8 +39,6 @@ const fuel_types = ["All", "Petrol", "Diesel", "CNG", "LPG", "Electric"];
 const transmission_types = ["All", "Manual", "Automatic"];
 
 const UsedCar = () => {
-
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -63,9 +61,8 @@ const UsedCar = () => {
   const [fuel, setFuel] = useState("");
   const [transmission, setTransmission] = useState("");
 
-  const { cars, loading, error, carCount, resultPerPage, totalPages } = useSelector(
-    (state) => state.cars
-  );
+  const { cars, loading, error, carCount, resultPerPage, totalPages } =
+    useSelector((state) => state.cars);
 
   const city = sessionStorage.getItem("location")?.replace(/"/g, "") || "";
   const [allCars, setAllCars] = useState([]);
@@ -163,8 +160,10 @@ const UsedCar = () => {
     setIsEndOfResults(false);
     setLoadingMore(false);
   }, [category, fuel, transmission, keyword, price]);
-  const uniqueCars = [...new Map(allCars.map((car) => [car._id, car])).values()];
-
+  const uniqueCars = [
+    ...new Map(allCars.map((car) => [car._id, car])).values(),
+  ];
+  console.log(filteredCars);
   return (
     <Fragment>
       <Fragment>
@@ -331,7 +330,7 @@ const UsedCar = () => {
           </div>
 
           <div className="wrapper sm:min-h-[1100px] flex md:flex-col gap-3 md:gap-0 mt-8 md:m-0 sm:mt-4 relative">
-            <div className="right-lg flex sm:hidden sticky top-[200px] md:top-0 sm:relative sm:top-[38px] filters w-[30%] md:w-full sm:w-full mb-8 md:mb-0 h-fit sm:h-fit justify-center md:py-0 py-6">
+            <div className="right-lg flex sm:hidden sticky top-[200px] md:top-0 sm:relative sm:top-[38px] filters w-[450px] md:w-full sm:w-full mb-8 md:mb-0 h-fit sm:h-fit justify-center md:py-0 py-6">
               <div className="right-filter-secondary-container rounded-xl w-[80%] md:w-full sm:w-full px-8 sm:px-0 py-8 md:py-4 h-fit">
                 <div className="filter-bt  flex flex-col md:flex-row gap-4 sm:flex-row sm:flex sm:gap-[4px] md:justify-between sm:px-4">
                   <div className="md:flex md:scale-90 justify-between w-full hidden">
@@ -657,204 +656,234 @@ const UsedCar = () => {
             </div>
 
             {/* Cars  */}
-            {loading ? (
+            <div className="flex flex-wrap flex-col w-[70%] md:w-full">
+            { loading && filteredCars.length === 0 && (
               <>
-                <div className="cars left flex justify-start content-start w-[65%] md:w-full md:px-4 h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px] my-6">
-                  {[...Array(9)].map((_, index) => (
-                    <div className="carCard md:flex md:scale-[0.8] sm:hidden flex w-[300px] h-fit flex-col gap-[4px] md:gap-1 sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
+              <div className="cars left flex justify-start content-start w-full md:px-4 h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px]">
+                {[...Array(9)].map((_, index) => (
+                  <div
+                    key={`${index}_l1`}
+                    className="carCard md:flex md:scale-[0.8] sm:hidden flex w-[300px] h-fit flex-col gap-[4px] md:gap-1 sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden"
+                  >
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      height={150}
+                    />
+                    <div className="carDetails flex flex-col gap-[10px] sm:px-2">
                       <Skeleton
-                        variant="rectangular"
+                        variant="text"
                         animation="wave"
-                        height={150}
+                        height={20}
+                        width="60%"
                       />
-                      <div className="carDetails flex flex-col gap-[10px] sm:px-2">
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="60%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="80%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="40%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="50%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="70%"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-col">
-                  {[...Array(9)].map((_, index) => (
-                    <div className="mobile-carCard hidden mt-4 sm:flex w-[100vw] h-fit p-1 rounded-xl gap-4 cursor-pointer">
                       <Skeleton
-                        style={{ borderRadius: 4 }}
-                        variant="rectangular"
+                        variant="text"
                         animation="wave"
-                        width="35%"
-                        height={100}
+                        height={20}
+                        width="80%"
                       />
-                      <div className="carDetails justify-center flex self-center flex-col gap-[4px] w-[60%] h-[80%] p-1">
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="50%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="80%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="50%"
-                        />
-                        <Skeleton
-                          variant="text"
-                          animation="wave"
-                          height={20}
-                          width="60%"
-                        />
-                      </div>
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="40%"
+                      />
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="50%"
+                      />
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="70%"
+                      />
                     </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="cars left flex justify-start content-start w-[65%] md:w-full md:px-4 sm:w-full h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px] my-6">
-                <InfiniteScroll
-        dataLength={filteredCars.length + uniqueCars.length}
-        next={fetchMoreData}
-        hasMore={!loadingMore && currentPage < totalPages}
-        scrollThreshold={0.6}
-        loader={<>
-          <div className="cars left flex justify-start content-start w-[65%] md:w-full md:px-4 h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px]">
-            {[...Array(9)].map((_, index) => (
-              <div className="carCard md:flex md:scale-[0.8] sm:hidden flex w-[300px] h-fit flex-col gap-[4px] md:gap-1 sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden">
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  height={150}
-                />
-                <div className="carDetails flex flex-col gap-[10px] sm:px-2">
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="60%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="80%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="40%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="50%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="70%"
-                  />
-                </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col">
-            {[...Array(9)].map((_, index) => (
-              <div className="mobile-carCard hidden mt-4 sm:flex w-[100vw] relative -top-12 h-fit p-1 rounded-xl gap-4 cursor-pointer">
-                <Skeleton
-                  style={{ borderRadius: 4 }}
-                  variant="rectangular"
-                  animation="wave"
-                  width="35%"
-                  height={100}
-                />
-                <div className="carDetails justify-center flex self-center flex-col gap-[4px] w-[60%] h-[80%] p-1">
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="50%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="80%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="50%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    height={20}
-                    width="60%"
-                  />
-                </div>
+              <div className="flex flex-col relative top-[30px]">
+                {[...Array(9)].map((_, index) => (
+                  <div
+                    key={`${index}_lo`}
+                    className="mobile-carCard hidden mt-4 sm:flex w-[100vw] relative -top-12 h-fit p-1 rounded-xl gap-4 cursor-pointer"
+                  >
+                    <Skeleton
+                      style={{ borderRadius: 4 }}
+                      variant="rectangular"
+                      animation="wave"
+                      width="35%"
+                      height={100}
+                    />
+                    <div className="carDetails justify-center flex self-center flex-col gap-[4px] w-[60%] h-[80%] p-1">
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="50%"
+                      />
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="80%"
+                      />
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="50%"
+                      />
+                      <Skeleton
+                        variant="text"
+                        animation="wave"
+                        height={20}
+                        width="60%"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </>}
-        endMessage={
-          <p style={{ textAlign: "center", width: "100%" }}>
-            <br />
-            <b className="text-lg font-medium mx-auto text-slate-500">Yay! You have seen it all</b>
-          </p>
-        }
-      >
-        {filteredCars.filter((car) => car.user && car.user.expireLimit > 0).map((car, index) => (
-          <div key={car._id}>
-            <Car car={car} />
-          </div>
-        ))}
-        {uniqueCars.filter((car) => car.user && car.user.expireLimit > 0).map((car, index) => (
-          <div key={car._id}>
-            <Car car={car} />
-          </div>
-        ))}
-      </InfiniteScroll>
-              </div>
+            </>
             )}
+            {
+              filteredCars.length === 0 && !loading && (
+                <div className="flex flex-col items-center justify-start mt-8 py-8 w-full h-[400px]">
+                  <p className="text-lg font-medium text-slate-500">0 {category && category} {fuel && fuel} {transmission && transmission} Cars {city ? 'in' : ''} {` ${city}`}</p>
+                </div>
+              )
+            }
+            <div className="cars left flex justify-start content-start overflow-x-hidden w-full md:px-4 sm:w-full h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px] my-6">
+              <InfiniteScroll
+                dataLength={filteredCars.length + uniqueCars.length}
+                next={fetchMoreData}
+                hasMore={!loadingMore && currentPage < totalPages}
+                scrollThreshold={0.6}
+                className="w-[102%]"
+                loader={
+                  filteredCars.length%9===0 && filteredCars.length !==0 && currentPage < totalPages && (
+                  <>
+                    <div className="cars left flex justify-start content-start w-full md:px-4 h-fit mt-4 flex-wrap gap-[10px] sm:gap-[2px]">
+                      {[...Array(9)].map((_, index) => (
+                        <div
+                          key={`${index}_l1`}
+                          className="carCard md:flex md:scale-[0.8] sm:hidden flex w-[300px] h-fit flex-col gap-[4px] md:gap-1 sm:border-1 sm:text-sm hover:border-3 hover:shadow-md sm:w-[154px] sm:h-[192px] sm:p-0 shrink-0 cursor-pointer sm:overflow-hidden"
+                        >
+                          <Skeleton
+                            variant="rectangular"
+                            animation="wave"
+                            height={150}
+                          />
+                          <div className="carDetails flex flex-col gap-[10px] sm:px-2">
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="60%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="80%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="40%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="50%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="70%"
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-col">
+                      {[...Array(9)].map((_, index) => (
+                        <div
+                          key={`${index}_lo`}
+                          className="mobile-carCard hidden mt-4 sm:flex w-[100vw] relative -top-12 h-fit p-1 rounded-xl gap-4 cursor-pointer"
+                        >
+                          <Skeleton
+                            style={{ borderRadius: 4 }}
+                            variant="rectangular"
+                            animation="wave"
+                            width="35%"
+                            height={100}
+                          />
+                          <div className="carDetails justify-center flex self-center flex-col gap-[4px] w-[60%] h-[80%] p-1">
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="50%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="80%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="50%"
+                            />
+                            <Skeleton
+                              variant="text"
+                              animation="wave"
+                              height={20}
+                              width="60%"
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                  )
+                }
+                endMessage={
+                  <p style={{ textAlign: "center", width: "100%" }}>
+                    <br />
+                    <b className="text-lg font-medium mx-auto text-slate-500">
+                      That is All!
+                    </b>
+                  </p>
+                }
+              >
+                {filteredCars
+                  .filter((car) => car.user && car.user.expireLimit > 0)
+                  .map((car, index) => (
+                    <div key={car._id}>
+                      <Car car={car} />
+                    </div>
+                  ))}
+                {uniqueCars
+                  .filter((car) => car.user && car.user.expireLimit > 0)
+                  .map((car, index) => (
+                    <div key={`${car._id}_un`}>
+                      <Car car={car} />
+                    </div>
+                  ))}
+              </InfiniteScroll>
+            </div>
+            </div>
           </div>
         </main>
       </Fragment>

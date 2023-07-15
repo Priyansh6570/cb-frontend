@@ -20,6 +20,8 @@ import { BsCalendar2Check } from "react-icons/bs";
 import { BsBuilding } from "react-icons/bs";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const categories = [
   "All",
@@ -485,9 +487,6 @@ const NewCar = () => {
     description: "",
     image: [],
     category: "",
-    kmError: false,
-    priceErrorCheck: false,
-    ownersError: false,
   });
 
   const [isAdding, setIsAdding] = useState(false);
@@ -535,7 +534,7 @@ const NewCar = () => {
     if (e.target.type === "checkbox") {
       setFormData({ ...formData, [e.target.name]: e.target.checked });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value, [`${name}Error`]: isBelowMinimum, priceErrorCheck: isbelowPrice });
+      setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
   const [isVerified, setIsVerified] = useState(false);
@@ -983,28 +982,37 @@ const NewCar = () => {
                 </select>
               </div>
               <div>
-      <div className="flex flex-col gap-1 py-2">
-        <label htmlFor="Km_Driven" className={`block ${formData.kmError ? "text-red-500" : ""}`}>
-          Km Driven*
-        </label>
-        <input
-          type="number"
-          id="Km_Driven"
-          name="Km_Driven"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          placeholder="Example: 15000, no commas"
-          value={formData.Km_Driven}
-          onChange={handleChange}
-          required
-          min="1"
-          className={`w-full border ${formData.kmError ? "border-red-500" : "border-gray-300"} rounded-md px-3 py-2 transition-all duration-300`}
-        />
-      </div>
-      {formData.kmError && (
-        <p className="text-red-500">Please enter a value equal to or greater than 1.</p>
-      )}
-    </div>
+                <div className="flex flex-col gap-1 py-2">
+                  <label
+                    htmlFor="Km_Driven"
+                    className={`block ${
+                      formData.kmError ? "text-red-500" : ""
+                    }`}
+                  >
+                    Km Driven*
+                  </label>
+                  <input
+                    type="number"
+                    id="Km_Driven"
+                    name="Km_Driven"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    placeholder="Example: 15000, no commas"
+                    value={formData.Km_Driven}
+                    onChange={handleChange}
+                    required
+                    min="1"
+                    className={`w-full border ${
+                      formData.kmError ? "border-red-500" : "border-gray-300"
+                    } rounded-md px-3 py-2 transition-all duration-300`}
+                  />
+                </div>
+                {formData.kmError && (
+                  <p className="text-red-500">
+                    Please enter a value equal to or greater than 1.
+                  </p>
+                )}
+              </div>
 
               <div className="flex space-x-4">
                 <div className="w-1/2">
@@ -1062,7 +1070,7 @@ const NewCar = () => {
                 />
               </div>
               <div className="flex flex-col gap-1 py-2">
-                <label htmlFor="no_of_owners" className="block">
+                <label htmlFor="no_Of_Owners" className="block">
                   No. of Owners*
                 </label>
                 <input
@@ -1075,11 +1083,8 @@ const NewCar = () => {
                   onChange={handleChange}
                   min={1}
                   required
-                  className={`w-full border ${formData.ownersError ? "border-red-500" : "border-gray-300"} rounded-md px-3 py-2 transition-all duration-300`}
+                  className="w-full uppercase border border-gray-300 rounded-md px-3 py-2"
                 />
-                {formData.ownersError && (
-          <p className="text-red-500">Please enter a value equal to or greater than 1.</p>
-        )}
               </div>
               <div className="flex flex-col gap-1 py-2">
                 <label htmlFor="RTO" className="block">
@@ -1127,11 +1132,8 @@ const NewCar = () => {
                   min={10000}
                   onChange={handleChange}
                   required
-                  className={`w-full border ${formData.priceErrorCheck ? "border-red-500" : "border-gray-300"} rounded-md px-3 py-2 transition-all duration-300`}
+                  className="w-full uppercase border border-gray-300 rounded-md px-3 py-2"
                 />
-                {formData.priceError && (
-          <p className="text-red-500">Please enter the price greater then 10,000.</p>
-        )}
               </div>
               <div className="flex flex-col gap-1 py-2">
                 <label htmlFor="description" className="block">
@@ -1167,7 +1169,7 @@ const NewCar = () => {
                 <button
                   type="button"
                   onClick={handleVerifyConditions}
-                  className="btn-secondary secondary-btn text-[#ee3131] bg-white border-1 border-[#ee3131] border-[1px] rounded-md py-2 px-4 w-full mx-auto transition-colors"
+                  className="btn-secondary secondary-btn text-[#ee3131] bg-white border-1 border-[#ee3131] border-[1px] rounded-md py-4 px-4 w-full mx-auto transition-colors"
                   disabled={isAdding} // Disable the Verify button when already adding
                 >
                   Verify Conditions
@@ -1178,9 +1180,20 @@ const NewCar = () => {
                 <button
                   type="submit"
                   disabled={isAdding}
-                  className="btn bg-[#ee3131] text-white rounded-md py-2 px-4 w-full mx-auto transition-colors"
+                  className="btn bg-[#ee3131] text-white rounded-md py-4 px-4 w-full mx-auto transition-colors"
                 >
-                  {isAdding ? "Verifying..." : "Add Car"}
+                  {isAdding ? (
+                    <Stack
+                      sx={{ color: "white" }}
+                      spacing={2}
+                      direction="row"
+                      className="flex justify-center h-[20px] items-center"
+                    >
+                      <CircularProgress color="inherit" />
+                    </Stack>
+                  ) : (
+                    "Add Car"
+                  )}
                 </button>
               )}
             </form>

@@ -71,10 +71,8 @@ const Trial_Request = () => {
     (subscription) => subscription.userId.city === userCity && subscription.userId.role === "user"
   );
 
-  return loading ? (
-    <Loader />
-  ) : (
-    <main className="h-fit min-h-full overflow-hidden w-full z-[10000] py-24 p-0 bg-[#eeeeee] absolute top-0">
+  return (
+    <main className="h-fit min-h-[110%] overflow-hidden w-full z-[10000] py-24 p-0 bg-[#eeeeee] absolute top-0">
       
       <div className="absolute top-0 left-0 mt-4 ml-4">
         <button
@@ -99,7 +97,7 @@ const Trial_Request = () => {
               <hr />
             </div>
         {loading ? (
-          <p>Loading...</p>
+          <Loader />
         ) : error ? (
           <p>Error: {error}</p>
         ) : (

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import WebFont from "webfontloader";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Layout/Header/Navbar";
@@ -60,12 +59,6 @@ function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Arial", "Helvetica"],
-      },
-    });
-
     store.dispatch(loadUser());
   }, []);
 

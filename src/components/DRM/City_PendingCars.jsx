@@ -41,7 +41,10 @@ const City_PendingCars = () => {
   }, [history]);
 
   // Filter pending cars based on the user's city
-  const currentCars = notVerifiedCars.filter((car) => car.city === user.city);
+  const currentCars = notVerifiedCars.filter((car) =>
+  car.city.toLowerCase() === user.city.toLowerCase()
+);
+
 
   // Change page
   const handlePageChange = (page) => {

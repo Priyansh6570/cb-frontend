@@ -32,6 +32,12 @@ import { BsCalendar2Check } from "react-icons/bs";
 import { BsBuilding } from "react-icons/bs";
 
 const SellerCarDetail = ({ history }) => {
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const alert = useAlert();
 

@@ -17,9 +17,23 @@ body {
   width: 100%;
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
   scroll-behavior: smooth;
 }
+/* Disable selection outline for all elements in Chrome */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  :root, ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    outline: none !important;
+  }
+}
+
 h2 {
   font-family: "Montserrat", sans-serif;
 }
