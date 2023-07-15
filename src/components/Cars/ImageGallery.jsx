@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../styles/ImageGallery.scss";
-
-import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { GrNext, GrPrevious, GrPowerReset } from "react-icons/gr";
 
 const ImageGallery = ({ images }) => {
