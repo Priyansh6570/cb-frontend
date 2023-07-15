@@ -1,5 +1,4 @@
 import React from 'react';
-import "../../../styles/FAQs.scss"
 import { FiArrowDown } from 'react-icons/fi';
 import ScrollToTopOnMount from '../../ScrollToTopOnMount';
 import Accordion from '@mui/material/Accordion';
