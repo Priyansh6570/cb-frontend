@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../../styles/ImageGallery.scss";
+import "../../styles/imageGallery.scss";
 import { GrNext, GrPrevious, GrPowerReset } from "react-icons/gr";
 
 const ImageGallery = ({ images }) => {
