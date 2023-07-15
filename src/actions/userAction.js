@@ -63,15 +63,17 @@ export const login = (email, password) => async (dispatch) => {
     );
     const token = data.token; 
 
-    let cookieOptions = {
-      secure: true,
-      sameSite: "None",
-      httpOnly: true,
-    };
+    localStorage.setItem('token', token);
 
-    document.cookie = `token=${token}; ${Object.entries(cookieOptions)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("; ")}`;
+    // let cookieOptions = {
+    //   secure: true,
+    //   sameSite: "None",
+    //   httpOnly: true,
+    // };
+
+    // document.cookie = `token=${token}; ${Object.entries(cookieOptions)
+    //   .map(([key, value]) => `${key}=${value}`)
+    //   .join("; ")}`;
 
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
@@ -99,18 +101,45 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
+// // Load User
+// export const loadUser = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: LOAD_USER_REQUEST });
+
+//     const { data } = await axios.get(`${host}/api/v1/me`);
+
+//     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+//   } catch (error) {
+//     dispatch({
+//       type: LOAD_USER_FAIL,
+//     });
+//   }
+// };
+
 // Load User
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get(`${host}/api/v1/me`);
+    const token = localStorage.getItem('token');
+
+    console.log(token);
+
+    if (!token) {
+      // Handle case when token is not available
+      dispatch({ type: LOAD_USER_FAIL });
+      return;
+    }
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const { data } = await axios.get(`${host}/api/v1/me`, config);
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
-    dispatch({
-      type: LOAD_USER_FAIL,
-    });
+    dispatch({ type: LOAD_USER_FAIL });
   }
 };
 
@@ -118,6 +147,8 @@ export const loadUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     await axios.get(`${host}/api/v1/logout`);
+
+    localStorage.removeItem("token");
 
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
